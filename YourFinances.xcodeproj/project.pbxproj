@@ -28,6 +28,7 @@
 		6AC94A23296D6EC90077E36C /* NewCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC94A22296D6EC90077E36C /* NewCategoryView.swift */; };
 		6AC94A25296D7B120077E36C /* CategoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC94A24296D7B120077E36C /* CategoryRowView.swift */; };
 		6AD6CAE32970323400270354 /* SetupFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD6CAE22970323400270354 /* SetupFont.swift */; };
+		6AF80F0929709C5500F0D119 /* OneDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF80F0829709C5500F0D119 /* OneDayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		6AC94A22296D6EC90077E36C /* NewCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryView.swift; sourceTree = "<group>"; };
 		6AC94A24296D7B120077E36C /* CategoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRowView.swift; sourceTree = "<group>"; };
 		6AD6CAE22970323400270354 /* SetupFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFont.swift; sourceTree = "<group>"; };
+		6AF80F0829709C5500F0D119 /* OneDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,23 +68,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6A1FAA72297087EF00D2B14D /* NewCategoryView */ = {
+		6A1FAA72297087EF00D2B14D /* NewCategory */ = {
 			isa = PBXGroup;
 			children = (
 				6AC94A24296D7B120077E36C /* CategoryRowView.swift */,
 				6AC94A22296D6EC90077E36C /* NewCategoryView.swift */,
 			);
-			path = NewCategoryView;
+			path = NewCategory;
 			sourceTree = "<group>";
 		};
-		6A1FAA73297094D100D2B14D /* MainView */ = {
+		6A1FAA73297094D100D2B14D /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				6A558F6E294A00DE005EDBF0 /* MainView.swift */,
 				6A558F70294B92FD005EDBF0 /* MainOperationCell.swift */,
 				6A522043295B155F003FA75E /* MainDescriptionOperationView.swift */,
 			);
-			path = MainView;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		6A23FDE7294876EA002A4B89 = {
@@ -150,10 +152,11 @@
 		6A558F6D294A00C6005EDBF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6AF80F0729709C3B00F0D119 /* Calendar */,
 				6AD6CAE42970372F00270354 /* UI-Elements */,
-				6AE33508295DC90F008AE851 /* NewOperationView */,
-				6A1FAA72297087EF00D2B14D /* NewCategoryView */,
-				6A1FAA73297094D100D2B14D /* MainView */,
+				6AE33508295DC90F008AE851 /* NewOperation */,
+				6A1FAA72297087EF00D2B14D /* NewCategory */,
+				6A1FAA73297094D100D2B14D /* Main */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,13 +199,21 @@
 			path = "UI-Elements";
 			sourceTree = "<group>";
 		};
-		6AE33508295DC90F008AE851 /* NewOperationView */ = {
+		6AE33508295DC90F008AE851 /* NewOperation */ = {
 			isa = PBXGroup;
 			children = (
 				6AA6F6EC294C88EE00672C9A /* ShowCategoriesView.swift */,
 				6A23FDF5294876EA002A4B89 /* NewOperationView.swift */,
 			);
-			path = NewOperationView;
+			path = NewOperation;
+			sourceTree = "<group>";
+		};
+		6AF80F0729709C3B00F0D119 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				6AF80F0829709C5500F0D119 /* OneDayView.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,6 +309,7 @@
 				6AADECE9296AD17500499567 /* KeyPadButton.swift in Sources */,
 				6A352303297002DE000EB00B /* WidgetProgressBarView.swift in Sources */,
 				6AA6F6ED294C88EE00672C9A /* ShowCategoriesView.swift in Sources */,
+				6AF80F0929709C5500F0D119 /* OneDayView.swift in Sources */,
 				6A23FDF4294876EA002A4B89 /* YourFinancesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

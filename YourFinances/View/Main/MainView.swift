@@ -21,6 +21,16 @@ struct MainView: View {
                 InfoWidgetView(viewModel: viewModel)
                     .padding(.horizontal, 16)
                 
+                // !!! ТЕСТ
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(1 ..< 30) { item in
+                            OneDayView()
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                }
+                
                 ScrollView(.vertical, showsIndicators: false) {
                     Section(header: HerderView(text: "Расходы", for: viewModel.minusArray)) {
                         ForEach(viewModel.minusArray) { item in
