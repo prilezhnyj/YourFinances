@@ -13,27 +13,28 @@ struct TopBarView: View {
     @ObservedObject var viewModel: FinancesViewModel
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top, spacing: 0) {
             // MARK: Текущая дата (День недели + дата)
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(viewModel.getTitleWeekDay(for: viewModel.currentDay))
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .font(SetupFont.title2())
                 Text(viewModel.currentDay.formatted(date: .long, time: .omitted))
-                    .font(.system(size: 16, weight: .regular, design: .default))
+                    .font(SetupFont.callout())
             }
             Spacer()
             
             Button {
-                // Действие по кнопке
+                // !!! Действие по кнопке
             } label: {
                 Image("Avatar")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 50, height: 50, alignment: .center)
+                    .frame(width: 48, height: 48, alignment: .center)
                     .clipShape(Circle())
-                    .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 0)
+                    .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: 48)
     }
 }
 

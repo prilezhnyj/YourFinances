@@ -11,10 +11,11 @@ struct NewOperationView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: FinancesViewModel
+    @FocusState private var focusedField: Field?
     
-    
-    
-    var sizeScreen = UIScreen.main.bounds
+    private enum Field: Int, CaseIterable {
+        case operationDescription
+    }
     
     var body: some View {
         ZStack {
@@ -81,6 +82,8 @@ struct NewOperationView: View {
                         .padding(16)
                         .background(Color.white)
                         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                        .focused($focusedField, equals: .operationDescription)
+                        .submitLabel(.done)
                     
                     Text("Описание заметки (опицонально)")
                         .font(.system(size: 16, weight: .semibold, design: .default))
@@ -108,6 +111,9 @@ struct NewOperationView: View {
                         .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5), value: viewModel.showFullCategories)
                 }
                 .disabled(viewModel.operationAmount == "" ? true : false)
+            }
+            .onTapGesture {
+                focusedField = nil
             }
             
             VStack {

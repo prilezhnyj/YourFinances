@@ -76,8 +76,8 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Тестовая фейковая дата
     // !!! После введения базы данных необходимо будет удалить
     func mockData() {
-        minusArray.append(FinancesModel(type: .minus, amount: 647, category: CategoryModel(title: "Продукты", image: "🥬"), description: ""))
-        plusArray.append(FinancesModel(type: .plus, amount: 34913, category: CategoryModel(title: "Зарплата", image: "💰"), description: ""))
+        minusArray.append(FinancesModel(type: .minus, amount: 750, category: CategoryModel(title: "Продукты", image: "🥬"), description: ""))
+        plusArray.append(FinancesModel(type: .plus, amount: 1000, category: CategoryModel(title: "Зарплата", image: "💰"), description: ""))
     }
     
     
@@ -168,6 +168,38 @@ class FinancesViewModel: ObservableObject {
         }
         
         return amount
+    }
+    
+    func savedSum(for plusArray: [FinancesModel], and minusArray: [FinancesModel]) -> Double {
+        var plusAmount: Double = 0
+        var minusAmount: Double = 0
+        
+        for item in plusArray {
+            plusAmount = plusAmount + item.amount
+        }
+        
+        for item in minusArray {
+            minusAmount = minusAmount + item.amount
+        }
+        
+        return plusAmount - minusAmount
+    }
+    
+    func savedPercentAmount(for minusArray: [FinancesModel], and plusArray: [FinancesModel]) -> Double {
+        var plusAmount: Double = 0
+        var minusAmount: Double = 0
+        
+        for item in plusArray {
+            plusAmount = plusAmount + item.amount
+        }
+        
+        for item in minusArray {
+            minusAmount = minusAmount + item.amount
+        }
+        
+        let percentAmount = (minusAmount - plusAmount) / plusAmount * 100
+        
+        return percentAmount
     }
     
     // MARK: - Получение текущей даты

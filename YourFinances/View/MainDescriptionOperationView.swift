@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DescriptionItemView: View {
+struct MainDescriptionOperationView: View {
     
     @ObservedObject var viewModel: FinancesViewModel
     
@@ -58,25 +58,11 @@ struct DescriptionItemView: View {
                 }
                 
                 Button {
-                    // Тут будет переход на страницу редактирования
-                } label: {
-                    Image(systemName: "pencil")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.black)
-                        .background(Color.white)
-                        .clipShape(Capsule(style: .continuous))
-                        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
-                }
-                
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        viewModel.showItem = false
-                    }
+                    viewModel.showItem = false
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .frame(width: 40, height: 40)
+                        .frame(width: 80, height: 40)
                         .foregroundColor(.black)
                         .background(Color.white)
                         .clipShape(Capsule(style: .continuous))
@@ -93,6 +79,7 @@ struct DescriptionItemView: View {
 
 struct DescriptionItemView_Previews: PreviewProvider {
     static var previews: some View {
-        DescriptionItemView(viewModel: FinancesViewModel())
+        MainDescriptionOperationView(viewModel: FinancesViewModel())
+            .previewLayout(.sizeThatFits)
     }
 }

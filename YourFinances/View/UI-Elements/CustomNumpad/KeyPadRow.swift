@@ -11,7 +11,7 @@ struct KeyPadRow: View {
     var keys: [String]
 
     var body: some View {
-        HStack {
+        HStack(alignment: .center, spacing: 8) {
             ForEach(keys, id: \.self) { key in
                 KeyPadButton(key: key)
             }

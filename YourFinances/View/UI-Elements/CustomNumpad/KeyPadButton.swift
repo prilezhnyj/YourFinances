@@ -13,13 +13,14 @@ struct KeyPadButton: View {
     var body: some View {
         Button(action: { self.action(self.key) }) {
             Color.clear
-                .overlay(RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.gray.opacity(0.1)))
+                .overlay(RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.black.opacity(0.1)))
                 .overlay(Text(key))
         }
-        .font(.system(size: 20, weight: .bold, design: .rounded))
+        .font(SetupFont.title3())
         .foregroundColor(.black)
-        .frame(maxWidth: .infinity, maxHeight: 50)
+        .frame(maxWidth: .infinity)
+        .frame(height: 48)
     }
     
     enum ActionKey: EnvironmentKey {

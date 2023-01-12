@@ -11,7 +11,7 @@ struct NumpadView: View {
     @ObservedObject var viewModel: FinancesViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 8) {
             KeyPad(string: $viewModel.operationAmount)
                 .padding(16)
             
@@ -19,7 +19,7 @@ struct NumpadView: View {
                 viewModel.isPresentedNumpadView = false
             } label: {
                 Text("Закрыть панель ввода")
-                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                    .font(SetupFont.footnoteButton())
                     .foregroundColor(.red)
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 16)

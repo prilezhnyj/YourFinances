@@ -8,7 +8,7 @@
 import SwiftUI
 import ToastUI
 
-struct OperationCell: View {
+struct MainOperationCell: View {
     
     @ObservedObject var viewModel: FinancesViewModel
     var item: FinancesModel
@@ -16,7 +16,7 @@ struct OperationCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             Text(item.category.image)
-                .frame(minWidth: 50, minHeight: 50)
+                .frame(width: 48, height: 48, alignment: .center)
                 .background(Color.gray.opacity(0.1))
                 .clipShape(Circle())
             
@@ -45,7 +45,7 @@ struct OperationCell: View {
         }
         
         .toast(isPresented: $viewModel.showItem) {
-            DescriptionItemView(viewModel: viewModel)
+            MainDescriptionOperationView(viewModel: viewModel)
                 .padding(16)
         }
     }
@@ -53,7 +53,7 @@ struct OperationCell: View {
 
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
-        OperationCell(viewModel: FinancesViewModel(), item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬"), description: ""))
+        MainOperationCell(viewModel: FinancesViewModel(), item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬"), description: ""))
             .previewLayout(.sizeThatFits)
     }
     
