@@ -14,23 +14,23 @@ struct CategoryRowView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
             Text(item.image)
-                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                .frame(minWidth: 50, minHeight: 50)
-                .background(Color.gray.opacity(0.1))
+                .font(SetupFont.callout())
+                .frame(minWidth: 48, minHeight: 48)
+                .background(Color.black.opacity(0.1))
                 .clipShape(Circle())
             
             Text(item.title)
-                .font(.system(size: 16, weight: .semibold, design: .default))
+                .font(SetupFont.callout())
             
             Spacer()
             
             Button {
-                withAnimation(.easeInOut(duration: 0.25)) {
+                withAnimation(.easeInOut(duration: 0.2)) {
                     viewModel.deleteCategory(item: item)
                 }
             } label: {
                 Image(systemName: "trash")
-                    .font(.system(size: 16, weight: .semibold, design: .default))
+                    .font(SetupFont.callout())
                     .foregroundColor(.red)
             }
             

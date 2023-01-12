@@ -14,24 +14,24 @@ struct MainOperationCell: View {
     var item: FinancesModel
     
     var body: some View {
-        HStack(alignment: .center, spacing: 10) {
+        HStack(alignment: .center, spacing: 16) {
             Text(item.category.image)
                 .frame(width: 48, height: 48, alignment: .center)
-                .background(Color.gray.opacity(0.1))
+                .background(Color.black.opacity(0.1))
                 .clipShape(Circle())
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(item.category.title)
-                    .font(.system(size: 16, weight: .semibold, design: .default))
+                    .font(SetupFont.callout())
                 
                 Text(item.type.rawValue)
-                    .font(.system(size: 12, weight: .regular, design: .default))
+                    .font(SetupFont.footnote())
             }
             
             Spacer()
             
             Text(item.type == .minus ? "-\(item.amount.formattedWithSeparator)₽" : "+\(item.amount.formattedWithSeparator)₽")
-                .font(.system(size: 20, weight: .bold, design: .rounded))
+                .font(SetupFont.title3())
                 .foregroundColor(item.type == .minus ? .red : .green)
         }
         .padding(.horizontal, 16)

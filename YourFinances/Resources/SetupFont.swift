@@ -23,7 +23,7 @@ class SetupFont {
     }
     
     static func footnote() -> Font {
-        return .system(size: 13, weight: .regular, design: .default)
+        return .system(size: 13, weight: .regular, design: .rounded)
     }
     
     static func footnoteButton() -> Font {

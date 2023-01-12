@@ -15,42 +15,40 @@ struct MainDescriptionOperationView: View {
         VStack(alignment: .leading, spacing: viewModel.currentItem.description == "" ?  0 : 16) {
             HStack(alignment: .center, spacing: 10) {
                 Text(viewModel.currentItem.category.image)
-                    .frame(minWidth: 50, minHeight: 50)
-                    .background(Color.gray.opacity(0.1))
+                    .frame(minWidth: 48, minHeight: 48)
+                    .background(Color.black.opacity(0.1))
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(viewModel.currentItem.category.title)
-                        .font(.system(size: 16, weight: .semibold, design: .default))
+                        .font(SetupFont.callout())
                     
                     Text(viewModel.currentItem.type.rawValue)
-                        .font(.system(size: 12, weight: .regular, design: .default))
+                        .font(SetupFont.footnote())
                 }
                 
                 Spacer()
                 
                 Text(viewModel.currentItem.type == .minus ? "-\(viewModel.currentItem.amount.formattedWithSeparator)₽" : "+\(viewModel.currentItem.amount.formattedWithSeparator)₽")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .font(SetupFont.title3())
                     .foregroundColor(viewModel.currentItem.type == .minus ? .red : .green)
-                
-                
             }
             
             Text(viewModel.currentItem.description)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.system(size: 14, weight: .regular, design: .default))
+                .font(SetupFont.footnote())
             
             HStack {
                 Button {
-                    withAnimation(.easeInOut(duration: 0.25)) {
+                    withAnimation(.easeInOut(duration: 0.2)) {
                         viewModel.deleteItem(item: viewModel.currentItem)
                         viewModel.showItem = false
                     }
                 } label: {
                     Text("Удалить")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity)
-                        .frame(height: 40)
+                        .frame(height: 32)
                         .foregroundColor(.white)
                         .background(Color.red)
                         .clipShape(Capsule(style: .continuous))
@@ -58,11 +56,13 @@ struct MainDescriptionOperationView: View {
                 }
                 
                 Button {
-                    viewModel.showItem = false
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        viewModel.showItem = false
+                    }
                 } label: {
                     Image(systemName: "xmark")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .frame(width: 80, height: 40)
+                        .font(SetupFont.footnoteButton())
+                        .frame(width: 80, height: 32)
                         .foregroundColor(.black)
                         .background(Color.white)
                         .clipShape(Capsule(style: .continuous))

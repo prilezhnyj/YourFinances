@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NewOperationView: View {
-    
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: FinancesViewModel
     @FocusState private var focusedField: Field?
@@ -21,49 +20,53 @@ struct NewOperationView: View {
         ZStack {
             Color.white
             
+            // Основное полотно
             ScrollView(.vertical, showsIndicators: false) {
-                Text(viewModel.isMinus ? "Новый расход" : "Новый доход")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                Text("Новая операция")
+                    .font(SetupFont.title3())
                     .frame(maxWidth: .infinity)
-                    .padding(16)
+                    .padding(.vertical, 32)
+                    .padding(.horizontal, 16)
                 
                 HStack(alignment: .center, spacing: 8) {
                     Button {
-                        viewModel.isMinus = true
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            viewModel.isMinus = true
+                        }
                     } label: {
                         Text("Расход")
-                            .font(.system(size: 16, weight: .semibold, design: .default))
+                            .font(SetupFont.callout())
                             .frame(maxWidth: .infinity)
-                            .frame(height: 34)
+                            .frame(height: 32)
                             .foregroundColor(viewModel.isMinus ? .white : .black)
                             .background(viewModel.isMinus ? Color.black : Color.white)
-                            .cornerRadius(48)
+                            .clipShape(Capsule(style: .continuous))
                             .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
                     }
                     Button {
-                        viewModel.isMinus = false
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            viewModel.isMinus = false
+                        }
                     } label: {
                         Text("Доход")
-                            .font(.system(size: 16, weight: .semibold, design: .default))
+                            .font(SetupFont.callout())
                             .frame(maxWidth: .infinity)
-                            .frame(height: 34)
+                            .frame(height: 32)
                             .foregroundColor(viewModel.isMinus ? .black : .white)
                             .background(viewModel.isMinus ? Color.white : Color.black)
-                            .cornerRadius(48)
+                            .clipShape(Capsule(style: .continuous))
                             .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
                     }
                     
                 }
                 .padding(.horizontal, 16)
                 
-                Text(viewModel.operationAmount == "" ? "Сумма покупки" : viewModel.operationAmount + "₽")
-                    .foregroundColor(viewModel.operationAmount == "" ? . gray : .black)
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
-                    .padding(.horizontal, 16)
-                    .textFieldStyle(.plain)
+                Text(viewModel.operationAmount == "" ? "Сумма операции" : viewModel.operationAmount + "₽")
+                    .foregroundColor(viewModel.operationAmount == "" ? .black.opacity(0.5) : .black)
+                    .font(SetupFont.title3())
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
-                    .background(Color.gray.opacity(0.1))
+                    .background(Color.black.opacity(0.1))
                     .clipShape(Capsule(style: .continuous))
                     .padding(16)
                     .onTapGesture {
@@ -75,9 +78,9 @@ struct NewOperationView: View {
                 
                 ZStack {
                     TextEditor(text: $viewModel.operationDescription)
+                        .font(SetupFont.callout())
                         .frame(maxWidth: .infinity)
                         .frame(height: 100)
-                        .font(.system(size: 16, weight: .semibold, design: .default))
                         .foregroundColor(.black)
                         .padding(16)
                         .background(Color.white)
@@ -86,8 +89,8 @@ struct NewOperationView: View {
                         .submitLabel(.done)
                     
                     Text("Описание заметки (опицонально)")
-                        .font(.system(size: 16, weight: .semibold, design: .default))
-                        .foregroundColor(viewModel.operationDescription == "" ? .gray : .clear)
+                        .font(SetupFont.callout())
+                        .foregroundColor(viewModel.operationDescription == "" ? .black.opacity(0.1) : .clear)
                 }
                 .padding(16)
                 .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
@@ -100,12 +103,12 @@ struct NewOperationView: View {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("Сохранить")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .font(SetupFont.callout())
                         .frame(maxWidth: .infinity)
                         .frame(height: 48)
-                        .background(viewModel.operationAmount == "" ? Color.gray.opacity(0.1) : Color.blue)
-                        .foregroundColor(viewModel.operationAmount == "" ? Color.gray : Color.white)
-                        .clipShape(Capsule())
+                        .background(viewModel.operationAmount == "" ? Color.black.opacity(0.1) : Color.black)
+                        .foregroundColor(viewModel.operationAmount == "" ? Color.black.opacity(0.5) : Color.white)
+                        .clipShape(Capsule(style: .continuous))
                         .padding(.horizontal, 16)
                         .shadow(color: .blue.opacity(0.1), radius: 10, x: 0, y: 0)
                         .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5), value: viewModel.showFullCategories)
@@ -116,6 +119,7 @@ struct NewOperationView: View {
                 focusedField = nil
             }
             
+            // Нампад, который выезжает снизу
             VStack {
                 Spacer()
                 NumpadView(viewModel: viewModel)
@@ -129,13 +133,11 @@ struct NewOperationView: View {
                     .padding(.bottom, 10)
             }
         }
-        .ignoresSafeArea(.container, edges: .bottom)
-        
-        Spacer()
+        .ignoresSafeArea(.all, edges: .bottom)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct NewOperationView_Previews: PreviewProvider {
     static var previews: some View {
         NewOperationView(viewModel: FinancesViewModel())
     }
