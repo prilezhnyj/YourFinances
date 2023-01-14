@@ -5,7 +5,7 @@
 //  Created by Максим Боталов on 13.12.2022.
 //
 
-import Foundation
+import SwiftUI
 
 class FinancesViewModel: ObservableObject {
     
@@ -25,7 +25,7 @@ class FinancesViewModel: ObservableObject {
     
     
     // MARK: - Детальное отображение операции на главном экране MainView
-    @Published var currentItem = FinancesModel(type: .minus, amount: 0, category: CategoryModel(title: "", image: ""), description: "")
+    @Published var currentItem = FinancesModel(type: .minus, amount: 0, category: CategoryModel(title: "", image: ""), description: "", date: Date())
     
     // Флаг отвечающий за раскрытие Вью с детальной информации на главном экране MainView
     @Published var showItem = false
@@ -58,9 +58,13 @@ class FinancesViewModel: ObservableObject {
     @Published var minusArray = [FinancesModel]()
     @Published var plusArray = [FinancesModel]()
     
+    @Published var minusArrayToday = [FinancesModel]()
+    @Published var plusArrayToday = [FinancesModel]()
+    
     
     // MARK: - Операции с календарём
     @Published var currentDay = Date()
+    @Published var selectedDayWeek = Date()
     @Published var currentWeek = [Date]()
     @Published var currentMonth = [Date]()
     private var calendar = Calendar.current
@@ -76,8 +80,8 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Тестовая фейковая дата
     // !!! После введения базы данных необходимо будет удалить
     func mockData() {
-        minusArray.append(FinancesModel(type: .minus, amount: 750, category: CategoryModel(title: "Продукты", image: "🥬"), description: ""))
-        plusArray.append(FinancesModel(type: .plus, amount: 1000, category: CategoryModel(title: "Зарплата", image: "💰"), description: ""))
+        minusArray.append(FinancesModel(type: .minus, amount: 750, category: CategoryModel(title: "Продукты", image: "🥬"), description: "", date: .init(timeIntervalSince1970: 1673568000)))
+        plusArray.append(FinancesModel(type: .plus, amount: 1000, category: CategoryModel(title: "Зарплата", image: "💰"), description: "", date: .init(timeIntervalSince1970: 1673481600)))
     }
     
     
@@ -89,10 +93,10 @@ class FinancesViewModel: ObservableObject {
         }
         
         if isMinus == true {
-            minusArray.append(FinancesModel(type: .minus, amount: amountDouble, category: selectedCategory, description: operationDescription))
+            minusArray.append(FinancesModel(type: .minus, amount: amountDouble, category: selectedCategory, description: operationDescription, date: Date()))
             print("Сохранение расхода")
         } else {
-            plusArray.append(FinancesModel(type: .plus, amount: amountDouble, category: selectedCategory, description: operationDescription))
+            plusArray.append(FinancesModel(type: .plus, amount: amountDouble, category: selectedCategory, description: operationDescription, date: Date()))
             print("Сохранение дохода")
         }
     }
@@ -170,6 +174,7 @@ class FinancesViewModel: ObservableObject {
         return amount
     }
     
+    // MARK: - Получение сохранённой сумммы
     func savedSum(for plusArray: [FinancesModel], and minusArray: [FinancesModel]) -> Double {
         var plusAmount: Double = 0
         var minusAmount: Double = 0
@@ -183,23 +188,6 @@ class FinancesViewModel: ObservableObject {
         }
         
         return plusAmount - minusAmount
-    }
-    
-    func savedPercentAmount(for minusArray: [FinancesModel], and plusArray: [FinancesModel]) -> Double {
-        var plusAmount: Double = 0
-        var minusAmount: Double = 0
-        
-        for item in plusArray {
-            plusAmount = plusAmount + item.amount
-        }
-        
-        for item in minusArray {
-            minusAmount = minusAmount + item.amount
-        }
-        
-        let percentAmount = (minusAmount - plusAmount) / plusAmount * 100
-        
-        return percentAmount
     }
     
     // MARK: - Получение текущей даты
@@ -224,12 +212,22 @@ class FinancesViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Получение названия дня недели по дате
-    func getTitleWeekDay(for date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        let weekDay = dateFormatter.string(from: date).capitalized
-        return weekDay
+    // MARK: - Общая формула с форматом даты
+    func extractDate(for date: Date, format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: date)
+    }
+    
+    // MARK: - Получения сегодняшнего дня. Если TRUE, то день закрашивается чёрным
+    func isToday(for date: Date) -> Bool {
+        return calendar.isDate(currentDay, inSameDayAs: date)
+    }
+    
+    // MARK: - Если TRUE, то на полной неделе день отмечается точкой. Это значит, то в этот день были совершены операции
+    func checkOperationDay(for minusArray: [FinancesModel], and plusArray: [FinancesModel], date: Date) -> Bool {
+        guard minusArray.isEmpty && plusArray.isEmpty else { return false }
+        return true
     }
     
     // MARK: - Получение названия месяца для виджета

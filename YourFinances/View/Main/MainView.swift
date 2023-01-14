@@ -16,20 +16,13 @@ struct MainView: View {
         ZStack(alignment: .center) {
             VStack(alignment: .center, spacing: 16) {
                 TopBarView(viewModel: viewModel)
-                    .padding(16)
+                    .padding(.top ,16)
+                    .padding(.horizontal, 16)
                 
                 InfoWidgetView(viewModel: viewModel)
                     .padding(.horizontal, 16)
                 
-                // !!! ТЕСТ
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(1 ..< 30) { item in
-                            OneDayView()
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                }
+                FullWeekView(viewModel: viewModel)
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     Section(header: HerderView(text: "Расходы", for: viewModel.minusArray)) {

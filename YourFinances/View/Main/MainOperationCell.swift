@@ -53,7 +53,7 @@ struct MainOperationCell: View {
 
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
-        MainOperationCell(viewModel: FinancesViewModel(), item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬"), description: ""))
+        MainOperationCell(viewModel: FinancesViewModel(), item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬"), description: "", date: Date()))
             .previewLayout(.sizeThatFits)
     }
     

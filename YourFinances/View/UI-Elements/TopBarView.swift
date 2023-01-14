@@ -16,10 +16,10 @@ struct TopBarView: View {
         HStack(alignment: .top, spacing: 0) {
             // MARK: Текущая дата (День недели + дата)
             VStack(alignment: .leading, spacing: 0) {
-                Text(viewModel.getTitleWeekDay(for: viewModel.currentDay))
+                Text(viewModel.extractDate(for: viewModel.currentDay, format: "EEEE").capitalized)
                     .font(SetupFont.title2())
                 Text(viewModel.currentDay.formatted(date: .long, time: .omitted))
-                    .font(SetupFont.callout())
+                    .font(SetupFont.footnote())
             }
             Spacer()
             

@@ -13,6 +13,7 @@ struct FinancesModel: Identifiable {
     var amount: Double
     var category: CategoryModel
     var description: String
+    var date: Date
 }
 
 enum FinancesType: String {
