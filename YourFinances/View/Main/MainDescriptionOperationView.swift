@@ -12,40 +12,36 @@ struct MainDescriptionOperationView: View {
     @ObservedObject var viewModel: FinancesViewModel
     
     var body: some View {
-        VStack(alignment: .leading, spacing: viewModel.currentItem.description == "" ?  0 : 16) {
+        VStack(alignment: .leading, spacing: 16) {
             HStack(alignment: .center, spacing: 10) {
-                Text(viewModel.currentItem.category.image)
+                Text(viewModel.currentItemForDetailedInformation.category.image)
                     .frame(minWidth: 48, minHeight: 48)
                     .background(Color.black.opacity(0.1))
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(viewModel.currentItem.category.title)
+                    Text(viewModel.currentItemForDetailedInformation.category.title)
                         .font(SetupFont.callout())
                     
-                    Text(viewModel.currentItem.type.rawValue)
+                    Text(viewModel.currentItemForDetailedInformation.type.rawValue)
                         .font(SetupFont.footnote())
                 }
                 
                 Spacer()
                 
-                Text(viewModel.currentItem.type == .minus ? "-\(viewModel.currentItem.amount.formattedWithSeparator)₽" : "+\(viewModel.currentItem.amount.formattedWithSeparator)₽")
+                Text(viewModel.currentItemForDetailedInformation.type == .minus ? "-\(viewModel.currentItemForDetailedInformation.amount.formattedWithSeparator)₽" : "+\(viewModel.currentItemForDetailedInformation.amount.formattedWithSeparator)₽")
                     .font(SetupFont.title3())
-                    .foregroundColor(viewModel.currentItem.type == .minus ? .red : .green)
+                    .foregroundColor(viewModel.currentItemForDetailedInformation.type == .minus ? .red : .green)
             }
-            
-            Text(viewModel.currentItem.description)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(SetupFont.footnote())
             
             HStack {
                 Button {
                     withAnimation(.easeInOut(duration: 0.2)) {
-                        viewModel.deleteItem(item: viewModel.currentItem)
-                        viewModel.showItem = false
+                        viewModel.deleteItem(item: viewModel.currentItemForDetailedInformation)
+                        viewModel.showDetailedInformation = false
                     }
                 } label: {
-                    Text("Удалить")
+                    Text("Delete")
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity)
                         .frame(height: 32)
@@ -57,7 +53,7 @@ struct MainDescriptionOperationView: View {
                 
                 Button {
                     withAnimation(.easeInOut(duration: 0.2)) {
-                        viewModel.showItem = false
+                        viewModel.showDetailedInformation = false
                     }
                 } label: {
                     Image(systemName: "xmark")

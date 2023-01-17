@@ -15,10 +15,10 @@ struct TopBarView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             // MARK: Текущая дата (День недели + дата)
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(viewModel.extractDate(for: viewModel.currentDay, format: "EEEE").capitalized)
                     .font(SetupFont.title2())
-                Text(viewModel.currentDay.formatted(date: .long, time: .omitted))
+                Text(viewModel.extractDate(for: viewModel.currentDay, format: "d MMMM yyyy"))
                     .font(SetupFont.footnote())
             }
             Spacer()

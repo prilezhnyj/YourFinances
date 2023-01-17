@@ -12,13 +12,12 @@ struct FinancesModel: Identifiable {
     var type: FinancesType
     var amount: Double
     var category: CategoryModel
-    var description: String
     var date: Date
 }
 
 enum FinancesType: String {
-    case minus = "Расход"
-    case plus = "Доход"
+    case minus = "Expense"
+    case plus = "Profit"
 }
 
 struct CategoryModel: Identifiable {

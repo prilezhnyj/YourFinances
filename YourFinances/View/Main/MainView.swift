@@ -14,34 +14,38 @@ struct MainView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            VStack(alignment: .center, spacing: 16) {
-                TopBarView(viewModel: viewModel)
-                    .padding(.top ,16)
-                    .padding(.horizontal, 16)
-                
-                InfoWidgetView(viewModel: viewModel)
-                    .padding(.horizontal, 16)
-                
-                FullWeekView(viewModel: viewModel)
-                
-                ScrollView(.vertical, showsIndicators: false) {
-                    Section(header: HerderView(text: "Расходы", for: viewModel.minusArray)) {
-                        ForEach(viewModel.minusArray) { item in
-                            MainOperationCell(viewModel: viewModel, item: item)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                VStack(alignment: .center, spacing: 16) {
+                    TopBarView(viewModel: viewModel)
+                        .padding(.top ,16)
                         .padding(.horizontal, 16)
-                    }
                     
-                    Section(header: HerderView(text: "Доходы", for: viewModel.plusArray)) {
-                        ForEach(viewModel.plusArray) { item in
-                            MainOperationCell(viewModel: viewModel, item: item)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    InfoWidgetView(viewModel: viewModel)
                         .padding(.horizontal, 16)
+                    
+                    FullWeekView(viewModel: viewModel)
+                    
+                    if viewModel.currentExpenseArray.isEmpty && viewModel.currentProfitsArray.isEmpty {
+                        NoOperationsView(viewModel: viewModel)
+                    } else {
+                        ScrollView(.vertical, showsIndicators: false) {
+                            Section(header: HerderView(text: "Expenses", for: viewModel.currentExpenseArray)) {
+                                ForEach(viewModel.currentExpenseArray) { item in
+                                    MainOperationCell(viewModel: viewModel, item: item)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .padding(.horizontal, 16)
+                            }
+                            
+                            Section(header: HerderView(text: "Profits", for: viewModel.currentProfitsArray)) {
+                                ForEach(viewModel.currentProfitsArray) { item in
+                                    MainOperationCell(viewModel: viewModel, item: item)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .padding(.horizontal, 16)
+                            }
+                        }
                     }
                 }
-            }
             
             VStack {
                 Spacer()
@@ -49,7 +53,7 @@ struct MainView: View {
                     Button {
                         isPresentedNewCategoryView.toggle()
                     } label: {
-                        Text("Категории")
+                        Text("Categories")
                             .font(SetupFont.footnoteButton())
                             .frame(maxWidth: .infinity, maxHeight: 32)
                             .background(Color.white)
@@ -62,9 +66,9 @@ struct MainView: View {
                     }
                     
                     Button {
-                       //
+                        //
                     } label: {
-                        Text("Настройки")
+                        Text("Settings")
                             .font(SetupFont.footnoteButton())
                             .frame(maxWidth: .infinity, maxHeight: 32)
                             .background(Color.white)
@@ -72,7 +76,7 @@ struct MainView: View {
                             .clipShape(Capsule(style: .continuous))
                             .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
                     }
-                
+                    
                     Spacer()
                     
                     Button {

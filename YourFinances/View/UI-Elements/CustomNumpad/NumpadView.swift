@@ -16,9 +16,9 @@ struct NumpadView: View {
                 .padding(16)
             
             Button {
-                viewModel.isPresentedNumpadView = false
+                viewModel.showNumpadView = false
             } label: {
-                Text("Закрыть панель ввода")
+                Text("Close numpad")
                     .font(SetupFont.footnoteButton())
                     .foregroundColor(.red)
                     .frame(maxWidth: .infinity)

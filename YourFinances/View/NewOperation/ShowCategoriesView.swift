@@ -13,27 +13,27 @@ struct ShowCategoriesView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .center, spacing: 0) {
-                Text("Категории")
+                Text("Categories")
                     .font(SetupFont.callout())
                 
                 Spacer()
                 
                 Button {
                     withAnimation(.easeInOut(duration: 0.2)) {
-                        viewModel.showFullCategories.toggle()
+                        viewModel.showAllCategories.toggle()
                     }
                 } label: {
-                    Text(viewModel.showFullCategories ? "Скрыть" : "Показать")
+                    Text(viewModel.showAllCategories ? "Hide" : "Show")
                         .font(SetupFont.callout())
-                        .foregroundColor(viewModel.showFullCategories ? .red : .black.opacity(0.1))
+                        .foregroundColor(viewModel.showAllCategories ? .red : .black.opacity(0.1))
                 }
             }
             .padding(16)
             
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))], alignment: .center, spacing: 16) {
-                    if viewModel.isMinus {
-                        ForEach(viewModel.categoryMinusArray) { item in
+                    if viewModel.isExpense {
+                        ForEach(viewModel.expenseCategoriesArray) { item in
                             VStack {
                                 Text(item.image)
                                     .frame(minWidth: 48, minHeight: 48)
@@ -52,7 +52,7 @@ struct ShowCategoriesView: View {
                             }
                         }
                     } else {
-                        ForEach(viewModel.categoryPlusArray) { item in
+                        ForEach(viewModel.profitsCategoriesArray) { item in
                             VStack {
                                 Text(item.image)
                                     .frame(minWidth: 48, minHeight: 48)
@@ -75,12 +75,12 @@ struct ShowCategoriesView: View {
             }
             .padding(.horizontal, 16)
         }
-        .frame(height: viewModel.showFullCategories ? 250 : 160)
+        .frame(height: viewModel.showAllCategories ? 250 : 160)
         .frame(maxWidth: .infinity)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5), value: viewModel.showFullCategories)
+        .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5), value: viewModel.showAllCategories)
     }
 }
 

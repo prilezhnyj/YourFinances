@@ -12,78 +12,63 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Элементы, необходимы для создания новой операций
     @Published var selectedCategory = CategoryModel(title: "", image: "")
     @Published var operationAmount = ""
-    @Published var operationDescription = ""
     
     // Флаг отвечающий за выбор операции в NewOperationView
-    @Published var isMinus = true
+    @Published var isExpense = true
     
     // Флаг отвечающий за раскрытие вьюшки и отображения всех категорий в ShowCategoriesView
-    @Published var showFullCategories = false
+    @Published var showAllCategories = false
     
     // Флаг отвечающий за раскрытие вьюшки Numpad в NewOperationView
-    @Published var isPresentedNumpadView = false
+    @Published var showNumpadView = false
     
     
     // MARK: - Детальное отображение операции на главном экране MainView
-    @Published var currentItem = FinancesModel(type: .minus, amount: 0, category: CategoryModel(title: "", image: ""), description: "", date: Date())
+    @Published var currentItemForDetailedInformation = FinancesModel(type: .minus, amount: 0, category: CategoryModel(title: "", image: ""), date: Date())
     
     // Флаг отвечающий за раскрытие Вью с детальной информации на главном экране MainView
-    @Published var showItem = false
-    
+    @Published var showDetailedInformation = false
     
     // MARK: - Элементы для добавление новой категории
-    @Published var titleCategory = ""
-    @Published var imageCategory = ""
+    @Published var newTitleCategory = ""
+    @Published var newImageCategory = ""
     
     // Флаг отвечающий за выбор операции в NewCategoryView
-    @Published var isMinusNewCategory = true
+    @Published var isExpenseNewCategory = true
     
     
     // MARK: - Массивы категорий
-    @Published var categoryMinusArray = [
-        CategoryModel(title: "Продукты", image: "🥬"),
-        CategoryModel(title: "Транспорт", image: "🚎"),
-        CategoryModel(title: "Дом", image: "🏠"),
-        CategoryModel(title: "Сладости", image: "🍭"),
-        CategoryModel(title: "Хобби", image: "👟")]
+    @Published var expenseCategoriesArray = [
+        CategoryModel(title: "Products", image: "🥬"),
+        CategoryModel(title: "Transport", image: "🚎"),
+        CategoryModel(title: "House", image: "🏠"),
+        CategoryModel(title: "Sweets", image: "🍭"),
+        CategoryModel(title: "Hobby", image: "👟")]
     
-    @Published var categoryPlusArray = [
-        CategoryModel(title: "Зарплата", image: "💰"),
-        CategoryModel(title: "Донаты", image: "🤑"),
-        CategoryModel(title: "Сбережения", image: "💸"),
-        CategoryModel(title: "Инвестиции", image: "💶")]
-    
+    @Published var profitsCategoriesArray = [
+        CategoryModel(title: "Salary", image: "💰"),
+        CategoryModel(title: "Donations", image: "🤑"),
+        CategoryModel(title: "Savings", image: "💸"),
+        CategoryModel(title: "Investment", image: "💶")]
     
     // MARK: - Массивы операций
-    @Published var minusArray = [FinancesModel]()
-    @Published var plusArray = [FinancesModel]()
-    
-    @Published var minusArrayToday = [FinancesModel]()
-    @Published var plusArrayToday = [FinancesModel]()
-    
+    @Published var expenseArray = [FinancesModel]()
+    @Published var profitsArray = [FinancesModel]()
+    @Published var currentExpenseArray = [FinancesModel]()
+    @Published var currentProfitsArray = [FinancesModel]()
     
     // MARK: - Операции с календарём
+    private var calendar = Calendar.current
     @Published var currentDay = Date()
     @Published var selectedDayWeek = Date()
     @Published var currentWeek = [Date]()
     @Published var currentMonth = [Date]()
-    private var calendar = Calendar.current
-    
     
     // MARK: - Инициализатор
     init() {
         getCurrentWeek()
-        mockData()
+        filtredToday()
     }
-    
-    
-    // MARK: - Тестовая фейковая дата
-    // !!! После введения базы данных необходимо будет удалить
-    func mockData() {
-        minusArray.append(FinancesModel(type: .minus, amount: 750, category: CategoryModel(title: "Продукты", image: "🥬"), description: "", date: .init(timeIntervalSince1970: 1673568000)))
-        plusArray.append(FinancesModel(type: .plus, amount: 1000, category: CategoryModel(title: "Зарплата", image: "💰"), description: "", date: .init(timeIntervalSince1970: 1673481600)))
-    }
-    
     
     // MARK: - Сохранение расхода / дохода
     func saveOperation() {
@@ -92,13 +77,15 @@ class FinancesViewModel: ObservableObject {
             return
         }
         
-        if isMinus == true {
-            minusArray.append(FinancesModel(type: .minus, amount: amountDouble, category: selectedCategory, description: operationDescription, date: Date()))
+        if isExpense == true {
+            expenseArray.append(FinancesModel(type: .minus, amount: amountDouble, category: selectedCategory, date: selectedDayWeek))
             print("Сохранение расхода")
         } else {
-            plusArray.append(FinancesModel(type: .plus, amount: amountDouble, category: selectedCategory, description: operationDescription, date: Date()))
+            profitsArray.append(FinancesModel(type: .plus, amount: amountDouble, category: selectedCategory, date: selectedDayWeek))
             print("Сохранение дохода")
         }
+        
+        filtredToday()
     }
     
     // MARK: - Поиск элемента в массиве операций
@@ -127,39 +114,41 @@ class FinancesViewModel: ObservableObject {
         var isMinus: Bool? = false
         
         // Индекc элемента в каждой катеорий. Один из элементов должен быть nil
-        let minusIndex = findCategory(value: item, in: categoryMinusArray)
-        let plusIndex = findCategory(value: item, in: categoryPlusArray)
+        let minusIndex = findCategory(value: item, in: expenseCategoriesArray)
+        let plusIndex = findCategory(value: item, in: profitsCategoriesArray)
         
         // Проверка на nil
-        if findCategory(value: item, in: categoryMinusArray) != nil {
+        if findCategory(value: item, in: expenseCategoriesArray) != nil {
             isMinus = true
         }
         
         // Проверка и удаление нужного элемента
         if isMinus! {
-            categoryMinusArray.remove(at: minusIndex!)
+            expenseCategoriesArray.remove(at: minusIndex!)
         } else {
-            categoryPlusArray.remove(at: plusIndex!)
+            profitsCategoriesArray.remove(at: plusIndex!)
         }
     }
     
     // MARK: - Удаление операций в детальном окне главного меню
     func deleteItem(item: FinancesModel) {
         if item.type == .minus {
-            let index = findItem(value: item, in: minusArray)
-            minusArray.remove(at: index!)
+            let index = findItem(value: item, in: expenseArray)
+            expenseArray.remove(at: index!)
         } else {
-            let index = findItem(value: item, in: plusArray)
-            plusArray.remove(at: index!)
+            let index = findItem(value: item, in: profitsArray)
+            profitsArray.remove(at: index!)
         }
+        
+        filtredToday()
     }
     
     // MARK: - Добавление новой категории
     func addNewCategory() {
-        if isMinusNewCategory == true {
-            categoryMinusArray.insert(CategoryModel(title: titleCategory, image: imageCategory), at: 0)
+        if isExpenseNewCategory == true {
+            expenseCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory), at: 0)
         } else {
-            categoryPlusArray.insert(CategoryModel(title: titleCategory, image: imageCategory), at: 0)
+            profitsCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory), at: 0)
         }
     }
     
@@ -190,6 +179,14 @@ class FinancesViewModel: ObservableObject {
         return plusAmount - minusAmount
     }
     
+    // MARK: - Получение процента потраченых денег от все суммы
+    func getPercentage() -> CGFloat {
+        let minusSum = getSum(for: expenseArray)
+        let plusSum = getSum(for: profitsArray)
+        let res = 100 / (plusSum / minusSum)
+        return 1 - (res / 100)
+    }
+    
     // MARK: - Получение текущей даты
     func getCurrentDate(for date: Date, format: String) -> String {
         let formatter = DateFormatter()
@@ -200,13 +197,12 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Получение текущей недели
     func getCurrentWeek() {
         let today = Date()
-        
         let week = calendar.dateInterval(of: .weekOfMonth, for: today)
         
-        guard let firstDayWeek = week?.start else { return }
+        let firstDayWeek = week?.start
         
-        (1...7).forEach { day in
-            if let weekDay = calendar.date(byAdding: .day, value: day, to: firstDayWeek) {
+        (1 ... 7).forEach { day in
+            if let weekDay = calendar.date(byAdding: .day, value: day, to: firstDayWeek!) {
                 currentWeek.append(weekDay)
             }
         }
@@ -224,10 +220,41 @@ class FinancesViewModel: ObservableObject {
         return calendar.isDate(currentDay, inSameDayAs: date)
     }
     
-    // MARK: - Если TRUE, то на полной неделе день отмечается точкой. Это значит, то в этот день были совершены операции
-    func checkOperationDay(for minusArray: [FinancesModel], and plusArray: [FinancesModel], date: Date) -> Bool {
-        guard minusArray.isEmpty && plusArray.isEmpty else { return false }
-        return true
+    /*
+     // MARK: - Если TRUE, то на полной неделе день отмечается точкой. Это значит, то в этот день были совершены операции
+     func checkOperationDay(for day: Date) {
+     let filtredMinus = self.minusArray.filter { item in
+     return self.calendar.isDate(item.date, inSameDayAs: day)
+     }
+     
+     let filtredPlus = self.plusArray.filter { item in
+     return self.calendar.isDate(item.date, inSameDayAs: day)
+     }
+     
+     if filtredMinus.isEmpty && filtredPlus.isEmpty {
+     checkForEventSelectedDay = false
+     } else {
+     checkForEventSelectedDay = true
+     }
+     }
+     */
+    
+    func filtredToday() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            let filtredMinus = self.expenseArray.filter { item in
+                return self.calendar.isDate(item.date, inSameDayAs: self.selectedDayWeek)
+            }
+            
+            let filtredPlus = self.profitsArray.filter { item in
+                return self.calendar.isDate(item.date, inSameDayAs: self.selectedDayWeek)
+            }
+            
+            DispatchQueue.main.async {
+                self.currentExpenseArray = filtredMinus
+                self.currentProfitsArray = filtredPlus
+            }
+            
+        }
     }
     
     // MARK: - Получение названия месяца для виджета
@@ -238,19 +265,32 @@ class FinancesViewModel: ObservableObject {
         let result: String
         
         switch month {
-        case 1: result = "январь"
-        case 2: result = "февраль"
-        case 3: result = "март"
-        case 4: result = "апрель"
-        case 5: result = "май"
-        case 6: result = "июнь"
-        case 7: result = "июль"
-        case 8: result = "август"
-        case 9: result = "сентябрь"
-        case 10: result = "октябрь"
-        case 11: result = "ноябрь"
-        default: result = "декабрь"
+        case 1: result = "January"
+        case 2: result = "February"
+        case 3: result = "March"
+        case 4: result = "April"
+        case 5: result = "May"
+        case 6: result = "June"
+        case 7: result = "July"
+        case 8: result = "August"
+        case 9: result = "September"
+        case 10: result = "October"
+        case 11: result = "November"
+        default: result = "December"
         }
         return result
     }
+}
+
+extension Formatter {
+    static let withSeparator: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = " "
+        return formatter
+    }()
+}
+
+extension Numeric {
+    var formattedWithSeparator: String { Formatter.withSeparator.string(for: self) ?? "" }
 }

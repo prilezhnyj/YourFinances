@@ -15,6 +15,7 @@
 		6A23FE032948775D002A4B89 /* FinancesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A23FE022948775D002A4B89 /* FinancesModel.swift */; };
 		6A23FE0629487916002A4B89 /* FinancesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A23FE0529487916002A4B89 /* FinancesViewModel.swift */; };
 		6A352303297002DE000EB00B /* WidgetProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A352302297002DE000EB00B /* WidgetProgressBarView.swift */; };
+		6A4C9279297890F90042AF2D /* NoOperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4C9278297890F90042AF2D /* NoOperationsView.swift */; };
 		6A522044295B155F003FA75E /* MainDescriptionOperationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A522043295B155F003FA75E /* MainDescriptionOperationView.swift */; };
 		6A558F6F294A00DE005EDBF0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A558F6E294A00DE005EDBF0 /* MainView.swift */; };
 		6A558F71294B92FD005EDBF0 /* MainOperationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A558F70294B92FD005EDBF0 /* MainOperationCell.swift */; };
@@ -42,10 +43,12 @@
 		6A23FE022948775D002A4B89 /* FinancesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancesModel.swift; sourceTree = "<group>"; };
 		6A23FE0529487916002A4B89 /* FinancesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancesViewModel.swift; sourceTree = "<group>"; };
 		6A352302297002DE000EB00B /* WidgetProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetProgressBarView.swift; sourceTree = "<group>"; };
+		6A4C9278297890F90042AF2D /* NoOperationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoOperationsView.swift; sourceTree = "<group>"; };
 		6A522043295B155F003FA75E /* MainDescriptionOperationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDescriptionOperationView.swift; sourceTree = "<group>"; };
 		6A558F6E294A00DE005EDBF0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6A558F70294B92FD005EDBF0 /* MainOperationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainOperationCell.swift; sourceTree = "<group>"; };
 		6A558F72294C2893005EDBF0 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
+		6A80A1B12976FA5A00A7611A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AA6F6EC294C88EE00672C9A /* ShowCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCategoriesView.swift; sourceTree = "<group>"; };
 		6AADECE8296AD17500499567 /* KeyPadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPadButton.swift; sourceTree = "<group>"; };
 		6AADECEA296AD1EE00499567 /* KeyPadRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPadRow.swift; sourceTree = "<group>"; };
@@ -147,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				6A23FDF3294876EA002A4B89 /* YourFinancesApp.swift */,
+				6A80A1B12976FA5A00A7611A /* Info.plist */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -195,8 +199,8 @@
 			isa = PBXGroup;
 			children = (
 				6A558F72294C2893005EDBF0 /* TopBarView.swift */,
-				6A7735B029703AD400CB1558 /* MainWidget */,
 				6AADECE7296AD10D00499567 /* CustomNumpad */,
+				6A7735B029703AD400CB1558 /* MainWidget */,
 			);
 			path = "UI-Elements";
 			sourceTree = "<group>";
@@ -215,6 +219,7 @@
 			children = (
 				6AF80F0829709C5500F0D119 /* OneDayView.swift */,
 				6AB5C0702971530E00E45FC5 /* FullWeekView.swift */,
+				6A4C9278297890F90042AF2D /* NoOperationsView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				6AB5C0712971530E00E45FC5 /* FullWeekView.swift in Sources */,
 				6AADECE9296AD17500499567 /* KeyPadButton.swift in Sources */,
 				6A352303297002DE000EB00B /* WidgetProgressBarView.swift in Sources */,
+				6A4C9279297890F90042AF2D /* NoOperationsView.swift in Sources */,
 				6AA6F6ED294C88EE00672C9A /* ShowCategoriesView.swift in Sources */,
 				6AF80F0929709C5500F0D119 /* OneDayView.swift in Sources */,
 				6A23FDF4294876EA002A4B89 /* YourFinancesApp.swift in Sources */,
@@ -446,8 +452,8 @@
 				DEVELOPMENT_TEAM = 66STM82H6X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YourFinances/Application/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Finances;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -480,8 +486,8 @@
 				DEVELOPMENT_TEAM = 66STM82H6X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YourFinances/Application/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Finances;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

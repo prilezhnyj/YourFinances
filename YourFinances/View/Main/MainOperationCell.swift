@@ -40,11 +40,10 @@ struct MainOperationCell: View {
         .cornerRadius(20)
         .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
         .onTapGesture {
-            viewModel.currentItem = item
-            viewModel.showItem = true
+            viewModel.currentItemForDetailedInformation = item
+            viewModel.showDetailedInformation = true
         }
-        
-        .toast(isPresented: $viewModel.showItem) {
+        .toast(isPresented: $viewModel.showDetailedInformation) {
             MainDescriptionOperationView(viewModel: viewModel)
                 .padding(16)
         }
@@ -53,21 +52,8 @@ struct MainOperationCell: View {
 
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
-        MainOperationCell(viewModel: FinancesViewModel(), item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬"), description: "", date: Date()))
+        MainOperationCell(viewModel: FinancesViewModel(), item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬"), date: Date()))
             .previewLayout(.sizeThatFits)
     }
     
-}
-
-extension Formatter {
-    static let withSeparator: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = " "
-        return formatter
-    }()
-}
-
-extension Numeric {
-    var formattedWithSeparator: String { Formatter.withSeparator.string(for: self) ?? "" }
 }

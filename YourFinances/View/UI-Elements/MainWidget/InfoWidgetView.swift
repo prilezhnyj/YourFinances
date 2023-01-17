@@ -15,12 +15,12 @@ struct InfoWidgetView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 8) {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("За " + viewModel.getTitleMonth(for: viewModel.currentDay))
+                        Text("For " + viewModel.getTitleMonth(for: viewModel.currentDay))
                             .font(SetupFont.title2())
-                        Text("вы сэкономили")
+                        Text("you have saved")
                             .font(SetupFont.footnote())
                     }
-                    Text(viewModel.savedSum(for: viewModel.plusArray, and: viewModel.minusArray).formattedWithSeparator + "₽")
+                    Text(viewModel.savedSum(for: viewModel.profitsArray, and: viewModel.expenseArray).formattedWithSeparator + "₽")
                         .font(SetupFont.title2())
                 }
                 
@@ -28,16 +28,16 @@ struct InfoWidgetView: View {
                 
                 VStack(alignment: .leading, spacing: 8) {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("Заработали")
+                        Text("Earned")
                             .font(SetupFont.footnote())
-                        Text(viewModel.getSum(for: viewModel.plusArray).formattedWithSeparator + "₽")
+                        Text(viewModel.getSum(for: viewModel.profitsArray).formattedWithSeparator + "₽")
                             .font(SetupFont.callout())
                     }
                     
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("Потратили")
+                        Text("Spent")
                             .font(SetupFont.footnote())
-                        Text(viewModel.getSum(for: viewModel.minusArray).formattedWithSeparator + "₽")
+                        Text(viewModel.getSum(for: viewModel.expenseArray).formattedWithSeparator + "₽")
                             .font(SetupFont.callout())
                     }
                 }

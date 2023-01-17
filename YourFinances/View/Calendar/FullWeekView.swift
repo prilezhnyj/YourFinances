@@ -11,9 +11,9 @@ struct FullWeekView: View {
     @ObservedObject var viewModel: FinancesViewModel
     
     var body: some View {
-        HStack {
+        HStack(alignment: .center, spacing: 8) {
             ForEach(viewModel.currentWeek, id: \.self) { day in
-                OneDayView(viewModel: viewModel, dayWeek: viewModel.extractDate(for: day, format: "EEE"), dayMonth: viewModel.extractDate(for: day, format: "dd"), isToday: viewModel.isToday(for: day))
+                OneDayView(dayWeek: viewModel.extractDate(for: day, format: "dd"), titleDayWeek: viewModel.extractDate(for: day, format: "EE"), isToday: viewModel.isToday(for: day))
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             viewModel.selectedDayWeek = day
@@ -22,7 +22,10 @@ struct FullWeekView: View {
                     .overlay(Capsule(style: .continuous).stroke(viewModel.selectedDayWeek == day ? .black : .clear , lineWidth: 2))
             }
         }
-        .padding(.horizontal ,16)
+        .padding(.horizontal, 16)
+        .onChange(of: viewModel.selectedDayWeek) { newValue in
+            viewModel.filtredToday()
+        }
     }
 }
 
