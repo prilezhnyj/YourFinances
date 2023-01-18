@@ -24,7 +24,7 @@ struct FullWeekView: View {
         }
         .padding(.horizontal, 16)
         .onChange(of: viewModel.selectedDayWeek) { newValue in
-            viewModel.filtredToday()
+            viewModel.filterOperationsDay()
         }
     }
 }

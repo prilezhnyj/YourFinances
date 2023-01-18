@@ -67,7 +67,7 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Инициализатор
     init() {
         getCurrentWeek()
-        filtredToday()
+        filterOperationsDay()
     }
     
     // MARK: - Сохранение расхода / дохода
@@ -85,13 +85,13 @@ class FinancesViewModel: ObservableObject {
             print("Сохранение дохода")
         }
         
-        filtredToday()
+        filterOperationsDay()
     }
     
     // MARK: - Поиск элемента в массиве операций
-    func findItem(value searchValue: FinancesModel, in array: [FinancesModel]) -> Int? {
-        for (index, value) in array.enumerated() {
-            if value.id == searchValue.id {
+    func findItem(item searchItem: FinancesModel, in array: [FinancesModel]) -> Int? {
+        for (index, item) in array.enumerated() {
+            if item.id == searchItem.id {
                 return index
             }
         }
@@ -99,9 +99,9 @@ class FinancesViewModel: ObservableObject {
     }
     
     // MARK: - Поиск категорий в массиве категории
-    func findCategory(value searchValue: CategoryModel, in array: [CategoryModel]) -> Int? {
-        for (index, value) in array.enumerated() {
-            if value.id == searchValue.id {
+    func findCategory(category searchCategory: CategoryModel, in array: [CategoryModel]) -> Int? {
+        for (index, category) in array.enumerated() {
+            if category.id == searchCategory.id {
                 return index
             }
         }
@@ -109,38 +109,38 @@ class FinancesViewModel: ObservableObject {
     }
     
     // MARK: - Удаление нужно категории
-    func deleteCategory(item: CategoryModel) {
+    func deleteCategory(category: CategoryModel) {
         // Флаг отвечающий за категория траты это или нет
-        var isMinus: Bool? = false
+        var isExpense: Bool? = false
         
         // Индекc элемента в каждой катеорий. Один из элементов должен быть nil
-        let minusIndex = findCategory(value: item, in: expenseCategoriesArray)
-        let plusIndex = findCategory(value: item, in: profitsCategoriesArray)
+        let expenseCategories = findCategory(category: category, in: expenseCategoriesArray)
+        let profitsCategories = findCategory(category: category, in: profitsCategoriesArray)
         
         // Проверка на nil
-        if findCategory(value: item, in: expenseCategoriesArray) != nil {
-            isMinus = true
+        if findCategory(category: category, in: expenseCategoriesArray) != nil {
+            isExpense = true
         }
         
         // Проверка и удаление нужного элемента
-        if isMinus! {
-            expenseCategoriesArray.remove(at: minusIndex!)
+        if isExpense! {
+            expenseCategoriesArray.remove(at: expenseCategories!)
         } else {
-            profitsCategoriesArray.remove(at: plusIndex!)
+            profitsCategoriesArray.remove(at: profitsCategories!)
         }
     }
     
     // MARK: - Удаление операций в детальном окне главного меню
     func deleteItem(item: FinancesModel) {
         if item.type == .minus {
-            let index = findItem(value: item, in: expenseArray)
+            let index = findItem(item: item, in: expenseArray)
             expenseArray.remove(at: index!)
         } else {
-            let index = findItem(value: item, in: profitsArray)
+            let index = findItem(item: item, in: profitsArray)
             profitsArray.remove(at: index!)
         }
         
-        filtredToday()
+        filterOperationsDay()
     }
     
     // MARK: - Добавление новой категории
@@ -153,7 +153,7 @@ class FinancesViewModel: ObservableObject {
     }
     
     // MARK: - Получение суммы по архиву
-    func getSum(for array: [FinancesModel]) -> Double {
+    func getAmount(for array: [FinancesModel]) -> Double {
         var amount: Double = 0
         
         for item in array {
@@ -164,26 +164,26 @@ class FinancesViewModel: ObservableObject {
     }
     
     // MARK: - Получение сохранённой сумммы
-    func savedSum(for plusArray: [FinancesModel], and minusArray: [FinancesModel]) -> Double {
-        var plusAmount: Double = 0
-        var minusAmount: Double = 0
+    func getGapBetweenAmounts(for profitArray: [FinancesModel], and expenseArray: [FinancesModel]) -> Double {
+        var profitAmount: Double = 0
+        var expenseAmount: Double = 0
         
-        for item in plusArray {
-            plusAmount = plusAmount + item.amount
+        for item in profitArray {
+            profitAmount = profitAmount + item.amount
         }
         
-        for item in minusArray {
-            minusAmount = minusAmount + item.amount
+        for item in expenseArray {
+            expenseAmount = expenseAmount + item.amount
         }
         
-        return plusAmount - minusAmount
+        return profitAmount - expenseAmount
     }
     
-    // MARK: - Получение процента потраченых денег от все суммы
-    func getPercentage() -> CGFloat {
-        let minusSum = getSum(for: expenseArray)
-        let plusSum = getSum(for: profitsArray)
-        let res = 100 / (plusSum / minusSum)
+    // MARK: - Получение процента потраченых денег от все суммы для прогрессБара на виджет
+    func getPercentageTotalAmount() -> CGFloat {
+        let expenseAmount = getAmount(for: expenseArray)
+        let profitAmount = getAmount(for: profitsArray)
+        let res = 100 / (profitAmount / expenseAmount)
         return 1 - (res / 100)
     }
     
@@ -220,38 +220,19 @@ class FinancesViewModel: ObservableObject {
         return calendar.isDate(currentDay, inSameDayAs: date)
     }
     
-    /*
-     // MARK: - Если TRUE, то на полной неделе день отмечается точкой. Это значит, то в этот день были совершены операции
-     func checkOperationDay(for day: Date) {
-     let filtredMinus = self.minusArray.filter { item in
-     return self.calendar.isDate(item.date, inSameDayAs: day)
-     }
-     
-     let filtredPlus = self.plusArray.filter { item in
-     return self.calendar.isDate(item.date, inSameDayAs: day)
-     }
-     
-     if filtredMinus.isEmpty && filtredPlus.isEmpty {
-     checkForEventSelectedDay = false
-     } else {
-     checkForEventSelectedDay = true
-     }
-     }
-     */
-    
-    func filtredToday() {
+    func filterOperationsDay() {
         DispatchQueue.global(qos: .userInteractive).async {
-            let filtredMinus = self.expenseArray.filter { item in
+            let expenseFilter = self.expenseArray.filter { item in
                 return self.calendar.isDate(item.date, inSameDayAs: self.selectedDayWeek)
             }
             
-            let filtredPlus = self.profitsArray.filter { item in
+            let profitFilter = self.profitsArray.filter { item in
                 return self.calendar.isDate(item.date, inSameDayAs: self.selectedDayWeek)
             }
             
             DispatchQueue.main.async {
-                self.currentExpenseArray = filtredMinus
-                self.currentProfitsArray = filtredPlus
+                self.currentExpenseArray = expenseFilter
+                self.currentProfitsArray = profitFilter
             }
             
         }

@@ -26,7 +26,7 @@ struct CategoryRowView: View {
             
             Button {
                 withAnimation(.easeInOut(duration: 0.2)) {
-                    viewModel.deleteCategory(item: item)
+                    viewModel.deleteCategory(category: item)
                 }
             } label: {
                 Image(systemName: "trash")

@@ -21,12 +21,12 @@ struct WidgetProgressBarView: View {
                 .opacity(getWidthFromPercentage() >= 0 ? 1 : 0)
         }
         .frame(maxWidth: .infinity, maxHeight: 16)
-        .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5), value: viewModel.getPercentage())
+        .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5), value: viewModel.getPercentageTotalAmount())
     }
     
     func getWidthFromPercentage() -> CGFloat {
         let width = UIScreen.main.bounds.width - 64
-        return width * viewModel.getPercentage()
+        return width * viewModel.getPercentageTotalAmount()
     }
 }
 

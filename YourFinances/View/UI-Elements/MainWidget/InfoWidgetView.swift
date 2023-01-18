@@ -20,7 +20,7 @@ struct InfoWidgetView: View {
                         Text("you have saved")
                             .font(SetupFont.footnote())
                     }
-                    Text(viewModel.savedSum(for: viewModel.profitsArray, and: viewModel.expenseArray).formattedWithSeparator + "₽")
+                    Text(viewModel.getGapBetweenAmounts(for: viewModel.profitsArray, and: viewModel.expenseArray).formattedWithSeparator + "₽")
                         .font(SetupFont.title2())
                 }
                 
@@ -30,14 +30,14 @@ struct InfoWidgetView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Earned")
                             .font(SetupFont.footnote())
-                        Text(viewModel.getSum(for: viewModel.profitsArray).formattedWithSeparator + "₽")
+                        Text(viewModel.getAmount(for: viewModel.profitsArray).formattedWithSeparator + "₽")
                             .font(SetupFont.callout())
                     }
                     
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Spent")
                             .font(SetupFont.footnote())
-                        Text(viewModel.getSum(for: viewModel.expenseArray).formattedWithSeparator + "₽")
+                        Text(viewModel.getAmount(for: viewModel.expenseArray).formattedWithSeparator + "₽")
                             .font(SetupFont.callout())
                     }
                 }

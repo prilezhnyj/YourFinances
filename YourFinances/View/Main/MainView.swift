@@ -110,7 +110,7 @@ struct MainView: View {
             
             Spacer()
             
-            Text(viewModel.getSum(for: array).formattedWithSeparator + "₽")
+            Text(viewModel.getAmount(for: array).formattedWithSeparator + "₽")
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal, 16)
