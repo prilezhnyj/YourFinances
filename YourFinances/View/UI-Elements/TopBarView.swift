@@ -23,16 +23,12 @@ struct TopBarView: View {
             }
             Spacer()
             
-            Button {
-                // !!! Действие по кнопке
-            } label: {
-                Image("Avatar")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 48, height: 48, alignment: .center)
-                    .clipShape(Circle())
-                    .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
-            }
+            Image("Avatar")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 48, height: 48, alignment: .center)
+                .clipShape(Circle())
+                .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
         }
         .frame(maxWidth: .infinity, maxHeight: 48)
     }
