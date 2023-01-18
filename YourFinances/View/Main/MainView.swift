@@ -14,38 +14,38 @@ struct MainView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-                VStack(alignment: .center, spacing: 16) {
-                    TopBarView(viewModel: viewModel)
-                        .padding(.top ,16)
-                        .padding(.horizontal, 16)
-                    
-                    InfoWidgetView(viewModel: viewModel)
-                        .padding(.horizontal, 16)
-                    
-                    FullWeekView(viewModel: viewModel)
-                    
-                    if viewModel.currentExpenseArray.isEmpty && viewModel.currentProfitsArray.isEmpty {
-                        NoOperationsView(viewModel: viewModel)
-                    } else {
-                        ScrollView(.vertical, showsIndicators: false) {
-                            Section(header: HerderView(text: "Expenses", for: viewModel.currentExpenseArray)) {
-                                ForEach(viewModel.currentExpenseArray) { item in
-                                    MainOperationCell(viewModel: viewModel, item: item)
-                                }
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .padding(.horizontal, 16)
+            VStack(alignment: .center, spacing: 16) {
+                TopBarView(viewModel: viewModel)
+                    .padding(.top ,16)
+                    .padding(.horizontal, 16)
+                
+                InfoWidgetView(viewModel: viewModel)
+                    .padding(.horizontal, 16)
+                
+                FullWeekView(viewModel: viewModel)
+                
+                if viewModel.currentExpenseArray.isEmpty && viewModel.currentProfitsArray.isEmpty {
+                    NoOperationsView(viewModel: viewModel)
+                } else {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        Section(header: HerderView(text: "Expenses", for: viewModel.currentExpenseArray)) {
+                            ForEach(viewModel.currentExpenseArray) { item in
+                                MainOperationCell(viewModel: viewModel, item: item)
                             }
-                            
-                            Section(header: HerderView(text: "Profits", for: viewModel.currentProfitsArray)) {
-                                ForEach(viewModel.currentProfitsArray) { item in
-                                    MainOperationCell(viewModel: viewModel, item: item)
-                                }
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .padding(.horizontal, 16)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .padding(.horizontal, 16)
+                        }
+                        
+                        Section(header: HerderView(text: "Profits", for: viewModel.currentProfitsArray)) {
+                            ForEach(viewModel.currentProfitsArray) { item in
+                                MainOperationCell(viewModel: viewModel, item: item)
                             }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .padding(.horizontal, 16)
                         }
                     }
                 }
+            }
             
             VStack {
                 Spacer()
