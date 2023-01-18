@@ -78,10 +78,10 @@ class FinancesViewModel: ObservableObject {
         }
         
         if isExpense == true {
-            expenseArray.append(FinancesModel(type: .minus, amount: amountDouble, category: selectedCategory, date: selectedDayWeek))
+            expenseArray.append(FinancesModel(type: .minus, amount: amountDouble, category: selectedCategory, date: currentDay))
             print("Сохранение расхода")
         } else {
-            profitsArray.append(FinancesModel(type: .plus, amount: amountDouble, category: selectedCategory, date: selectedDayWeek))
+            profitsArray.append(FinancesModel(type: .plus, amount: amountDouble, category: selectedCategory, date: currentDay))
             print("Сохранение дохода")
         }
         
