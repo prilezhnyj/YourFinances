@@ -10,7 +10,7 @@ import SwiftUI
 class FinancesViewModel: ObservableObject {
     
     // MARK: - Элементы, необходимы для создания новой операций
-    @Published var selectedCategory = CategoryModel(title: "", image: "")
+    @Published var selectedCategory = CategoryModel(title: "", image: "", locKey: "")
     @Published var operationAmount = ""
     
     // Флаг отвечающий за выбор операции в NewOperationView
@@ -24,7 +24,7 @@ class FinancesViewModel: ObservableObject {
     
     
     // MARK: - Детальное отображение операции на главном экране MainView
-    @Published var currentItemForDetailedInformation = FinancesModel(type: .minus, amount: 0, category: CategoryModel(title: "", image: ""), date: Date())
+    @Published var currentItemForDetailedInformation = FinancesModel(type: .minus, amount: 0, category: CategoryModel(title: "", image: "", locKey: ""), date: Date())
     
     // Флаг отвечающий за раскрытие Вью с детальной информации на главном экране MainView
     @Published var showDetailedInformation = false
@@ -39,17 +39,17 @@ class FinancesViewModel: ObservableObject {
     
     // MARK: - Массивы категорий
     @Published var expenseCategoriesArray = [
-        CategoryModel(title: "Products", image: "🥬"),
-        CategoryModel(title: "Transport", image: "🚎"),
-        CategoryModel(title: "House", image: "🏠"),
-        CategoryModel(title: "Sweets", image: "🍭"),
-        CategoryModel(title: "Hobby", image: "👟")]
+        CategoryModel(title: "Products", image: "🥬", locKey: "products"),
+        CategoryModel(title: "Transport", image: "🚎", locKey: "transport"),
+        CategoryModel(title: "House", image: "🏠", locKey: "house"),
+        CategoryModel(title: "Sweets", image: "🍭", locKey: "sweets"),
+        CategoryModel(title: "Hobby", image: "👟", locKey: "hobby")]
     
     @Published var profitsCategoriesArray = [
-        CategoryModel(title: "Salary", image: "💰"),
-        CategoryModel(title: "Donations", image: "🤑"),
-        CategoryModel(title: "Savings", image: "💸"),
-        CategoryModel(title: "Investment", image: "💶")]
+        CategoryModel(title: "Salary", image: "💰", locKey: "salary"),
+        CategoryModel(title: "Donations", image: "🤑", locKey: "donations"),
+        CategoryModel(title: "Savings", image: "💸", locKey: "savings"),
+        CategoryModel(title: "Investment", image: "💶", locKey: "investment")]
     
     // MARK: - Массивы операций
     @Published var expenseArray = [FinancesModel]()
@@ -67,7 +67,13 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Инициализатор
     init() {
         getCurrentWeek()
+        mockData()
         filterOperationsDay()
+    }
+    
+    func mockData() {
+        expenseArray.append(FinancesModel(type: .minus, amount: 239, category: CategoryModel(title: "Products", image: "🥬", locKey: "products"), date: .now))
+        profitsArray.append(FinancesModel(type: .plus, amount: 239, category: CategoryModel(title: "fdfd", image: "dfdd", locKey: "transport"), date: Date(timeIntervalSince1970: 1674326827)))
     }
     
     // MARK: - Сохранение расхода / дохода
@@ -146,9 +152,9 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Добавление новой категории
     func addNewCategory() {
         if isExpenseNewCategory == true {
-            expenseCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory), at: 0)
+            expenseCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory, locKey: newTitleCategory.lowercased()), at: 0)
         } else {
-            profitsCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory), at: 0)
+            profitsCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory, locKey: newTitleCategory.lowercased()), at: 0)
         }
     }
     
@@ -239,25 +245,25 @@ class FinancesViewModel: ObservableObject {
     }
     
     // MARK: - Получение названия месяца для виджета
-    func getTitleMonth(for date: Date) -> String {
+    func getTitleMonth(for date: Date) -> LocalizedStringKey {
         let components = calendar.dateComponents([.month], from: date)
         let month = components.month!
         
-        let result: String
+        let result: LocalizedStringKey
         
         switch month {
-        case 1: result = "January"
-        case 2: result = "February"
-        case 3: result = "March"
-        case 4: result = "April"
-        case 5: result = "May"
-        case 6: result = "June"
-        case 7: result = "July"
-        case 8: result = "August"
-        case 9: result = "September"
-        case 10: result = "October"
-        case 11: result = "November"
-        default: result = "December"
+        case 1: result = "january"
+        case 2: result = "february"
+        case 3: result = "march"
+        case 4: result = "april"
+        case 5: result = "may"
+        case 6: result = "june"
+        case 7: result = "july"
+        case 8: result = "august"
+        case 9: result = "september"
+        case 10: result = "october"
+        case 11: result = "november"
+        default: result = "december"
         }
         return result
     }

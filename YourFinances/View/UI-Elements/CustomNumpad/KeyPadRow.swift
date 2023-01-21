@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct KeyPadRow: View {
+    
+    // MARK: - СВОЙСТВА
     var keys: [String]
 
+    // MARK: - ТЕЛО
     var body: some View {
         HStack(alignment: .center, spacing: 8) {
             ForEach(keys, id: \.self) { key in
@@ -19,6 +22,7 @@ struct KeyPadRow: View {
     }
 }
 
+// MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct KeyPadRow_Previews: PreviewProvider {
     static var previews: some View {
         KeyPadRow(keys: ["1", "2", "3"])

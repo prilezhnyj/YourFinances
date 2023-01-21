@@ -14,12 +14,12 @@ struct CategoryRowView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
             Text(item.image)
-                .font(SetupFont.callout())
-                .frame(minWidth: 48, minHeight: 48)
+                .font(SetupFont.footnote())
+                .frame(minWidth: 40, minHeight: 40)
                 .background(Color.black.opacity(0.1))
                 .clipShape(Circle())
             
-            Text(item.title)
+            Text(Localizable.getKey(for: item.locKey))
                 .font(SetupFont.callout())
             
             Spacer()
@@ -46,7 +46,7 @@ struct CategoryRowView: View {
 
 struct CategoryRowView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryRowView(item: CategoryModel(title: "Проверка", image: "🏡"), viewModel: FinancesViewModel())
+        CategoryRowView(item: CategoryModel(title: "Products", image: "🥬", locKey: "products"), viewModel: FinancesViewModel())
             .previewLayout(.sizeThatFits)
     }
 }

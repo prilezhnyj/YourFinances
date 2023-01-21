@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ToastUI
 
 struct MainOperationCell: View {
     
@@ -16,15 +15,16 @@ struct MainOperationCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
             Text(item.category.image)
-                .frame(width: 48, height: 48, alignment: .center)
+                .font(SetupFont.footnote())
+                .frame(width: 40, height: 40, alignment: .center)
                 .background(Color.black.opacity(0.1))
                 .clipShape(Circle())
             
-            VStack(alignment: .leading, spacing: 5) {
-                Text(item.category.title)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(LocalizedStringKey(item.category.locKey))
                     .font(SetupFont.callout())
                 
-                Text(item.type.rawValue)
+                Text(LocalizedStringKey(item.type.rawValue))
                     .font(SetupFont.footnote())
             }
             
@@ -41,18 +41,14 @@ struct MainOperationCell: View {
         .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
         .onTapGesture {
             viewModel.currentItemForDetailedInformation = item
-            viewModel.showDetailedInformation = true
-        }
-        .toast(isPresented: $viewModel.showDetailedInformation) {
-            MainDescriptionOperationView(viewModel: viewModel)
-                .padding(16)
+            viewModel.showDetailedInformation.toggle()
         }
     }
 }
 
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
-        MainOperationCell(viewModel: FinancesViewModel(), item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬"), date: Date()))
+        MainOperationCell(viewModel: FinancesViewModel(), item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬", locKey: "protucts"), date: Date()))
             .previewLayout(.sizeThatFits)
     }
     

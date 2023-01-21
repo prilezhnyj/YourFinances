@@ -8,18 +8,24 @@
 import SwiftUI
 
 struct NoOperationsView: View {
+    
+    // MARK: - СВОЙСТВА
     @ObservedObject var viewModel: FinancesViewModel
     @State private var isPresentedNewExpense = false
-    
+
+    // MARK: - ТЕЛО
     var body: some View {
+        
+        // MARK: Заголовок
         VStack(alignment: .center, spacing: 16) {
-            Text("No operations")
+            Text(Localizable.noOperations)
                 .font(SetupFont.title3())
             
+            // MARK: Кнопка, которыя переправляет на NewOperationView
             Button {
                 isPresentedNewExpense.toggle()
             } label: {
-                Text("Add new")
+                Text(Localizable.addNew)
                     .font(SetupFont.footnoteButton())
                     .frame(width: 150, height: 32)
                     .background(Color.white)
@@ -31,11 +37,11 @@ struct NoOperationsView: View {
                 NewOperationView(viewModel: viewModel)
             }
         }
-        .padding(.top, 40)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .padding(40)
     }
 }
 
+// MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct NoOperationsView_Previews: PreviewProvider {
     static var previews: some View {
         NoOperationsView(viewModel: FinancesViewModel())

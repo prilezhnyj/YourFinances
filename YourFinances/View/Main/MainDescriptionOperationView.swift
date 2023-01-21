@@ -20,10 +20,10 @@ struct MainDescriptionOperationView: View {
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(viewModel.currentItemForDetailedInformation.category.title)
+                    Text(LocalizedStringKey(viewModel.currentItemForDetailedInformation.category.title.lowercased()))
                         .font(SetupFont.callout())
                     
-                    Text(viewModel.currentItemForDetailedInformation.type.rawValue)
+                    Text(LocalizedStringKey(viewModel.currentItemForDetailedInformation.type.rawValue))
                         .font(SetupFont.footnote())
                 }
                 
@@ -41,14 +41,20 @@ struct MainDescriptionOperationView: View {
                         viewModel.showDetailedInformation = false
                     }
                 } label: {
-                    Text("Delete")
-                        .font(SetupFont.footnoteButton())
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 32)
-                        .foregroundColor(.white)
-                        .background(Color.red)
-                        .clipShape(Capsule(style: .continuous))
-                        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+                    HStack(alignment: .center, spacing: 8) {
+                        Image(systemName: "trash")
+                            .font(SetupFont.footnoteButton())
+                        
+                        Text(Localizable.delete)
+                            .font(SetupFont.footnoteButton())
+
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 32)
+                    .foregroundColor(.white)
+                    .background(Color.red)
+                    .clipShape(Capsule(style: .continuous))
+                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
                 }
                 
                 Button {

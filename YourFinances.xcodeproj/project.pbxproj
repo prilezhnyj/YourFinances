@@ -15,17 +15,23 @@
 		6A23FE032948775D002A4B89 /* FinancesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A23FE022948775D002A4B89 /* FinancesModel.swift */; };
 		6A23FE0629487916002A4B89 /* FinancesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A23FE0529487916002A4B89 /* FinancesViewModel.swift */; };
 		6A352303297002DE000EB00B /* WidgetProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A352302297002DE000EB00B /* WidgetProgressBarView.swift */; };
+		6A3EDAE029780DF500989831 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A3EDAE229780DF500989831 /* Localizable.strings */; };
+		6A3EDAE72978172600989831 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3EDAE62978172600989831 /* Localizable.swift */; };
 		6A4C9279297890F90042AF2D /* NoOperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4C9278297890F90042AF2D /* NoOperationsView.swift */; };
 		6A522044295B155F003FA75E /* MainDescriptionOperationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A522043295B155F003FA75E /* MainDescriptionOperationView.swift */; };
 		6A558F6F294A00DE005EDBF0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A558F6E294A00DE005EDBF0 /* MainView.swift */; };
 		6A558F71294B92FD005EDBF0 /* MainOperationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A558F70294B92FD005EDBF0 /* MainOperationCell.swift */; };
 		6A558F73294C2893005EDBF0 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A558F72294C2893005EDBF0 /* TopBarView.swift */; };
+		6A6CF05F297ABC8F00B95175 /* SetupAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6CF05E297ABC8F00B95175 /* SetupAuth.swift */; };
+		6A6CF062297ABD8500B95175 /* ErrorAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6CF061297ABD8500B95175 /* ErrorAuth.swift */; };
+		6A6CF064297ABDC800B95175 /* ValidateAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6CF063297ABDC800B95175 /* ValidateAuth.swift */; };
+		6A6CF066297AC32E00B95175 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A6CF065297AC32E00B95175 /* GoogleService-Info.plist */; };
+		6A90DA7D297AB134000C2542 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A90DA7C297AB134000C2542 /* StartView.swift */; };
 		6AA6F6ED294C88EE00672C9A /* ShowCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA6F6EC294C88EE00672C9A /* ShowCategoriesView.swift */; };
-		6AA87369295D9627001384B1 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6AA87368295D9627001384B1 /* ToastUI */; };
 		6AADECE9296AD17500499567 /* KeyPadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AADECE8296AD17500499567 /* KeyPadButton.swift */; };
 		6AADECEB296AD1EE00499567 /* KeyPadRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AADECEA296AD1EE00499567 /* KeyPadRow.swift */; };
 		6AADECED296AD28000499567 /* KeyPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AADECEC296AD28000499567 /* KeyPad.swift */; };
-		6AADECEF296AD33D00499567 /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AADECEE296AD33D00499567 /* NumpadView.swift */; };
+		6AADECEF296AD33D00499567 /* NumPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AADECEE296AD33D00499567 /* NumPadView.swift */; };
 		6AB5C0712971530E00E45FC5 /* FullWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB5C0702971530E00E45FC5 /* FullWeekView.swift */; };
 		6AC94A23296D6EC90077E36C /* NewCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC94A22296D6EC90077E36C /* NewCategoryView.swift */; };
 		6AC94A25296D7B120077E36C /* CategoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC94A24296D7B120077E36C /* CategoryRowView.swift */; };
@@ -43,17 +49,25 @@
 		6A23FE022948775D002A4B89 /* FinancesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancesModel.swift; sourceTree = "<group>"; };
 		6A23FE0529487916002A4B89 /* FinancesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancesViewModel.swift; sourceTree = "<group>"; };
 		6A352302297002DE000EB00B /* WidgetProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetProgressBarView.swift; sourceTree = "<group>"; };
+		6A3EDAE129780DF500989831 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6A3EDAE329780DF900989831 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6A3EDAE62978172600989831 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		6A4C9278297890F90042AF2D /* NoOperationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoOperationsView.swift; sourceTree = "<group>"; };
 		6A522043295B155F003FA75E /* MainDescriptionOperationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDescriptionOperationView.swift; sourceTree = "<group>"; };
 		6A558F6E294A00DE005EDBF0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6A558F70294B92FD005EDBF0 /* MainOperationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainOperationCell.swift; sourceTree = "<group>"; };
 		6A558F72294C2893005EDBF0 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
+		6A6CF05E297ABC8F00B95175 /* SetupAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupAuth.swift; sourceTree = "<group>"; };
+		6A6CF061297ABD8500B95175 /* ErrorAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAuth.swift; sourceTree = "<group>"; };
+		6A6CF063297ABDC800B95175 /* ValidateAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateAuth.swift; sourceTree = "<group>"; };
+		6A6CF065297AC32E00B95175 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A80A1B12976FA5A00A7611A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A90DA7C297AB134000C2542 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		6AA6F6EC294C88EE00672C9A /* ShowCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCategoriesView.swift; sourceTree = "<group>"; };
 		6AADECE8296AD17500499567 /* KeyPadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPadButton.swift; sourceTree = "<group>"; };
 		6AADECEA296AD1EE00499567 /* KeyPadRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPadRow.swift; sourceTree = "<group>"; };
 		6AADECEC296AD28000499567 /* KeyPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPad.swift; sourceTree = "<group>"; };
-		6AADECEE296AD33D00499567 /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
+		6AADECEE296AD33D00499567 /* NumPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumPadView.swift; sourceTree = "<group>"; };
 		6AB5C0702971530E00E45FC5 /* FullWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWeekView.swift; sourceTree = "<group>"; };
 		6AC94A22296D6EC90077E36C /* NewCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryView.swift; sourceTree = "<group>"; };
 		6AC94A24296D7B120077E36C /* CategoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRowView.swift; sourceTree = "<group>"; };
@@ -66,7 +80,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AA87369295D9627001384B1 /* ToastUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +129,7 @@
 				6A558F6D294A00C6005EDBF0 /* View */,
 				6A23FE0429487900002A4B89 /* ViewModel */,
 				6AD6CAE12970320400270354 /* Resources */,
+				6A6CF05D297AB9C300B95175 /* Firebase */,
 				6A23FDF7294876EB002A4B89 /* Assets.xcassets */,
 				6A23FDF9294876EB002A4B89 /* Preview Content */,
 			);
@@ -151,6 +165,8 @@
 			children = (
 				6A23FDF3294876EA002A4B89 /* YourFinancesApp.swift */,
 				6A80A1B12976FA5A00A7611A /* Info.plist */,
+				6A3EDAE229780DF500989831 /* Localizable.strings */,
+				6A3EDAE62978172600989831 /* Localizable.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -158,6 +174,7 @@
 		6A558F6D294A00C6005EDBF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6A90DA7A297AB0FF000C2542 /* Authorization */,
 				6AF80F0729709C3B00F0D119 /* Calendar */,
 				6AD6CAE42970372F00270354 /* UI-Elements */,
 				6AE33508295DC90F008AE851 /* NewOperation */,
@@ -165,6 +182,25 @@
 				6A1FAA73297094D100D2B14D /* Main */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		6A6CF05D297AB9C300B95175 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				6A6CF060297ABD7300B95175 /* Auth */,
+				6A6CF065297AC32E00B95175 /* GoogleService-Info.plist */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		6A6CF060297ABD7300B95175 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6A6CF05E297ABC8F00B95175 /* SetupAuth.swift */,
+				6A6CF061297ABD8500B95175 /* ErrorAuth.swift */,
+				6A6CF063297ABDC800B95175 /* ValidateAuth.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		6A7735B029703AD400CB1558 /* MainWidget */ = {
@@ -176,13 +212,21 @@
 			path = MainWidget;
 			sourceTree = "<group>";
 		};
+		6A90DA7A297AB0FF000C2542 /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				6A90DA7C297AB134000C2542 /* StartView.swift */,
+			);
+			path = Authorization;
+			sourceTree = "<group>";
+		};
 		6AADECE7296AD10D00499567 /* CustomNumpad */ = {
 			isa = PBXGroup;
 			children = (
 				6AADECE8296AD17500499567 /* KeyPadButton.swift */,
 				6AADECEA296AD1EE00499567 /* KeyPadRow.swift */,
 				6AADECEC296AD28000499567 /* KeyPad.swift */,
-				6AADECEE296AD33D00499567 /* NumpadView.swift */,
+				6AADECEE296AD33D00499567 /* NumPadView.swift */,
 			);
 			path = CustomNumpad;
 			sourceTree = "<group>";
@@ -241,7 +285,6 @@
 			);
 			name = YourFinances;
 			packageProductDependencies = (
-				6AA87368295D9627001384B1 /* ToastUI */,
 			);
 			productName = YourFinances;
 			productReference = 6A23FDF0294876EA002A4B89 /* YourFinances.app */;
@@ -269,10 +312,10 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 6A23FDE7294876EA002A4B89;
 			packageReferences = (
-				6AA87367295D9627001384B1 /* XCRemoteSwiftPackageReference "ToastUI" */,
 			);
 			productRefGroup = 6A23FDF1294876EA002A4B89 /* Products */;
 			projectDirPath = "";
@@ -289,6 +332,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A23FDFB294876EB002A4B89 /* Preview Assets.xcassets in Resources */,
+				6A6CF066297AC32E00B95175 /* GoogleService-Info.plist in Resources */,
+				6A3EDAE029780DF500989831 /* Localizable.strings in Resources */,
 				6A23FDF8294876EB002A4B89 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,17 +345,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A3EDAE72978172600989831 /* Localizable.swift in Sources */,
 				6A23FDF6294876EA002A4B89 /* NewOperationView.swift in Sources */,
-				6AADECEF296AD33D00499567 /* NumpadView.swift in Sources */,
+				6AADECEF296AD33D00499567 /* NumPadView.swift in Sources */,
 				6AD6CAE32970323400270354 /* SetupFont.swift in Sources */,
 				6A23FE0629487916002A4B89 /* FinancesViewModel.swift in Sources */,
+				6A6CF064297ABDC800B95175 /* ValidateAuth.swift in Sources */,
 				6A23FE032948775D002A4B89 /* FinancesModel.swift in Sources */,
 				6AADECEB296AD1EE00499567 /* KeyPadRow.swift in Sources */,
 				6AC94A23296D6EC90077E36C /* NewCategoryView.swift in Sources */,
+				6A90DA7D297AB134000C2542 /* StartView.swift in Sources */,
 				6A558F71294B92FD005EDBF0 /* MainOperationCell.swift in Sources */,
 				6AC94A25296D7B120077E36C /* CategoryRowView.swift in Sources */,
 				6A522044295B155F003FA75E /* MainDescriptionOperationView.swift in Sources */,
 				6A558F73294C2893005EDBF0 /* TopBarView.swift in Sources */,
+				6A6CF05F297ABC8F00B95175 /* SetupAuth.swift in Sources */,
 				6A006B90296EA4FE00EA08A5 /* InfoWidgetView.swift in Sources */,
 				6A558F6F294A00DE005EDBF0 /* MainView.swift in Sources */,
 				6AADECED296AD28000499567 /* KeyPad.swift in Sources */,
@@ -320,11 +369,24 @@
 				6A4C9279297890F90042AF2D /* NoOperationsView.swift in Sources */,
 				6AA6F6ED294C88EE00672C9A /* ShowCategoriesView.swift in Sources */,
 				6AF80F0929709C5500F0D119 /* OneDayView.swift in Sources */,
+				6A6CF062297ABD8500B95175 /* ErrorAuth.swift in Sources */,
 				6A23FDF4294876EA002A4B89 /* YourFinancesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6A3EDAE229780DF500989831 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A3EDAE129780DF500989831 /* en */,
+				6A3EDAE329780DF900989831 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6A23FDFC294876EB002A4B89 /* Debug */ = {
@@ -531,25 +593,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		6AA87367295D9627001384B1 /* XCRemoteSwiftPackageReference "ToastUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/quanshousio/ToastUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		6AA87368295D9627001384B1 /* ToastUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6AA87367295D9627001384B1 /* XCRemoteSwiftPackageReference "ToastUI" */;
-			productName = ToastUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6A23FDE8294876EA002A4B89 /* Project object */;
 }

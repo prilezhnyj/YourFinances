@@ -10,10 +10,14 @@ import SwiftUI
 import SwiftUI
 
 struct TopBarView: View {
+    
+    // MARK: - СВОЙСТВА
     @ObservedObject var viewModel: FinancesViewModel
     
+    // MARK: - ТЕЛО
     var body: some View {
-        HStack(alignment: .top, spacing: 0) {
+        HStack(alignment: .top) {
+            
             // MARK: Текущая дата (День недели + дата)
             VStack(alignment: .leading, spacing: 4) {
                 Text(viewModel.extractDate(for: viewModel.currentDay, format: "EEEE").capitalized)
@@ -21,8 +25,11 @@ struct TopBarView: View {
                 Text(viewModel.extractDate(for: viewModel.currentDay, format: "d MMMM yyyy"))
                     .font(SetupFont.footnote())
             }
+            .frame(maxHeight: 48)
+            
             Spacer()
             
+            // MARK: Изображение пользователя
             Image("Avatar")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -34,6 +41,7 @@ struct TopBarView: View {
     }
 }
 
+// MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
         TopBarView(viewModel: FinancesViewModel())

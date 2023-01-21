@@ -13,7 +13,7 @@ struct NewCategoryView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            Text("New category")
+            Text(Localizable.newCategory)
                 .font(SetupFont.title3())
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 16)
@@ -23,7 +23,7 @@ struct NewCategoryView: View {
                 Button {
                     viewModel.isExpenseNewCategory = true
                 } label: {
-                    Text("Expense")
+                    Text(Localizable.expense)
                         .font(SetupFont.callout())
                         .frame(maxWidth: .infinity)
                         .frame(height: 32)
@@ -36,7 +36,7 @@ struct NewCategoryView: View {
                 Button {
                     viewModel.isExpenseNewCategory = false
                 } label: {
-                    Text("Profit")
+                    Text(Localizable.profit)
                         .font(SetupFont.callout())
                         .frame(maxWidth: .infinity)
                         .frame(height: 32)
@@ -51,7 +51,7 @@ struct NewCategoryView: View {
             .padding(.vertical, 8)
             
             HStack {
-                TextField("Category title", text: $viewModel.newTitleCategory)
+                TextField(Localizable.categoryTitle, text: $viewModel.newTitleCategory)
                     .foregroundColor(viewModel.newTitleCategory == "" ? .black.opacity(0.5) : .black)
                     .font(SetupFont.title3())
                     .padding(.horizontal, 16)
@@ -83,7 +83,7 @@ struct NewCategoryView: View {
                 viewModel.newImageCategory = ""
                 viewModel.isExpenseNewCategory = true
             } label: {
-                Text("Save")
+                Text(Localizable.save)
                     .font(SetupFont.callout())
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
@@ -99,34 +99,38 @@ struct NewCategoryView: View {
             Divider()
                 .padding(16)
             
-            Text("Your categories")
+            Text(Localizable.yourCategories)
                 .font(SetupFont.title3())
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
             
-            LazyVGrid(columns: [GridItem(.flexible(minimum: 300, maximum: 414))], alignment: .leading, spacing: 8) {
-                Section {
-                    ForEach(viewModel.expenseCategoriesArray) { item in
-                        CategoryRowView(item: item,viewModel: viewModel)
+            LazyVGrid(columns: [GridItem(.flexible())], alignment: .leading, spacing: 8) {
+                if !viewModel.expenseCategoriesArray.isEmpty {
+                    Section {
+                        ForEach(viewModel.expenseCategoriesArray) { item in
+                            CategoryRowView(item: item,viewModel: viewModel)
+                        }
+                    } header: {
+                        HeaderView(for: viewModel.expenseCategoriesArray.isEmpty ? "" : Localizable.expenses)
                     }
-                } header: {
-                    HeaderView(for: viewModel.expenseCategoriesArray.isEmpty ? "" : "Expenses")
                 }
                 
-                Section {
-                    ForEach(viewModel.profitsCategoriesArray) { item in
-                        CategoryRowView(item: item,viewModel: viewModel)
+                if !viewModel.profitsCategoriesArray.isEmpty {
+                    Section {
+                        ForEach(viewModel.profitsCategoriesArray) { item in
+                            CategoryRowView(item: item,viewModel: viewModel)
+                        }
+                    } header: {
+                        HeaderView(for: viewModel.profitsCategoriesArray.isEmpty ? "" : Localizable.profits)
                     }
-                } header: {
-                    HeaderView(for: viewModel.profitsCategoriesArray.isEmpty ? "" : "Profits")
                 }
             }
             .padding(16)
         }
     }
     
-    func HeaderView(for text: String) -> some View {
+    func HeaderView(for text: LocalizedStringKey) -> some View {
         Text(text)
             .font(SetupFont.callout())
             .frame(maxWidth: .infinity, alignment: .leading)

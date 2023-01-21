@@ -16,12 +16,13 @@ struct FinancesModel: Identifiable {
 }
 
 enum FinancesType: String {
-    case minus = "Expense"
-    case plus = "Profit"
+    case minus = "expense"
+    case plus = "profit"
 }
 
 struct CategoryModel: Identifiable {
     var id = UUID().uuidString
     var title: String
     var image: String
+    var locKey: String
 }

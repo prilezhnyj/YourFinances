@@ -1,0 +1,72 @@
+/* 
+  Localizable.strings
+  YourFinances
+
+  Created by Максим Боталов on 18.01.2023.
+  
+*/
+
+"noOperations" = "No operations";
+"addNew" = "Add new";
+
+"closeNumpad" = "Close numpad";
+
+"inMonth" = "In";
+
+"january" = "January";
+"february" = "February";
+"march" = "March";
+"april" = "April";
+"may" = "May";
+"june" = "June";
+"july" = "July";
+"august" = "August";
+"september" = "September";
+"october" = "October";
+"november" = "November";
+"december" = "December";
+
+"youHaveSaved" = "you have saved";
+"earned" = "earned";
+"spent" = "spent";
+
+"categories" = "Categories";
+"hide" = "Hide";
+"show" = "Show";
+
+"newOperation" = "New operation";
+"expense" = "Expense";
+"profit" = "Profit";
+"operationAmount" = "Operation amount";
+"save" = "Save";
+
+"settings" = "Settings";
+
+"expenses" = "Expenses";
+"profits" = "Profits";
+
+"newCategory" = "New category";
+"categoryTitle" = "Category title";
+"yourCategories" = "Your categories";
+
+"amount" = "Amount";
+
+"delete" = "Delete";
+
+"products" = "Products";
+"transport" = "Transport";
+"house" = "House";
+"sweets" = "Sweets";
+"hobby" = "Hobby";
+
+"salary" = "Salary";
+"donations" = "Donations";
+"savings" = "Savings";
+"investment" = "Investment";
+
+"info1" = "Dear users, after saving the operation, you will not be able to make changes at the moment, you will only be able to delete and recreate the operation.";
+
+"info2" = "The time and date of the operation is set as the current one. It is also impossible to change it yet. We are working on it.";
+
+
+

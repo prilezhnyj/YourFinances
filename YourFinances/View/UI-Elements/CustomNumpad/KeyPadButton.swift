@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct KeyPadButton: View {
+    
+    // MARK: - СВОЙСТВА
     var key: String
     
+    // MARK: - ТЕЛО
     var body: some View {
         Button(action: { self.action(self.key) }) {
             Color.clear
-                .overlay(RoundedRectangle(cornerRadius: 20)
+                .overlay(Capsule(style: .continuous)
                     .stroke(Color.black.opacity(0.1)))
                 .overlay(Text(key))
         }
@@ -30,6 +33,7 @@ struct KeyPadButton: View {
     @Environment(\.keyPadButtonAction) var action: (String) -> Void
 }
 
+// MARK: - Расширение
 extension EnvironmentValues {
     var keyPadButtonAction: (String) -> Void {
         get { self[KeyPadButton.ActionKey.self] }
@@ -37,6 +41,7 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct KeyPadButton_Previews: PreviewProvider {
     static var previews: some View {
         KeyPadButton(key: "9")

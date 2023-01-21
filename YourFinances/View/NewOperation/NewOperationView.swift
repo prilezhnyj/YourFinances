@@ -12,11 +12,10 @@ struct NewOperationView: View {
     @ObservedObject var viewModel: FinancesViewModel
     
     var body: some View {
-        ZStack {
-            Color.white
+        ZStack(alignment: .bottom) {
             
             ScrollView(.vertical, showsIndicators: false) {
-                Text("New operation")
+                Text(Localizable.newOperation)
                     .font(SetupFont.title3())
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 32)
@@ -28,7 +27,7 @@ struct NewOperationView: View {
                             viewModel.isExpense = true
                         }
                     } label: {
-                        Text("Expense")
+                        Text(Localizable.expense)
                             .font(SetupFont.callout())
                             .frame(maxWidth: .infinity)
                             .frame(height: 32)
@@ -42,7 +41,7 @@ struct NewOperationView: View {
                             viewModel.isExpense = false
                         }
                     } label: {
-                        Text("Profit")
+                        Text(Localizable.profit)
                             .font(SetupFont.callout())
                             .frame(maxWidth: .infinity)
                             .frame(height: 32)
@@ -55,50 +54,35 @@ struct NewOperationView: View {
                 }
                 .padding(.horizontal, 16)
                 
-                Text(viewModel.operationAmount == "" ? "Operation amount" : viewModel.operationAmount + "₽")
-                    .foregroundColor(viewModel.operationAmount == "" ? .black.opacity(0.5) : .black)
-                    .font(SetupFont.title3())
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-                    .background(Color.black.opacity(0.1))
-                    .clipShape(Capsule(style: .continuous))
-                    .padding(16)
-                    .onTapGesture {
-                        viewModel.showNumpadView.toggle()
-                    }
+                HStack(alignment: .center, spacing: 16) {
+                    Text(Localizable.amount)
+                        .font(SetupFont.title3())
+                        .padding(.leading, 32)
+                        .padding(.vertical, 16)
+                    
+                    Text(viewModel.operationAmount + "₽")
+                        .foregroundColor(viewModel.operationAmount.isEmpty ? .black.opacity(0.5) : .black)
+                        .font(SetupFont.title3())
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(Color.black.opacity(0.1))
+                        .clipShape(Capsule(style: .continuous))
+                        .padding(16)
+                        .onTapGesture {
+                            viewModel.showNumpadView.toggle()
+                        }
+                }
                 
                 ShowCategoriesView(viewModel: viewModel)
                     .padding(.horizontal, 16)
                 
-                // MARK: Описание операции. Когда-то реализую
-                /*
-                ZStack {
-                    TextEditor(text: $viewModel.operationDescription)
-                        .font(SetupFont.callout())
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 100)
-                        .foregroundColor(.black)
-                        .padding(16)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                        .focused($focusedField, equals: .operationDescription)
-                        .submitLabel(.done)
-                        .ignoresSafeArea(.keyboard, edges: .bottom)
-                    
-                    Text("Description of the note (optional)")
-                        .font(SetupFont.callout())
-                        .foregroundColor(viewModel.operationDescription == "" ? .black.opacity(0.1) : .clear)
-                }
-                .padding(16)
-                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
-                */
-                
                 Button {
                     viewModel.saveOperation()
                     viewModel.operationAmount = ""
+                    viewModel.showNumpadView = false
                     presentationMode.wrappedValue.dismiss()
                 } label: {
-                    Text("Save")
+                    Text(Localizable.save)
                         .font(SetupFont.callout())
                         .frame(maxWidth: .infinity)
                         .frame(height: 48)
@@ -107,28 +91,33 @@ struct NewOperationView: View {
                         .clipShape(Capsule(style: .continuous))
                         .padding(16)
                         .shadow(color: .blue.opacity(0.1), radius: 10, x: 0, y: 0)
-                        .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5), value: viewModel.showAllCategories)
                 }
                 .disabled(viewModel.operationAmount == "" ? true : false)
                 
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(Localizable.info1)
+                        .font(SetupFont.footnote())
+                        .foregroundColor(.black.opacity(0.5))
+                    
+                    Text(Localizable.info2)
+                        .font(SetupFont.footnote())
+                        .foregroundColor(.black.opacity(0.5))
+                    
+                }
+                .padding(.horizontal, 16)
+                
             }
-            .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5), value: viewModel.showAllCategories)
             
-            // Нампад, который выезжает снизу
-            VStack {
-                Spacer()
-                NumpadView(viewModel: viewModel)
+            if viewModel.showNumpadView {
+                NumPadView(viewModel: viewModel)
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
-                    .offset(y: viewModel.showNumpadView ? 0 : 100)
-                    .opacity(viewModel.showNumpadView ? 1 : 0)
-                    .animation(.easeInOut(duration: 0.3), value: viewModel.showNumpadView)
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 10)
+                    .transition(.move(edge: .bottom))
+                    .padding(16)
             }
         }
-        .ignoresSafeArea(.all, edges: .bottom)
+        .animation(.easeInOut(duration: 0.2), value: viewModel.showNumpadView)
     }
 }
 

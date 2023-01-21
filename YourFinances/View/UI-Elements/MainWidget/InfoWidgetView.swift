@@ -8,39 +8,68 @@
 import SwiftUI
 
 struct InfoWidgetView: View {
+    
+    // MARK: - СВОЙСТВА
     @ObservedObject var viewModel: FinancesViewModel
     
+    // MARK: - ТЕЛО
     var body: some View {
+        allView()
+    }
+    
+    // MARK: - ФУНКЦИИ && UI
+    
+    // MARK: Информация слева
+    func informationLeft() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            
+            // MARK: Месяц
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .center, spacing: 4) {
+                    Text(Localizable.forMonth).font(SetupFont.title2())
+                    Text(Localizable.month).font(SetupFont.title2())
+                }
+                Text(Localizable.youHaveSaved)
+                    .font(SetupFont.footnote())
+            }
+            
+            // MARK: Сумма
+            Text(viewModel.getGapBetweenAmounts(for: viewModel.profitsArray, and: viewModel.expenseArray).formattedWithSeparator + "₽")
+                .font(SetupFont.title2())
+        }
+    }
+    
+    // MARK: Информация справа
+    func informationRight() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            
+            // MARK: Заработали
+            VStack(alignment: .leading, spacing: 0) {
+                Text(Localizable.earned)
+                    .font(SetupFont.footnote())
+                
+                Text(viewModel.getAmount(for: viewModel.profitsArray).formattedWithSeparator + "₽")
+                    .font(SetupFont.callout())
+            }
+            
+            // MARK: Потратили
+            VStack(alignment: .leading, spacing: 0) {
+                Text(Localizable.spent)
+                    .font(SetupFont.footnote())
+
+                Text(viewModel.getAmount(for: viewModel.expenseArray).formattedWithSeparator + "₽")
+                    .font(SetupFont.callout())
+            }
+        }
+    }
+    
+    // MARK: Информация объединенная
+    func allView() -> some View {
         VStack(spacing: 16) {
             HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 8) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("For " + viewModel.getTitleMonth(for: viewModel.currentDay))
-                            .font(SetupFont.title2())
-                        Text("you have saved")
-                            .font(SetupFont.footnote())
-                    }
-                    Text(viewModel.getGapBetweenAmounts(for: viewModel.profitsArray, and: viewModel.expenseArray).formattedWithSeparator + "₽")
-                        .font(SetupFont.title2())
-                }
-                
+                informationLeft()
                 Spacer()
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("Earned")
-                            .font(SetupFont.footnote())
-                        Text(viewModel.getAmount(for: viewModel.profitsArray).formattedWithSeparator + "₽")
-                            .font(SetupFont.callout())
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("Spent")
-                            .font(SetupFont.footnote())
-                        Text(viewModel.getAmount(for: viewModel.expenseArray).formattedWithSeparator + "₽")
-                            .font(SetupFont.callout())
-                    }
-                }
+                informationRight()
             }
             
             WidgetProgressBarView(viewModel: viewModel)
@@ -52,6 +81,7 @@ struct InfoWidgetView: View {
     }
 }
 
+// MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct InfoWidgetView_Previews: PreviewProvider {
     static var previews: some View {
         InfoWidgetView(viewModel: FinancesViewModel())
