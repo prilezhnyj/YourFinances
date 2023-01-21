@@ -17,8 +17,8 @@ struct FullWeekView: View {
         fullWeekView()
     }
     
-    // MARK: - ФУНКЦИИ
-    func fullWeekView() -> some View {
+    // MARK: - ФУНКЦИИ && UI
+    private func fullWeekView() -> some View {
         HStack(alignment: .center, spacing: 8) {
             
             // MARK: ForEach, для раскидывания недели

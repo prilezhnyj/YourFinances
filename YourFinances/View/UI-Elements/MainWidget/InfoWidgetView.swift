@@ -20,7 +20,7 @@ struct InfoWidgetView: View {
     // MARK: - ФУНКЦИИ && UI
     
     // MARK: Информация слева
-    func informationLeft() -> some View {
+    private func informationLeft() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             
             // MARK: Месяц
@@ -40,7 +40,7 @@ struct InfoWidgetView: View {
     }
     
     // MARK: Информация справа
-    func informationRight() -> some View {
+    private func informationRight() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             
             // MARK: Заработали
@@ -64,7 +64,7 @@ struct InfoWidgetView: View {
     }
     
     // MARK: Информация объединенная
-    func allView() -> some View {
+    private func allView() -> some View {
         VStack(spacing: 16) {
             HStack(alignment: .top) {
                 informationLeft()

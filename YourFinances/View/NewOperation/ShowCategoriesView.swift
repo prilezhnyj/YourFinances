@@ -27,7 +27,7 @@ struct ShowCategoriesView: View {
     // MARK: - ФУНКЦИИ && UI
     
     // MARK: Хедер View
-    func headerView() -> some View {
+    private func headerView() -> some View {
         HStack(alignment: .center, spacing: 0) {
             
             // MARK: Заголовок
@@ -51,7 +51,7 @@ struct ShowCategoriesView: View {
     }
     
     // MARK: Категории
-    func categories(for array: [CategoryModel]) -> some View {
+    private func categories(for array: [CategoryModel]) -> some View {
         ForEach(array) { item in
             VStack {
                 Text(item.image)
@@ -73,7 +73,7 @@ struct ShowCategoriesView: View {
     }
     
     // MARK: Общая сетка
-    func gridCategories() -> some View {
+    private func gridCategories() -> some View {
         LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
             if viewModel.isExpense {
                 categories(for: viewModel.expenseCategoriesArray)
@@ -87,14 +87,14 @@ struct ShowCategoriesView: View {
     }
     
     // MARK: Сетка в ScrollView
-    func gridInScrollView() -> some View {
+    private func gridInScrollView() -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             gridCategories()
         }
     }
     
     // MARK: Все элементы
-    func allView() -> some View {
+    private func allView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             headerView()
             
