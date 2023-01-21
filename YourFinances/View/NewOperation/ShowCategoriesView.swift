@@ -50,31 +50,9 @@ struct ShowCategoriesView: View {
         .padding(16)
     }
     
-    // MARK: Категории расходов
-    func expenseCategories() -> some View {
-        ForEach(viewModel.expenseCategoriesArray) { item in
-            VStack {
-                Text(item.image)
-                    .frame(minWidth: 48, minHeight: 48)
-                    .background(viewModel.selectedCategory.id == item.id ? Color.green : Color.black.opacity(0.1))
-                    .clipShape(Circle())
-                Text(Localizable.getKey(for: item.locKey))
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                    .font(SetupFont.footnote())
-                    .foregroundColor(viewModel.selectedCategory.id == item.id ? Color.green : Color.black)
-            }
-            .onTapGesture {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    viewModel.selectedCategory = item
-                }
-            }
-        }
-    }
-    
-    // MARK: Категории доходов
-    func profitsCategories() -> some View {
-        ForEach(viewModel.profitsCategoriesArray) { item in
+    // MARK: Категории
+    func categories(for array: [CategoryModel]) -> some View {
+        ForEach(array) { item in
             VStack {
                 Text(item.image)
                     .frame(minWidth: 48, minHeight: 48)
@@ -98,11 +76,11 @@ struct ShowCategoriesView: View {
     func gridCategories() -> some View {
         LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
             if viewModel.isExpense {
-                expenseCategories()
+                categories(for: viewModel.expenseCategoriesArray)
             }
             
             if !viewModel.isExpense {
-                profitsCategories()
+                categories(for: viewModel.profitsCategoriesArray)
             }
         }
         .padding(.horizontal, 16)
