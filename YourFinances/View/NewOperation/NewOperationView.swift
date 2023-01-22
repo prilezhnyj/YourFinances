@@ -11,7 +11,7 @@ struct NewOperationView: View {
     
     // MARK: - СВОЙСТВА
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     
     // MARK: - ТЕЛО
     var body: some View {
@@ -116,7 +116,7 @@ struct NewOperationView: View {
                 entryAmount()
                     .padding(16)
                 
-                ShowCategoriesView(viewModel: viewModel)
+                ShowCategoriesView()
                     .padding(.horizontal, 16)
                 
                 saveOperation()
@@ -138,7 +138,7 @@ struct NewOperationView: View {
             }
             
             if viewModel.showNumpadView {
-                NumPadView(viewModel: viewModel)
+                NumPadView()
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
@@ -167,6 +167,6 @@ struct NewOperationView: View {
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct NewOperationView_Previews: PreviewProvider {
     static var previews: some View {
-        NewOperationView(viewModel: FinancesViewModel())
+        NewOperationView()
     }
 }

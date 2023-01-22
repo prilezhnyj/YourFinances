@@ -84,9 +84,9 @@ class FinancesViewModel: ObservableObject {
         }
         
         if isExpense == true {
-            expenseArray.append(FinancesModel(type: .minus, amount: amountDouble, category: selectedCategory, date: currentDay))
+            expenseArray.append(FinancesModel(type: .minus, amount: amountDouble, category: selectedCategory, date: selectedDayWeek))
         } else {
-            profitsArray.append(FinancesModel(type: .plus, amount: amountDouble, category: selectedCategory, date: currentDay))
+            profitsArray.append(FinancesModel(type: .plus, amount: amountDouble, category: selectedCategory, date: selectedDayWeek))
         }
         
         filterOperationsDay()

@@ -10,7 +10,7 @@ import SwiftUI
 struct InfoWidgetView: View {
     
     // MARK: - СВОЙСТВА
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     
     // MARK: - ТЕЛО
     var body: some View {
@@ -72,7 +72,7 @@ struct InfoWidgetView: View {
                 informationRight()
             }
             
-            WidgetProgressBarView(viewModel: viewModel)
+            WidgetProgressBarView()
         }
         .padding(16)
         .background(Color.white)
@@ -84,7 +84,7 @@ struct InfoWidgetView: View {
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct InfoWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        InfoWidgetView(viewModel: FinancesViewModel())
+        InfoWidgetView()
             .previewLayout(.sizeThatFits)
     }
 }

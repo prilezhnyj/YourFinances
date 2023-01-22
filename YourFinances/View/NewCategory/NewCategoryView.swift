@@ -10,7 +10,7 @@ import SwiftUI
 struct NewCategoryView: View {
     
     // MARK: - СВОЙСТВА
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     @Environment(\.presentationMode) var presentationMode
     
     // MARK: - ТЕЛО
@@ -104,7 +104,7 @@ struct NewCategoryView: View {
     
     private func categories(for array: [CategoryModel]) -> some View {
         ForEach(array) { item in
-            CategoryRowView(item: item,viewModel: viewModel)
+            CategoryRowView(item: item)
         }
     }
     
@@ -173,6 +173,6 @@ struct NewCategoryView: View {
 
 struct NewCategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        NewCategoryView(viewModel: FinancesViewModel())
+        NewCategoryView()
     }
 }

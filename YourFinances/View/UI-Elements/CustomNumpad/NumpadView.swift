@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NumPadView: View {
     // MARK: - СВОЙСТВА
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     
     // MARK: - ТЕЛО
     var body: some View {
@@ -23,7 +23,7 @@ struct NumPadView: View {
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct NumpadView_Previews: PreviewProvider {
     static var previews: some View {
-        NumPadView(viewModel: FinancesViewModel())
+        NumPadView()
             .previewLayout(.sizeThatFits)
     }
 }

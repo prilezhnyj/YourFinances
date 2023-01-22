@@ -10,7 +10,6 @@ import SwiftUI
 struct NoOperationsView: View {
     
     // MARK: - СВОЙСТВА
-    @ObservedObject var viewModel: FinancesViewModel
     @State private var isPresentedNewExpense = false
 
     // MARK: - ТЕЛО
@@ -34,7 +33,7 @@ struct NoOperationsView: View {
                     .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
             }
             .sheet(isPresented: $isPresentedNewExpense) {
-                NewOperationView(viewModel: viewModel)
+                NewOperationView()
             }
         }
         .padding(40)
@@ -44,7 +43,7 @@ struct NoOperationsView: View {
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct NoOperationsView_Previews: PreviewProvider {
     static var previews: some View {
-        NoOperationsView(viewModel: FinancesViewModel())
+        NoOperationsView()
             .previewLayout(.sizeThatFits)
     }
 }

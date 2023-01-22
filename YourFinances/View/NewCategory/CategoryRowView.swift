@@ -11,7 +11,7 @@ struct CategoryRowView: View {
     
     // MARK: - СВОЙСТВА
     @State var item: CategoryModel
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     
     // MARK: - ТЕЛО
     var body: some View {
@@ -60,7 +60,7 @@ struct CategoryRowView: View {
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct CategoryRowView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryRowView(item: CategoryModel(title: "Products", image: "🥬", locKey: "products"), viewModel: FinancesViewModel())
+        CategoryRowView(item: CategoryModel(title: "Products", image: "🥬", locKey: "products"))
             .previewLayout(.sizeThatFits)
     }
 }

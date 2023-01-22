@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainDescriptionOperationView: View {
     
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -81,7 +81,7 @@ struct MainDescriptionOperationView: View {
 
 struct DescriptionItemView_Previews: PreviewProvider {
     static var previews: some View {
-        MainDescriptionOperationView(viewModel: FinancesViewModel())
+        MainDescriptionOperationView()
             .previewLayout(.sizeThatFits)
     }
 }

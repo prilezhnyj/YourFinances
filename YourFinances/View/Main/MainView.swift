@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     // MARK: - СВОЙСТВА
-    @ObservedObject var viewModel = FinancesViewModel()
+    @StateObject var viewModel = FinancesViewModel()
     @State private var isPresentedNewExpense = false
     @State private var isPresentedNewCategoryView = false
     @State private var isSetShow = false
@@ -18,6 +18,7 @@ struct MainView: View {
     // MARK: - ТЕЛО
     var body: some View {
         allView()
+            .environmentObject(viewModel)
     }
     
     // MARK: - ФУНКЦИИ && UI
@@ -25,7 +26,7 @@ struct MainView: View {
     // MARK: Операции
     private func operations(for array: [FinancesModel]) -> some View {
         ForEach(array) { item in
-            MainOperationCell(viewModel: viewModel, item: item)
+            MainOperationCell(item: item)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 16)
         }
@@ -47,7 +48,7 @@ struct MainView: View {
             }
             
             if viewModel.currentExpenseArray.isEmpty && viewModel.currentProfitsArray.isEmpty {
-                NoOperationsView(viewModel: viewModel)
+                NoOperationsView()
             }
         }
     }
@@ -55,14 +56,14 @@ struct MainView: View {
     // MARK: Основное полотно с элементами
     private func basicElements() -> some View {
         VStack(alignment: .center, spacing: 16) {
-            TopBarView(viewModel: viewModel)
+            TopBarView()
                 .padding(.top ,16)
                 .padding(.horizontal, 16)
             
-            InfoWidgetView(viewModel: viewModel)
+            InfoWidgetView()
                 .padding(.horizontal, 16)
             
-            FullWeekView(viewModel: viewModel)
+            FullWeekView()
                 .padding(.horizontal, 16)
             
             scrollViewAndLogic()
@@ -85,7 +86,7 @@ struct MainView: View {
                         .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
                 }
                 .sheet(isPresented: $isPresentedNewCategoryView) {
-                    NewCategoryView(viewModel: viewModel)
+                    NewCategoryView()
                 }
                 
                 Button {
@@ -112,7 +113,7 @@ struct MainView: View {
                         .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
                 }
                 .sheet(isPresented: $isPresentedNewExpense) {
-                    NewOperationView(viewModel: viewModel)
+                    NewOperationView()
                 }
                 
                 
@@ -138,7 +139,7 @@ struct MainView: View {
             
             // MARK: Отображение и скрытие детального меню
             if viewModel.showDetailedInformation {
-                MainDescriptionOperationView(viewModel: viewModel)
+                MainDescriptionOperationView()
                     .padding(16)
                     .transition(.move(edge: .bottom))
             }

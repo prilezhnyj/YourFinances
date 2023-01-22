@@ -12,7 +12,7 @@ import SwiftUI
 struct TopBarView: View {
     
     // MARK: - СВОЙСТВА
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     
     // MARK: - ТЕЛО
     var body: some View {
@@ -44,7 +44,7 @@ struct TopBarView: View {
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TopBarView(viewModel: FinancesViewModel())
+        TopBarView()
             .previewLayout(.sizeThatFits)
     }
 }

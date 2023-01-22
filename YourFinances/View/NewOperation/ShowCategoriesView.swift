@@ -10,7 +10,7 @@ import SwiftUI
 struct ShowCategoriesView: View {
     
     // MARK: - СВОЙСТВА
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     
     private let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 8, alignment: .center),
@@ -112,7 +112,7 @@ struct ShowCategoriesView: View {
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct ShowCategoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        ShowCategoriesView(viewModel: FinancesViewModel())
+        ShowCategoriesView()
             .previewLayout(.sizeThatFits)
     }
 }

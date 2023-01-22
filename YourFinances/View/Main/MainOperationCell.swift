@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainOperationCell: View {
     
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     var item: FinancesModel
     
     var body: some View {
@@ -48,7 +48,7 @@ struct MainOperationCell: View {
 
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
-        MainOperationCell(viewModel: FinancesViewModel(), item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬", locKey: "protucts"), date: Date()))
+        MainOperationCell(item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬", locKey: "protucts"), date: Date()))
             .previewLayout(.sizeThatFits)
     }
     

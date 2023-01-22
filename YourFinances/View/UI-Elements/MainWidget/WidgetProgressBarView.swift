@@ -10,7 +10,7 @@ import SwiftUI
 struct WidgetProgressBarView: View {
     
     // MARK: - СВОЙСТВА
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     
     // MARK: - ТЕЛО
     var body: some View {
@@ -54,7 +54,7 @@ struct WidgetProgressBarView: View {
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct WidgetProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetProgressBarView(viewModel: FinancesViewModel())
+        WidgetProgressBarView()
             .previewLayout(.sizeThatFits)
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct FullWeekView: View {
     
     // MARK: - СВОЙСТВА
-    @ObservedObject var viewModel: FinancesViewModel
+    @EnvironmentObject var viewModel: FinancesViewModel
     
     // MARK: - ТЕЛО
     var body: some View {
@@ -42,7 +42,7 @@ struct FullWeekView: View {
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct DaysScrollView_Previews: PreviewProvider {
     static var previews: some View {
-        FullWeekView(viewModel: FinancesViewModel())
+        FullWeekView()
             .previewLayout(.sizeThatFits)
     }
 }
