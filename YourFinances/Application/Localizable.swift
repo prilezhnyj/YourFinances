@@ -41,6 +41,7 @@ final class Localizable {
     
     static let info1: LocalizedStringKey = "info1"
     static let info2: LocalizedStringKey = "info2"
+    static let descriptionSavingCategory: LocalizedStringKey = "descriptionSavingCategory"
     
     static func getKey(for key: String) -> LocalizedStringKey {
         return LocalizedStringKey(key)

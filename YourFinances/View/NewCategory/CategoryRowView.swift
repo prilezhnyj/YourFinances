@@ -27,12 +27,13 @@ struct CategoryRowView: View {
             Text(item.image)
                 .font(SetupFont.footnote())
                 .frame(minWidth: 40, minHeight: 40)
-                .background(Color.black.opacity(0.1))
+                .background(SetupColor.primary())
                 .clipShape(Circle())
             
             // MARK: Название
             Text(Localizable.getKey(for: item.locKey))
                 .font(SetupFont.callout())
+                .foregroundColor(SetupColor.white())
             
             Spacer()
             
@@ -51,9 +52,9 @@ struct CategoryRowView: View {
         .padding(.leading, 16)
         .padding(.trailing, 32)
         .padding(.vertical, 8)
-        .background(Color.white)
+        .background(SetupColor.secondary())
         .cornerRadius(20)
-        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
     }
 }
 
@@ -62,5 +63,7 @@ struct CategoryRowView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryRowView(item: CategoryModel(title: "Products", image: "🥬", locKey: "products"))
             .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

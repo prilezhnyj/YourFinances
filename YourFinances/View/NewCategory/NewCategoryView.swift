@@ -30,8 +30,13 @@ struct NewCategoryView: View {
                     .font(SetupFont.callout())
                     .frame(maxWidth: .infinity)
                     .frame(height: 32)
-                    .foregroundColor(viewModel.isExpenseNewCategory ? .white : .black)
-                    .background(viewModel.isExpenseNewCategory ? Color.black : Color.white)
+                    .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.secondary() : SetupColor.white())
+                    .background(viewModel.isExpenseNewCategory ? SetupColor.white() : .clear)
+                    .overlay(content: {
+                        Capsule(style: .continuous)
+                            .stroke(lineWidth: 3)
+                            .foregroundColor(SetupColor.white())
+                    })
                     .clipShape(Capsule(style: .continuous))
                     .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
             }
@@ -43,8 +48,13 @@ struct NewCategoryView: View {
                     .font(SetupFont.callout())
                     .frame(maxWidth: .infinity)
                     .frame(height: 32)
-                    .foregroundColor(viewModel.isExpenseNewCategory ? .black : .white)
-                    .background(viewModel.isExpenseNewCategory ? Color.white : Color.black)
+                    .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.white() : SetupColor.secondary())
+                    .background(viewModel.isExpenseNewCategory ? .clear : SetupColor.white())
+                    .overlay(content: {
+                        Capsule(style: .continuous)
+                            .stroke(lineWidth: 3)
+                            .foregroundColor(SetupColor.white())
+                    })
                     .clipShape(Capsule(style: .continuous))
                     .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
             }
@@ -56,21 +66,21 @@ struct NewCategoryView: View {
     private func titleCategory() -> some View {
         HStack {
             TextField(Localizable.categoryTitle, text: $viewModel.newTitleCategory)
-                .foregroundColor(viewModel.newTitleCategory == "" ? .black.opacity(0.5) : .black)
+                .foregroundColor(viewModel.newTitleCategory == "" ? SetupColor.primary() : SetupColor.white())
                 .font(SetupFont.title3())
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity)
-                .frame(height: 40)
-                .background(Color.black.opacity(0.1))
+                .frame(height: 48)
+                .background(SetupColor.secondary())
                 .clipShape(Capsule(style: .continuous))
             
-            TextField("A", text: $viewModel.newImageCategory)
-                .foregroundColor(viewModel.newImageCategory == "" ? .black.opacity(0.1) : .black)
+            TextField("🦊", text: $viewModel.newImageCategory)
+                .foregroundColor(viewModel.newImageCategory == "" ? SetupColor.primary() : SetupColor.white())
                 .font(SetupFont.title3())
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 16)
-                .frame(width: 60, height: 40, alignment: .center)
-                .background(Color.black.opacity(0.1))
+                .frame(width: 72, height: 48, alignment: .center)
+                .background(SetupColor.secondary())
                 .clipShape(Capsule(style: .continuous))
                 .onChange(of: viewModel.newImageCategory) { newValue in
                     viewModel.newImageCategory = String(viewModel.newImageCategory.prefix(1))
@@ -91,11 +101,11 @@ struct NewCategoryView: View {
             Text(Localizable.save)
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity)
-                .frame(height: 40)
-                .background(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? Color.black.opacity(0.1) : Color.black)
-                .foregroundColor(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? Color.black.opacity(0.5) : Color.white)
+                .frame(height: 48)
+                .background(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.primary() : SetupColor.white())
+                .foregroundColor(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.secondary() : SetupColor.secondary())
                 .clipShape(Capsule())
-                .shadow(color: .blue.opacity(0.1), radius: 10, x: 0, y: 0)
+                .shadow(color: viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" ? .clear : SetupColor.white().opacity(0.3), radius: 10, x: 0, y: 5)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
         }
@@ -125,40 +135,54 @@ struct NewCategoryView: View {
                 } header: {
                     HeaderView(for: viewModel.profitsCategoriesArray.isEmpty ? "" : Localizable.profits)
                 }
-
+                
             }
         }
     }
     
     // MARK: Все элементы
     private func allViewInScrollView() -> some View {
-        ScrollView(.vertical, showsIndicators: false) {
+        ZStack {
+            SetupColor.primary().ignoresSafeArea()
             
-            // MARK: Заголовок
-            Text(Localizable.newCategory)
-                .font(SetupFont.title3())
-                .frame(maxWidth: .infinity)
-                .padding(16)
-            
-            selectionButtons()
-                .padding(.horizontal, 16)
-            
-            titleCategory()
-                .padding(16)
-            
-            saveOperation()
-            
-            Divider()
-                .padding(16)
-            
-            // MARK: Заголовок
-            Text(Localizable.yourCategories)
-                .font(SetupFont.title3())
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 16)
-            
-            gridCategories()
-                .padding(16)
+            ScrollView(.vertical, showsIndicators: false) {
+                
+                // MARK: Заголовок
+                Text(Localizable.newCategory)
+                    .font(SetupFont.title3())
+                    .foregroundColor(SetupColor.white())
+                    .frame(maxWidth: .infinity)
+                    .padding(16)
+                
+                selectionButtons()
+                    .padding(.horizontal, 16)
+                
+                titleCategory()
+                    .padding(16)
+                
+                saveOperation()
+                
+                if viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" {
+                    Text(Localizable.descriptionSavingCategory)
+                        .foregroundColor(SetupColor.white())
+                        .font(SetupFont.footnote())
+                        .padding(16)
+                }
+                
+                Divider()
+                    .background(SetupColor.white())
+                    .padding(16)
+                
+                // MARK: Заголовок
+                Text(Localizable.yourCategories)
+                    .font(SetupFont.title3())
+                    .foregroundColor(SetupColor.white())
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 16)
+                
+                gridCategories()
+                    .padding(16)
+            }
         }
     }
     
@@ -168,11 +192,15 @@ struct NewCategoryView: View {
             .font(SetupFont.callout())
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
+            .foregroundColor(SetupColor.white())
     }
 }
 
 struct NewCategoryView_Previews: PreviewProvider {
     static var previews: some View {
         NewCategoryView()
+        //            .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

@@ -68,5 +68,7 @@
 
 "info2" = "The time and date of the operation is set as the current one. It is also impossible to change it yet. We are working on it.";
 
+"descriptionSavingCategory" = "To save the category successfully, please specify the name and icon, and then click the «Save» button.";
+
 
 

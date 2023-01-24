@@ -33,6 +33,7 @@ struct ShowCategoriesView: View {
             // MARK: Заголовок
             Text(Localizable.categories)
                 .font(SetupFont.callout())
+                .foregroundColor(SetupColor.white())
             
             Spacer()
             
@@ -44,7 +45,7 @@ struct ShowCategoriesView: View {
             } label: {
                 Text(viewModel.showAllCategories ? Localizable.hide : Localizable.show)
                     .font(SetupFont.callout())
-                    .foregroundColor(viewModel.showAllCategories ? .red : .black.opacity(0.1))
+                    .foregroundColor(viewModel.showAllCategories ? .red : SetupColor.primary())
             }
         }
         .padding(16)
@@ -56,13 +57,13 @@ struct ShowCategoriesView: View {
             VStack {
                 Text(item.image)
                     .frame(minWidth: 48, minHeight: 48)
-                    .background(viewModel.selectedCategory.id == item.id ? Color.green : Color.black.opacity(0.1))
+                    .background(viewModel.selectedCategory.id == item.id ? Color.green : SetupColor.primary())
                     .clipShape(Circle())
                 Text(Localizable.getKey(for: item.locKey))
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .font(SetupFont.footnote())
-                    .foregroundColor(viewModel.selectedCategory.id == item.id ? Color.green : Color.black)
+                    .foregroundColor(viewModel.selectedCategory.id == item.id ? Color.green : SetupColor.white())
             }
             .onTapGesture {
                 withAnimation(.easeInOut(duration: 0.2)) {
@@ -102,7 +103,7 @@ struct ShowCategoriesView: View {
         }
         .frame(height: viewModel.showAllCategories ? 250 : 160)
         .frame(maxWidth: .infinity)
-        .background(Color.white)
+        .background(SetupColor.secondary())
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
         .animation(.easeInOut(duration: 0.2), value: viewModel.showAllCategories)
@@ -114,5 +115,7 @@ struct ShowCategoriesView_Previews: PreviewProvider {
     static var previews: some View {
         ShowCategoriesView()
             .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }
