@@ -19,10 +19,13 @@ import SwiftUI
 struct YourFinancesApp: App {
 //    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @StateObject var viewModel = FinancesViewModel()
+    
     var body: some Scene {
         WindowGroup {
             MainView()
-                .environment(\.colorScheme, .light)
+                .environmentObject(viewModel)
+                .environment(\.colorScheme, .dark)
         }
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     // MARK: - СВОЙСТВА
-    @StateObject var viewModel = FinancesViewModel()
+    @EnvironmentObject private var viewModel: FinancesViewModel
     @State private var isPresentedNewExpense = false
     @State private var isPresentedNewCategoryView = false
     @State private var isSetShow = false
@@ -18,7 +18,6 @@ struct MainView: View {
     // MARK: - ТЕЛО
     var body: some View {
         allView()
-            .environmentObject(viewModel)
     }
     
     // MARK: - ФУНКЦИИ && UI
@@ -57,7 +56,7 @@ struct MainView: View {
     private func basicElements() -> some View {
         VStack(alignment: .center, spacing: 16) {
             TopBarView()
-                .padding(.top ,16)
+                .padding(.vertical ,16)
                 .padding(.horizontal, 16)
             
             InfoWidgetView()
@@ -80,10 +79,10 @@ struct MainView: View {
                     Text(Localizable.categories)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        .background(SetupColor.secondary())
+                        .foregroundColor(SetupColor.white())
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
+                        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 .sheet(isPresented: $isPresentedNewCategoryView) {
                     NewCategoryView()
@@ -95,10 +94,10 @@ struct MainView: View {
                     Text(Localizable.settings)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        .background(SetupColor.secondary())
+                        .foregroundColor(SetupColor.white())
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
+                        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 
                 Button {
@@ -107,10 +106,10 @@ struct MainView: View {
                     Image(systemName: "plus")
                         .font(.system(size: 28, weight: .regular, design: .rounded))
                         .frame(width: 64, height: 64)
-                        .background(Color.black)
-                        .foregroundColor(.white)
+                        .background(SetupColor.white())
+                        .foregroundColor(SetupColor.secondary())
                         .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 0)
+                        .shadow(color: SetupColor.white().opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 .sheet(isPresented: $isPresentedNewExpense) {
                     NewOperationView()
@@ -127,7 +126,7 @@ struct MainView: View {
     // MARK: Все элементы
     private func allView() -> some View {
         ZStack(alignment: .bottom) {
-            Color.white.ignoresSafeArea()
+            SetupColor.primary().ignoresSafeArea(.all)
             
             // MARK: Основное полотно с элементами
             basicElements()
@@ -164,6 +163,7 @@ struct MainView: View {
                 .padding(.horizontal, 16)
                 .opacity(array.isEmpty ? 0 : 1)
         }
+        .foregroundColor(SetupColor.white())
     }
 }
 
@@ -171,5 +171,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+            .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
     }
 }

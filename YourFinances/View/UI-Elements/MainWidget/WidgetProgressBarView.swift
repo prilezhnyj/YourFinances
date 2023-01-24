@@ -41,7 +41,7 @@ struct WidgetProgressBarView: View {
     // MARK: Нижняя View
     private func lowerView() -> some View {
         Capsule(style: .continuous)
-            .foregroundColor(Color.black.opacity(0.1))
+            .foregroundColor(SetupColor.primary())
     }
     
     // MARK: Расчёт процентов и перевод в CGFloat
@@ -55,6 +55,8 @@ struct WidgetProgressBarView: View {
 struct WidgetProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
         WidgetProgressBarView()
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
             .previewLayout(.sizeThatFits)
     }
 }

@@ -23,17 +23,16 @@ struct OneDayView: View {
             // MARK: Краткое название недели
             Text(titleDayWeek.capitalized)
                 .font(SetupFont.footnote())
-                .foregroundColor(isToday ? .white : .black)
             
             // MARK: Число месяца
             Text(dayWeek)
                 .font(SetupFont.footnoteButton())
-                .foregroundColor(isToday ? .white : .black)
         }
         .frame(maxWidth: .infinity, maxHeight: 52, alignment: .center)
-        .background(isToday ? .black : .white)
+        .foregroundColor(isToday ? SetupColor.secondary() : SetupColor.white())
+        .background(isToday ? SetupColor.white() : SetupColor.secondary())
         .clipShape(Capsule(style: .continuous))
-        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+        .shadow(color: isToday ? SetupColor.white().opacity(0.3) : SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
     }
 }
 
@@ -42,5 +41,7 @@ struct OneDayView_Previews: PreviewProvider {
     static var previews: some View {
         OneDayView(dayWeek: "9", titleDayWeek: "Пт", isToday: false)
             .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

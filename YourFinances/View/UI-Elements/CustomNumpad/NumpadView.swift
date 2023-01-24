@@ -17,6 +17,7 @@ struct NumPadView: View {
             KeyPad(string: $viewModel.operationAmount)
         }
         .padding(16)
+        .background(SetupColor.secondary())
     }
 }
 
@@ -25,5 +26,7 @@ struct NumpadView_Previews: PreviewProvider {
     static var previews: some View {
         NumPadView()
             .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

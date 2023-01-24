@@ -17,11 +17,11 @@ struct KeyPadButton: View {
         Button(action: { self.action(self.key) }) {
             Color.clear
                 .overlay(Capsule(style: .continuous)
-                    .stroke(Color.black.opacity(0.1)))
-                .overlay(Text(key))
+                    .stroke(SetupColor.white())
+                .overlay(Text(key)))
         }
         .font(SetupFont.title3())
-        .foregroundColor(.black)
+        .foregroundColor(SetupColor.white())
         .frame(maxWidth: .infinity)
         .frame(height: 48)
     }
@@ -46,5 +46,7 @@ struct KeyPadButton_Previews: PreviewProvider {
     static var previews: some View {
         KeyPadButton(key: "9")
             .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

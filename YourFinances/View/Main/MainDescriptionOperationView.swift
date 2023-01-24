@@ -16,7 +16,7 @@ struct MainDescriptionOperationView: View {
             HStack(alignment: .center, spacing: 10) {
                 Text(viewModel.currentItemForDetailedInformation.category.image)
                     .frame(minWidth: 48, minHeight: 48)
-                    .background(Color.black.opacity(0.1))
+                    .background(SetupColor.primary())
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 5) {
@@ -26,6 +26,7 @@ struct MainDescriptionOperationView: View {
                     Text(LocalizedStringKey(viewModel.currentItemForDetailedInformation.type.rawValue))
                         .font(SetupFont.footnote())
                 }
+                .foregroundColor(SetupColor.white())
                 
                 Spacer()
                 
@@ -65,17 +66,22 @@ struct MainDescriptionOperationView: View {
                     Image(systemName: "xmark")
                         .font(SetupFont.footnoteButton())
                         .frame(width: 80, height: 32)
-                        .foregroundColor(.black)
-                        .background(Color.white)
+                        .foregroundColor(SetupColor.white())
+                        .background(SetupColor.secondary())
+                        .overlay(content: {
+                            Capsule(style: .continuous)
+                                .stroke(lineWidth: 3)
+                                .foregroundColor(SetupColor.white())
+                        })
                         .clipShape(Capsule(style: .continuous))
                         .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
                 }
             }
         }
         .padding(16)
-        .background(Color.white)
+        .background(SetupColor.secondary())
         .cornerRadius(20)
-        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
     }
 }
 
@@ -83,5 +89,7 @@ struct DescriptionItemView_Previews: PreviewProvider {
     static var previews: some View {
         MainDescriptionOperationView()
             .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

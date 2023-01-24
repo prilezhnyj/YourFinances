@@ -71,13 +71,14 @@ struct InfoWidgetView: View {
                 Spacer()
                 informationRight()
             }
+            .foregroundColor(SetupColor.white())
             
             WidgetProgressBarView()
         }
         .padding(16)
-        .background(Color.white)
+        .background(SetupColor.secondary())
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
     }
 }
 
@@ -85,6 +86,8 @@ struct InfoWidgetView: View {
 struct InfoWidgetView_Previews: PreviewProvider {
     static var previews: some View {
         InfoWidgetView()
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
             .previewLayout(.sizeThatFits)
     }
 }

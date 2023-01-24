@@ -17,7 +17,7 @@ struct MainOperationCell: View {
             Text(item.category.image)
                 .font(SetupFont.footnote())
                 .frame(width: 40, height: 40, alignment: .center)
-                .background(Color.black.opacity(0.1))
+                .background(SetupColor.primary())
                 .clipShape(Circle())
             
             VStack(alignment: .leading, spacing: 4) {
@@ -27,6 +27,7 @@ struct MainOperationCell: View {
                 Text(LocalizedStringKey(item.type.rawValue))
                     .font(SetupFont.footnote())
             }
+            .foregroundColor(SetupColor.white())
             
             Spacer()
             
@@ -36,9 +37,9 @@ struct MainOperationCell: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
-        .background(Color.white)
+        .background(SetupColor.secondary())
         .cornerRadius(20)
-        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
         .onTapGesture {
             viewModel.currentItemForDetailedInformation = item
             viewModel.showDetailedInformation.toggle()

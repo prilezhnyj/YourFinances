@@ -29,7 +29,10 @@ struct FullWeekView: View {
                             viewModel.selectedDayWeek = day
                         }
                     }
-                    .overlay(Capsule(style: .continuous).stroke(viewModel.selectedDayWeek == day ? .black : .clear , lineWidth: 2))
+                    .overlay(
+                        Capsule(style: .continuous).stroke(viewModel.selectedDayWeek == day ? SetupColor.white() : .clear , lineWidth: 2)
+                            .shadow(color: viewModel.selectedDayWeek == day ? SetupColor.white().opacity(0.3) : SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
+                    )
             }
         }
         // MARK: Смена курсора на выбранный день
@@ -44,5 +47,7 @@ struct DaysScrollView_Previews: PreviewProvider {
     static var previews: some View {
         FullWeekView()
             .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }
