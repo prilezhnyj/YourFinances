@@ -81,8 +81,10 @@ struct NewOperationView: View {
                 .background(SetupColor.secondary)
                 .clipShape(Capsule(style: .continuous))
                 .onTapGesture {
-                    withAnimation(.spring()) {
-                        viewModel.showNumpadView.toggle()
+                    DispatchQueue.main.async {
+                        withAnimation(.spring()) {
+                            viewModel.showNumpadView.toggle()
+                        }
                     }
                 }
         }
@@ -101,11 +103,10 @@ struct NewOperationView: View {
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(validFields() ? SetupColor.white : .clear)
+                .background(validFields() ? .blue : .clear)
                 .foregroundColor(SetupColor.secondary)
                 .clipShape(Capsule())
-                .shadow(color: validFields() ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
-                .padding(.horizontal, 16)
+                .shadow(color: validFields() ? .blue.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
         }
         .disabled(!validFields())
     }
@@ -160,7 +161,7 @@ struct NewOperationView: View {
                     
             }
             .animation(.spring(), value: viewModel.showNumpadView)
-            .offset(y: viewModel.showNumpadView ? 0 : UIScreen.main.bounds.height)
+            .offset(y: viewModel.showNumpadView ? 0 : 370)
             .shadow(color: SetupColor.primary.opacity(0.3), radius: 10, x: 0, y: 5)
 
         }

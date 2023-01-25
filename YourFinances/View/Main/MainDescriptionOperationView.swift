@@ -33,11 +33,12 @@ struct MainDescriptionOperationView: View {
                 Text(viewModel.currentItemForDetailedInformation.type == .minus ? "-\(viewModel.currentItemForDetailedInformation.amount.formattedWithSeparator)₽" : "+\(viewModel.currentItemForDetailedInformation.amount.formattedWithSeparator)₽")
                     .font(SetupFont.title3())
                     .foregroundColor(viewModel.currentItemForDetailedInformation.type == .minus ? .red : .green)
+                    .shadow(color: viewModel.currentItemForDetailedInformation.type == .minus ? .red.opacity(0.3) : .green.opacity(0.3), radius: 10, x: 0, y: 5)
             }
             
             HStack {
                 Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
+                    withAnimation(.spring()) {
                         viewModel.deleteItem(item: viewModel.currentItemForDetailedInformation)
                         viewModel.showDetailedInformation = false
                     }
@@ -55,7 +56,7 @@ struct MainDescriptionOperationView: View {
                     .foregroundColor(.white)
                     .background(Color.red)
                     .clipShape(Capsule(style: .continuous))
-                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+                    .shadow(color: .red.opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 
                 Button {
@@ -70,7 +71,7 @@ struct MainDescriptionOperationView: View {
                         .background(SetupColor.secondary)
                         .overlay(content: {
                             Capsule(style: .continuous)
-                                .stroke(lineWidth: 3)
+                                .stroke(lineWidth: 2)
                                 .foregroundColor(SetupColor.white)
                         })
                         .clipShape(Capsule(style: .continuous))
@@ -80,7 +81,6 @@ struct MainDescriptionOperationView: View {
         }
         .padding(16)
         .background(SetupColor.secondary)
-        .cornerRadius(20)
         .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
     }
 }
@@ -90,6 +90,5 @@ struct DescriptionItemView_Previews: PreviewProvider {
         MainDescriptionOperationView()
             .previewLayout(.sizeThatFits)
             .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
     }
 }

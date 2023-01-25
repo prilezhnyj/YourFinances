@@ -144,7 +144,7 @@ class FinancesViewModel: ObservableObject {
             profitsArray.remove(at: index!)
         }
         
-        filterOperationsDay()
+        self.filterOperationsDay()
     }
     
     // MARK: - Добавление новой категории

@@ -31,7 +31,7 @@ struct CategoryRowView: View {
                 .clipShape(Circle())
             
             // MARK: Название
-            Text(Localizable.getKey(for: item.locKey))
+            Text(Localizable.getKey(for: item.title))
                 .font(SetupFont.callout())
                 .foregroundColor(SetupColor.white)
             
@@ -39,13 +39,14 @@ struct CategoryRowView: View {
             
             // MARK: Кнопка удаления
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) {
+                withAnimation(.spring()) {
                     viewModel.deleteCategory(category: item)
                 }
             } label: {
                 Image(systemName: "trash")
                     .font(SetupFont.callout())
                     .foregroundColor(.red)
+                    .shadow(color: .red.opacity(0.3), radius: 10, x: 0, y: 5)
             }
             
         }
@@ -64,6 +65,5 @@ struct CategoryRowView_Previews: PreviewProvider {
         CategoryRowView(item: CategoryModel(title: "Products", image: "🥬", locKey: "products"))
             .previewLayout(.sizeThatFits)
             .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
     }
 }

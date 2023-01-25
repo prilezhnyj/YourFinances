@@ -14,6 +14,7 @@ struct MainView: View {
     @State private var isPresentedNewExpense = false
     @State private var isPresentedNewCategoryView = false
     @State private var isSetShow = false
+    @State private var animationButton = false
     
     // MARK: - ТЕЛО
     var body: some View {
@@ -79,10 +80,10 @@ struct MainView: View {
                     Text(Localizable.categories)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .background(SetupColor.secondary)
-                        .foregroundColor(SetupColor.white)
+                        .background(.white)
+                        .foregroundColor(SetupColor.secondary)
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
+                        .shadow(color: SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 .sheet(isPresented: $isPresentedNewCategoryView) {
                     NewCategoryView()
@@ -94,10 +95,10 @@ struct MainView: View {
                     Text(Localizable.settings)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .background(SetupColor.secondary)
-                        .foregroundColor(SetupColor.white)
+                        .background(.white)
+                        .foregroundColor(SetupColor.secondary)
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
+                        .shadow(color: .white.opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 
                 Button {
@@ -105,11 +106,11 @@ struct MainView: View {
                 } label: {
                     Image(systemName: "plus")
                         .font(.system(size: 28, weight: .regular, design: .rounded))
-                        .frame(width: 64, height: 64)
-                        .background(SetupColor.white)
-                        .foregroundColor(SetupColor.secondary)
+                        .frame(width: 72, height: 72)
+                        .background(.blue)
+                        .foregroundColor(.white)
                         .clipShape(Circle())
-                        .shadow(color: SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
+                        .shadow(color: .blue.opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 .sheet(isPresented: $isPresentedNewExpense) {
                     NewOperationView()
@@ -120,7 +121,8 @@ struct MainView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 16)
         }
-        .transition(.move(edge: .bottom))
+        .animation(.spring(), value: viewModel.showDetailedInformation)
+        .opacity(viewModel.showDetailedInformation ? 0 : 1)
     }
     
     // MARK: Все элементы
@@ -132,16 +134,22 @@ struct MainView: View {
             basicElements()
             
             // MARK: Логика как именно и когда отображать детально меню снизу
-            if !viewModel.showDetailedInformation {
+            VStack {
+                Spacer()
                 bottomButtons()
             }
             
             // MARK: Отображение и скрытие детального меню
-            if viewModel.showDetailedInformation {
+            VStack {
+                Spacer()
                 MainDescriptionOperationView()
+                    .cornerRadius(20)
                     .padding(16)
                     .transition(.move(edge: .bottom))
             }
+            .animation(.spring(), value: viewModel.showDetailedInformation)
+            .offset(y: viewModel.showDetailedInformation ? 0 : 220)
+            .shadow(color: SetupColor.primary.opacity(0.3), radius: 10, x: 0, y: 5)
         }
         .animation(.easeInOut(duration: 0.2), value: viewModel.showDetailedInformation)
     }

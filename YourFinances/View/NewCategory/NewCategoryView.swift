@@ -24,7 +24,9 @@ struct NewCategoryView: View {
     private func selectionButtons() -> some View {
         HStack(alignment: .center, spacing: 8) {
             Button {
-                viewModel.isExpenseNewCategory = true
+                withAnimation(.spring()) {
+                    viewModel.isExpenseNewCategory = true
+                }
             } label: {
                 Text(Localizable.expense)
                     .font(SetupFont.callout())
@@ -34,29 +36,31 @@ struct NewCategoryView: View {
                     .background(viewModel.isExpenseNewCategory ? SetupColor.white : .clear)
                     .overlay(content: {
                         Capsule(style: .continuous)
-                            .stroke(lineWidth: 3)
+                            .stroke(lineWidth: 2)
                             .foregroundColor(SetupColor.white)
                     })
                     .clipShape(Capsule(style: .continuous))
-                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+                    .shadow(color: viewModel.isExpenseNewCategory ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
             }
-            
             Button {
-                viewModel.isExpenseNewCategory = false
+                withAnimation(.spring()) {
+                    viewModel.isExpenseNewCategory = false
+                }
             } label: {
                 Text(Localizable.profit)
                     .font(SetupFont.callout())
                     .frame(maxWidth: .infinity)
                     .frame(height: 32)
+                
                     .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.white : SetupColor.secondary)
-                    .background(viewModel.isExpenseNewCategory ? .clear : SetupColor.white)
+                    .background(viewModel.isExpenseNewCategory ? SetupColor.primary : SetupColor.white)
                     .overlay(content: {
                         Capsule(style: .continuous)
-                            .stroke(lineWidth: 3)
+                            .stroke(lineWidth: 2)
                             .foregroundColor(SetupColor.white)
                     })
                     .clipShape(Capsule(style: .continuous))
-                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+                    .shadow(color: viewModel.isExpenseNewCategory ?  .clear : SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
             }
             
         }
@@ -102,10 +106,10 @@ struct NewCategoryView: View {
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.primary : SetupColor.white)
-                .foregroundColor(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.secondary : SetupColor.secondary)
+                .background(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.primary : .blue)
+                .foregroundColor(SetupColor.secondary)
                 .clipShape(Capsule())
-                .shadow(color: viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" ? .clear : SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
+                .shadow(color: viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" ? .clear : .blue.opacity(0.3), radius: 10, x: 0, y: 5)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
         }
@@ -153,6 +157,7 @@ struct NewCategoryView: View {
                     .foregroundColor(SetupColor.white)
                     .frame(maxWidth: .infinity)
                     .padding(16)
+                    .padding(.top, 16)
                 
                 selectionButtons()
                     .padding(.horizontal, 16)
@@ -178,7 +183,6 @@ struct NewCategoryView: View {
                     .font(SetupFont.title3())
                     .foregroundColor(SetupColor.white)
                     .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 16)
                 
                 gridCategories()
                     .padding(16)
@@ -199,8 +203,6 @@ struct NewCategoryView: View {
 struct NewCategoryView_Previews: PreviewProvider {
     static var previews: some View {
         NewCategoryView()
-        //            .previewLayout(.sizeThatFits)
             .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
     }
 }

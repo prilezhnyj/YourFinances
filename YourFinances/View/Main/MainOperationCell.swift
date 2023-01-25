@@ -34,6 +34,7 @@ struct MainOperationCell: View {
             Text(item.type == .minus ? "-\(item.amount.formattedWithSeparator)₽" : "+\(item.amount.formattedWithSeparator)₽")
                 .font(SetupFont.title3())
                 .foregroundColor(item.type == .minus ? .red : .green)
+                .shadow(color: item.type == .minus ? .red.opacity(0.3) : .green.opacity(0.3), radius: 10, x: 0, y: 5)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
@@ -41,8 +42,12 @@ struct MainOperationCell: View {
         .cornerRadius(20)
         .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
         .onTapGesture {
-            viewModel.currentItemForDetailedInformation = item
-            viewModel.showDetailedInformation.toggle()
+            withAnimation(.spring()) {
+                DispatchQueue.main.async {
+                    viewModel.currentItemForDetailedInformation = item
+                }
+                viewModel.showDetailedInformation.toggle()
+            }
         }
     }
 }
