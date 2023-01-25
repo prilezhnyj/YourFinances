@@ -16,7 +16,7 @@ struct MainDescriptionOperationView: View {
             HStack(alignment: .center, spacing: 10) {
                 Text(viewModel.currentItemForDetailedInformation.category.image)
                     .frame(minWidth: 48, minHeight: 48)
-                    .background(SetupColor.primary())
+                    .background(SetupColor.primary)
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 5) {
@@ -26,7 +26,7 @@ struct MainDescriptionOperationView: View {
                     Text(LocalizedStringKey(viewModel.currentItemForDetailedInformation.type.rawValue))
                         .font(SetupFont.footnote())
                 }
-                .foregroundColor(SetupColor.white())
+                .foregroundColor(SetupColor.white)
                 
                 Spacer()
                 
@@ -66,12 +66,12 @@ struct MainDescriptionOperationView: View {
                     Image(systemName: "xmark")
                         .font(SetupFont.footnoteButton())
                         .frame(width: 80, height: 32)
-                        .foregroundColor(SetupColor.white())
-                        .background(SetupColor.secondary())
+                        .foregroundColor(SetupColor.white)
+                        .background(SetupColor.secondary)
                         .overlay(content: {
                             Capsule(style: .continuous)
                                 .stroke(lineWidth: 3)
-                                .foregroundColor(SetupColor.white())
+                                .foregroundColor(SetupColor.white)
                         })
                         .clipShape(Capsule(style: .continuous))
                         .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
@@ -79,9 +79,9 @@ struct MainDescriptionOperationView: View {
             }
         }
         .padding(16)
-        .background(SetupColor.secondary())
+        .background(SetupColor.secondary)
         .cornerRadius(20)
-        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
+        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
     }
 }
 

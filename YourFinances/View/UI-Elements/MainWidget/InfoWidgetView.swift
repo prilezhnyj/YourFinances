@@ -29,6 +29,7 @@ struct InfoWidgetView: View {
                     Text(Localizable.forMonth).font(SetupFont.title2())
                     Text(Localizable.month).font(SetupFont.title2())
                 }
+                
                 Text(Localizable.youHaveSaved)
                     .font(SetupFont.footnote())
             }
@@ -71,14 +72,14 @@ struct InfoWidgetView: View {
                 Spacer()
                 informationRight()
             }
-            .foregroundColor(SetupColor.white())
+            .foregroundColor(SetupColor.white)
             
             WidgetProgressBarView()
         }
         .padding(16)
-        .background(SetupColor.secondary())
+        .background(SetupColor.secondary)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
+        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
     }
 }
 
@@ -86,8 +87,7 @@ struct InfoWidgetView: View {
 struct InfoWidgetView_Previews: PreviewProvider {
     static var previews: some View {
         InfoWidgetView()
-            .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
             .previewLayout(.sizeThatFits)
+            .environmentObject(FinancesViewModel())
     }
 }

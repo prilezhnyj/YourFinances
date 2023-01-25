@@ -27,13 +27,13 @@ struct CategoryRowView: View {
             Text(item.image)
                 .font(SetupFont.footnote())
                 .frame(minWidth: 40, minHeight: 40)
-                .background(SetupColor.primary())
+                .background(SetupColor.primary)
                 .clipShape(Circle())
             
             // MARK: Название
             Text(Localizable.getKey(for: item.locKey))
                 .font(SetupFont.callout())
-                .foregroundColor(SetupColor.white())
+                .foregroundColor(SetupColor.white)
             
             Spacer()
             
@@ -52,9 +52,9 @@ struct CategoryRowView: View {
         .padding(.leading, 16)
         .padding(.trailing, 32)
         .padding(.vertical, 8)
-        .background(SetupColor.secondary())
+        .background(SetupColor.secondary)
         .cornerRadius(20)
-        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
+        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
     }
 }
 

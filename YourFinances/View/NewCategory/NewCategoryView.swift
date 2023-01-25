@@ -30,12 +30,12 @@ struct NewCategoryView: View {
                     .font(SetupFont.callout())
                     .frame(maxWidth: .infinity)
                     .frame(height: 32)
-                    .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.secondary() : SetupColor.white())
-                    .background(viewModel.isExpenseNewCategory ? SetupColor.white() : .clear)
+                    .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.secondary : SetupColor.white)
+                    .background(viewModel.isExpenseNewCategory ? SetupColor.white : .clear)
                     .overlay(content: {
                         Capsule(style: .continuous)
                             .stroke(lineWidth: 3)
-                            .foregroundColor(SetupColor.white())
+                            .foregroundColor(SetupColor.white)
                     })
                     .clipShape(Capsule(style: .continuous))
                     .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
@@ -48,12 +48,12 @@ struct NewCategoryView: View {
                     .font(SetupFont.callout())
                     .frame(maxWidth: .infinity)
                     .frame(height: 32)
-                    .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.white() : SetupColor.secondary())
-                    .background(viewModel.isExpenseNewCategory ? .clear : SetupColor.white())
+                    .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.white : SetupColor.secondary)
+                    .background(viewModel.isExpenseNewCategory ? .clear : SetupColor.white)
                     .overlay(content: {
                         Capsule(style: .continuous)
                             .stroke(lineWidth: 3)
-                            .foregroundColor(SetupColor.white())
+                            .foregroundColor(SetupColor.white)
                     })
                     .clipShape(Capsule(style: .continuous))
                     .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
@@ -66,21 +66,21 @@ struct NewCategoryView: View {
     private func titleCategory() -> some View {
         HStack {
             TextField(Localizable.categoryTitle, text: $viewModel.newTitleCategory)
-                .foregroundColor(viewModel.newTitleCategory == "" ? SetupColor.primary() : SetupColor.white())
+                .foregroundColor(viewModel.newTitleCategory == "" ? SetupColor.primary : SetupColor.white)
                 .font(SetupFont.title3())
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(SetupColor.secondary())
+                .background(SetupColor.secondary)
                 .clipShape(Capsule(style: .continuous))
             
             TextField("🦊", text: $viewModel.newImageCategory)
-                .foregroundColor(viewModel.newImageCategory == "" ? SetupColor.primary() : SetupColor.white())
+                .foregroundColor(viewModel.newImageCategory == "" ? SetupColor.primary : SetupColor.white)
                 .font(SetupFont.title3())
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 16)
                 .frame(width: 72, height: 48, alignment: .center)
-                .background(SetupColor.secondary())
+                .background(SetupColor.secondary)
                 .clipShape(Capsule(style: .continuous))
                 .onChange(of: viewModel.newImageCategory) { newValue in
                     viewModel.newImageCategory = String(viewModel.newImageCategory.prefix(1))
@@ -102,10 +102,10 @@ struct NewCategoryView: View {
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.primary() : SetupColor.white())
-                .foregroundColor(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.secondary() : SetupColor.secondary())
+                .background(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.primary : SetupColor.white)
+                .foregroundColor(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.secondary : SetupColor.secondary)
                 .clipShape(Capsule())
-                .shadow(color: viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" ? .clear : SetupColor.white().opacity(0.3), radius: 10, x: 0, y: 5)
+                .shadow(color: viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" ? .clear : SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
         }
@@ -143,14 +143,14 @@ struct NewCategoryView: View {
     // MARK: Все элементы
     private func allViewInScrollView() -> some View {
         ZStack {
-            SetupColor.primary().ignoresSafeArea()
+            SetupColor.primary.ignoresSafeArea()
             
             ScrollView(.vertical, showsIndicators: false) {
                 
                 // MARK: Заголовок
                 Text(Localizable.newCategory)
                     .font(SetupFont.title3())
-                    .foregroundColor(SetupColor.white())
+                    .foregroundColor(SetupColor.white)
                     .frame(maxWidth: .infinity)
                     .padding(16)
                 
@@ -164,19 +164,19 @@ struct NewCategoryView: View {
                 
                 if viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" {
                     Text(Localizable.descriptionSavingCategory)
-                        .foregroundColor(SetupColor.white())
+                        .foregroundColor(SetupColor.white)
                         .font(SetupFont.footnote())
                         .padding(16)
                 }
                 
                 Divider()
-                    .background(SetupColor.white())
+                    .background(SetupColor.white)
                     .padding(16)
                 
                 // MARK: Заголовок
                 Text(Localizable.yourCategories)
                     .font(SetupFont.title3())
-                    .foregroundColor(SetupColor.white())
+                    .foregroundColor(SetupColor.white)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 16)
                 
@@ -192,7 +192,7 @@ struct NewCategoryView: View {
             .font(SetupFont.callout())
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
-            .foregroundColor(SetupColor.white())
+            .foregroundColor(SetupColor.white)
     }
 }
 

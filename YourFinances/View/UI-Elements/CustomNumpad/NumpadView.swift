@@ -15,9 +15,19 @@ struct NumPadView: View {
     var body: some View {
         VStack(spacing: 8) {
             KeyPad(string: $viewModel.operationAmount)
+            
+            Button("Закрыть") {
+                withAnimation(.spring()) {
+                    viewModel.showNumpadView = false
+                }
+            }
+            .font(SetupFont.callout())
+            .foregroundColor(SetupColor.red)
+            .frame(maxWidth: .infinity)
+            .frame(height: 32)
         }
         .padding(16)
-        .background(SetupColor.secondary())
+        .background(SetupColor.secondary)
     }
 }
 
@@ -27,6 +37,5 @@ struct NumpadView_Previews: PreviewProvider {
         NumPadView()
             .previewLayout(.sizeThatFits)
             .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
     }
 }

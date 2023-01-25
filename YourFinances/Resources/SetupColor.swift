@@ -1,5 +1,5 @@
 //
-//  Colors.swift
+//  SetupColor.swift
 //  YourFinances
 //
 //  Created by Максим Боталов on 23.01.2023.
@@ -8,15 +8,23 @@
 import SwiftUI
 
 final class SetupColor {
-    static func white() -> Color {
+    static var white: Color {
         return Color("WhiteColor")
     }
     
-    static func primary() -> Color {
+    static var primary: Color {
         return Color("PrimaryColor")
     }
     
-    static func secondary() -> Color {
+    static var secondary: Color {
         return Color("SecondaryColor")
+    }
+    
+    static var blue: Color {
+        return Color("Blue")
+    }
+    
+    static var red: Color {
+        return Color("Red")
     }
 }

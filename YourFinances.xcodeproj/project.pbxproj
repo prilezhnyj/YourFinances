@@ -35,7 +35,7 @@
 		6AB5C0712971530E00E45FC5 /* FullWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB5C0702971530E00E45FC5 /* FullWeekView.swift */; };
 		6AC94A23296D6EC90077E36C /* NewCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC94A22296D6EC90077E36C /* NewCategoryView.swift */; };
 		6AC94A25296D7B120077E36C /* CategoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC94A24296D7B120077E36C /* CategoryRowView.swift */; };
-		6AD02C06297F00E4006DC485 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD02C05297F00E4006DC485 /* Colors.swift */; };
+		6AD02C06297F00E4006DC485 /* SetupColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD02C05297F00E4006DC485 /* SetupColor.swift */; };
 		6AD6CAE32970323400270354 /* SetupFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD6CAE22970323400270354 /* SetupFont.swift */; };
 		6AF80F0929709C5500F0D119 /* OneDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF80F0829709C5500F0D119 /* OneDayView.swift */; };
 /* End PBXBuildFile section */
@@ -72,7 +72,7 @@
 		6AB5C0702971530E00E45FC5 /* FullWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWeekView.swift; sourceTree = "<group>"; };
 		6AC94A22296D6EC90077E36C /* NewCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryView.swift; sourceTree = "<group>"; };
 		6AC94A24296D7B120077E36C /* CategoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRowView.swift; sourceTree = "<group>"; };
-		6AD02C05297F00E4006DC485 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		6AD02C05297F00E4006DC485 /* SetupColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupColor.swift; sourceTree = "<group>"; };
 		6AD6CAE22970323400270354 /* SetupFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFont.swift; sourceTree = "<group>"; };
 		6AF80F0829709C5500F0D119 /* OneDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,7 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				6AD6CAE22970323400270354 /* SetupFont.swift */,
-				6AD02C05297F00E4006DC485 /* Colors.swift */,
+				6AD02C05297F00E4006DC485 /* SetupColor.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -358,7 +358,7 @@
 				6AADECEB296AD1EE00499567 /* KeyPadRow.swift in Sources */,
 				6AC94A23296D6EC90077E36C /* NewCategoryView.swift in Sources */,
 				6A90DA7D297AB134000C2542 /* StartView.swift in Sources */,
-				6AD02C06297F00E4006DC485 /* Colors.swift in Sources */,
+				6AD02C06297F00E4006DC485 /* SetupColor.swift in Sources */,
 				6A558F71294B92FD005EDBF0 /* MainOperationCell.swift in Sources */,
 				6AC94A25296D7B120077E36C /* CategoryRowView.swift in Sources */,
 				6A522044295B155F003FA75E /* MainDescriptionOperationView.swift in Sources */,

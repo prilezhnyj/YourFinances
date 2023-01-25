@@ -33,19 +33,20 @@ struct ShowCategoriesView: View {
             // MARK: Заголовок
             Text(Localizable.categories)
                 .font(SetupFont.callout())
-                .foregroundColor(SetupColor.white())
+                .foregroundColor(SetupColor.white)
             
             Spacer()
             
             // MARK: Кнопка раскрытия и закрытия всех категории
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) {
+                withAnimation(.spring()) {
                     viewModel.showAllCategories.toggle()
                 }
             } label: {
                 Text(viewModel.showAllCategories ? Localizable.hide : Localizable.show)
                     .font(SetupFont.callout())
-                    .foregroundColor(viewModel.showAllCategories ? .red : SetupColor.primary())
+                    .foregroundColor(viewModel.showAllCategories ? .red : SetupColor.primary)
+                    .shadow(color: viewModel.showAllCategories ? .red.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
             }
         }
         .padding(16)
@@ -55,18 +56,24 @@ struct ShowCategoriesView: View {
     private func categories(for array: [CategoryModel]) -> some View {
         ForEach(array) { item in
             VStack {
+                // MARK: Фон иконки
                 Text(item.image)
                     .frame(minWidth: 48, minHeight: 48)
-                    .background(viewModel.selectedCategory.id == item.id ? Color.green : SetupColor.primary())
+                    .background(viewModel.selectedCategory.id == item.id ? Color.green : SetupColor.primary)
                     .clipShape(Circle())
+                
+                // MARK: Текст категории
                 Text(Localizable.getKey(for: item.locKey))
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .font(SetupFont.footnote())
-                    .foregroundColor(viewModel.selectedCategory.id == item.id ? Color.green : SetupColor.white())
+                    
+                
             }
+            .foregroundColor(viewModel.selectedCategory.id == item.id ? Color.green : SetupColor.white)
+            .shadow(color: viewModel.selectedCategory.id == item.id ? Color.green.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
             .onTapGesture {
-                withAnimation(.easeInOut(duration: 0.2)) {
+                withAnimation(.spring()) {
                     viewModel.selectedCategory = item
                 }
             }
@@ -101,12 +108,12 @@ struct ShowCategoriesView: View {
             
             gridInScrollView()
         }
-        .frame(height: viewModel.showAllCategories ? 250 : 160)
+        .frame(height: viewModel.showAllCategories ? 230 : 150)
         .frame(maxWidth: .infinity)
-        .background(SetupColor.secondary())
+        .background(SetupColor.secondary)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
-        .animation(.easeInOut(duration: 0.2), value: viewModel.showAllCategories)
+        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
+        .animation(.spring(), value: viewModel.showAllCategories)
     }
 }
 
@@ -116,6 +123,5 @@ struct ShowCategoriesView_Previews: PreviewProvider {
         ShowCategoriesView()
             .previewLayout(.sizeThatFits)
             .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
     }
 }

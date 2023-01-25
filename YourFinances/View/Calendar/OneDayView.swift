@@ -28,11 +28,11 @@ struct OneDayView: View {
             Text(dayWeek)
                 .font(SetupFont.footnoteButton())
         }
-        .frame(maxWidth: .infinity, maxHeight: 52, alignment: .center)
-        .foregroundColor(isToday ? SetupColor.secondary() : SetupColor.white())
-        .background(isToday ? SetupColor.white() : SetupColor.secondary())
+        .frame(maxWidth: .infinity, maxHeight: 56, alignment: .center)
+        .foregroundColor(isToday ? SetupColor.secondary : SetupColor.white)
+        .background(isToday ? SetupColor.white : SetupColor.secondary)
         .clipShape(Capsule(style: .continuous))
-        .shadow(color: isToday ? SetupColor.white().opacity(0.3) : SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
+        .shadow(color: isToday ? SetupColor.white.opacity(0.3) : SetupColor.secondary.opacity(0.3), radius: 5, x: 0, y: 5)
     }
 }
 
@@ -41,7 +41,5 @@ struct OneDayView_Previews: PreviewProvider {
     static var previews: some View {
         OneDayView(dayWeek: "9", titleDayWeek: "Пт", isToday: false)
             .previewLayout(.sizeThatFits)
-            .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
     }
 }

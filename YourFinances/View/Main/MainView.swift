@@ -79,10 +79,10 @@ struct MainView: View {
                     Text(Localizable.categories)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .background(SetupColor.secondary())
-                        .foregroundColor(SetupColor.white())
+                        .background(SetupColor.secondary)
+                        .foregroundColor(SetupColor.white)
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
+                        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 .sheet(isPresented: $isPresentedNewCategoryView) {
                     NewCategoryView()
@@ -94,10 +94,10 @@ struct MainView: View {
                     Text(Localizable.settings)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .background(SetupColor.secondary())
-                        .foregroundColor(SetupColor.white())
+                        .background(SetupColor.secondary)
+                        .foregroundColor(SetupColor.white)
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
+                        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 
                 Button {
@@ -106,10 +106,10 @@ struct MainView: View {
                     Image(systemName: "plus")
                         .font(.system(size: 28, weight: .regular, design: .rounded))
                         .frame(width: 64, height: 64)
-                        .background(SetupColor.white())
-                        .foregroundColor(SetupColor.secondary())
+                        .background(SetupColor.white)
+                        .foregroundColor(SetupColor.secondary)
                         .clipShape(Circle())
-                        .shadow(color: SetupColor.white().opacity(0.3), radius: 10, x: 0, y: 5)
+                        .shadow(color: SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
                 }
                 .sheet(isPresented: $isPresentedNewExpense) {
                     NewOperationView()
@@ -126,7 +126,7 @@ struct MainView: View {
     // MARK: Все элементы
     private func allView() -> some View {
         ZStack(alignment: .bottom) {
-            SetupColor.primary().ignoresSafeArea(.all)
+            SetupColor.primary.ignoresSafeArea(.all)
             
             // MARK: Основное полотно с элементами
             basicElements()
@@ -163,7 +163,7 @@ struct MainView: View {
                 .padding(.horizontal, 16)
                 .opacity(array.isEmpty ? 0 : 1)
         }
-        .foregroundColor(SetupColor.white())
+        .foregroundColor(SetupColor.white)
     }
 }
 
@@ -171,7 +171,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
-            .previewLayout(.sizeThatFits)
             .environmentObject(FinancesViewModel())
     }
 }

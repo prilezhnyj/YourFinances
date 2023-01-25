@@ -25,7 +25,7 @@ struct TopBarView: View {
                 Text(viewModel.extractDate(for: viewModel.currentDay, format: "d MMMM yyyy"))
                     .font(SetupFont.footnote())
             }
-            .foregroundColor(SetupColor.white())
+            .foregroundColor(SetupColor.white)
             .frame(maxHeight: 48)
             
             Spacer()
@@ -36,7 +36,6 @@ struct TopBarView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 48, height: 48, alignment: .center)
                 .clipShape(Circle())
-                .shadow(color: SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
         }
         .frame(maxWidth: .infinity, maxHeight: 48)
     }
@@ -48,6 +47,5 @@ struct TopBarView_Previews: PreviewProvider {
         TopBarView()
             .previewLayout(.sizeThatFits)
             .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
     }
 }

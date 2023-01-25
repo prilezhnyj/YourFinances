@@ -24,7 +24,7 @@ struct NewOperationView: View {
     private func selectionButtons() -> some View {
         HStack(alignment: .center, spacing: 8) {
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) {
+                withAnimation(.spring()) {
                     viewModel.isExpense = true
                 }
             } label: {
@@ -32,19 +32,18 @@ struct NewOperationView: View {
                     .font(SetupFont.callout())
                     .frame(maxWidth: .infinity)
                     .frame(height: 32)
-                
-                    .foregroundColor(viewModel.isExpense ? SetupColor.secondary() : SetupColor.white())
-                    .background(viewModel.isExpense ? SetupColor.white() : .clear)
+                    .foregroundColor(viewModel.isExpense ? SetupColor.secondary : SetupColor.white)
+                    .background(viewModel.isExpense ? SetupColor.white : .clear)
                     .overlay(content: {
                         Capsule(style: .continuous)
-                            .stroke(lineWidth: 3)
-                            .foregroundColor(SetupColor.white())
+                            .stroke(lineWidth: 2)
+                            .foregroundColor(SetupColor.white)
                     })
                     .clipShape(Capsule(style: .continuous))
-                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+                    .shadow(color: viewModel.isExpense ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
             }
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) {
+                withAnimation(.spring()) {
                     viewModel.isExpense = false
                 }
             } label: {
@@ -52,19 +51,16 @@ struct NewOperationView: View {
                     .font(SetupFont.callout())
                     .frame(maxWidth: .infinity)
                     .frame(height: 32)
-//                    .foregroundColor(viewModel.isExpense ? .black : .white)
-//                    .background(viewModel.isExpense ? Color.white : Color.black)
                 
-                    .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.white() : SetupColor.secondary())
-                    .background(viewModel.isExpenseNewCategory ? .clear : SetupColor.white())
+                    .foregroundColor(viewModel.isExpense ? SetupColor.white : SetupColor.secondary)
+                    .background(viewModel.isExpense ? SetupColor.primary : SetupColor.white)
                     .overlay(content: {
                         Capsule(style: .continuous)
-                            .stroke(lineWidth: 3)
-                            .foregroundColor(SetupColor.white())
+                            .stroke(lineWidth: 2)
+                            .foregroundColor(SetupColor.white)
                     })
-                
                     .clipShape(Capsule(style: .continuous))
-                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
+                    .shadow(color: viewModel.isExpense ?  .clear : SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
             }
             
         }
@@ -75,17 +71,19 @@ struct NewOperationView: View {
         HStack(alignment: .center, spacing: 16) {
             Text(Localizable.amount)
                 .font(SetupFont.title3())
-                .foregroundColor(SetupColor.white())
+                .foregroundColor(SetupColor.white)
             
             Text(viewModel.operationAmount + "₽")
-                .foregroundColor(viewModel.operationAmount.isEmpty ? SetupColor.primary() : SetupColor.white())
+                .foregroundColor(viewModel.operationAmount.isEmpty ? SetupColor.primary : SetupColor.white)
                 .font(SetupFont.title3())
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(SetupColor.secondary())
+                .background(SetupColor.secondary)
                 .clipShape(Capsule(style: .continuous))
                 .onTapGesture {
-                    viewModel.showNumpadView.toggle()
+                    withAnimation(.spring()) {
+                        viewModel.showNumpadView.toggle()
+                    }
                 }
         }
     }
@@ -103,12 +101,11 @@ struct NewOperationView: View {
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(validFields() ? SetupColor.white() : SetupColor.primary())
-                .foregroundColor(validFields() ? SetupColor.secondary() : SetupColor.secondary())
+                .background(validFields() ? SetupColor.white : .clear)
+                .foregroundColor(SetupColor.secondary)
                 .clipShape(Capsule())
-                .shadow(color: validFields() ? SetupColor.white().opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
+                .shadow(color: validFields() ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
                 .padding(.horizontal, 16)
-                .padding(.vertical, 8)
         }
         .disabled(!validFields())
     }
@@ -117,16 +114,17 @@ struct NewOperationView: View {
     private func allView() -> some View {
         ZStack(alignment: .bottom) {
             
-            SetupColor.primary().ignoresSafeArea()
+            SetupColor.primary.ignoresSafeArea()
             
             ScrollView(.vertical, showsIndicators: false) {
                 
                 // MARK: Заголовок
                 Text(Localizable.newOperation)
                     .font(SetupFont.title3())
-                    .foregroundColor(SetupColor.white())
+                    .foregroundColor(SetupColor.white)
                     .frame(maxWidth: .infinity)
                     .padding(16)
+                    .padding(.top, 16)
                 
                 selectionButtons()
                     .padding(.horizontal, 16)
@@ -149,21 +147,23 @@ struct NewOperationView: View {
                         .font(SetupFont.footnote())
                     
                 }
-                .foregroundColor(SetupColor.white())
+                .foregroundColor(SetupColor.white)
                 .padding(16)
                 
             }
             
-            if viewModel.showNumpadView {
+            VStack {
+                Spacer()
                 NumPadView()
-                    .background(Color.white)
                     .cornerRadius(20)
-                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
-                    .transition(.move(edge: .bottom))
                     .padding(16)
+                    
             }
+            .animation(.spring(), value: viewModel.showNumpadView)
+            .offset(y: viewModel.showNumpadView ? 0 : UIScreen.main.bounds.height)
+            .shadow(color: SetupColor.primary.opacity(0.3), radius: 10, x: 0, y: 5)
+
         }
-        .animation(.easeInOut(duration: 0.2), value: viewModel.showNumpadView)
     }
     
     // MARK: Проверка на валидность полей
@@ -186,6 +186,5 @@ struct NewOperationView_Previews: PreviewProvider {
     static var previews: some View {
         NewOperationView()
             .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
     }
 }

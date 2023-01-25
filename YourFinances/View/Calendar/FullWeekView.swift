@@ -25,13 +25,13 @@ struct FullWeekView: View {
             ForEach(viewModel.currentWeek, id: \.self) { day in
                 OneDayView(dayWeek: viewModel.extractDate(for: day, format: "dd"), titleDayWeek: viewModel.extractDate(for: day, format: "EE"), isToday: viewModel.isToday(for: day))
                     .onTapGesture {
-                        withAnimation(.easeInOut(duration: 0.2)) {
+                        withAnimation(.spring()) {
                             viewModel.selectedDayWeek = day
                         }
                     }
                     .overlay(
-                        Capsule(style: .continuous).stroke(viewModel.selectedDayWeek == day ? SetupColor.white() : .clear , lineWidth: 2)
-                            .shadow(color: viewModel.selectedDayWeek == day ? SetupColor.white().opacity(0.3) : SetupColor.secondary().opacity(0.3), radius: 10, x: 0, y: 5)
+                        Capsule(style: .continuous).stroke(viewModel.selectedDayWeek == day ? SetupColor.white : .clear , lineWidth: 2)
+                            .shadow(color: viewModel.selectedDayWeek == day ? SetupColor.white.opacity(0.3) : SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
                     )
             }
         }
@@ -48,6 +48,5 @@ struct DaysScrollView_Previews: PreviewProvider {
         FullWeekView()
             .previewLayout(.sizeThatFits)
             .environmentObject(FinancesViewModel())
-            .environment(\.colorScheme, .dark)
     }
 }
