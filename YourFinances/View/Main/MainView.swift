@@ -80,10 +80,14 @@ struct MainView: View {
                     Text(Localizable.categories)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .background(.white)
-                        .foregroundColor(SetupColor.secondary)
+                        .foregroundColor(SetupColor.white)
+                        .overlay(content: {
+                            Capsule(style: .continuous)
+                                .stroke(lineWidth: 2)
+                                .foregroundColor(SetupColor.white)
+                        })
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
+                        .shadow(color: viewModel.isExpenseNewCategory ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
                 }
                 .sheet(isPresented: $isPresentedNewCategoryView) {
                     NewCategoryView()
@@ -95,10 +99,14 @@ struct MainView: View {
                     Text(Localizable.settings)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .background(.white)
-                        .foregroundColor(SetupColor.secondary)
+                        .foregroundColor(SetupColor.white)
+                        .overlay(content: {
+                            Capsule(style: .continuous)
+                                .stroke(lineWidth: 2)
+                                .foregroundColor(SetupColor.white)
+                        })
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: .white.opacity(0.3), radius: 10, x: 0, y: 5)
+                        .shadow(color: viewModel.isExpenseNewCategory ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
                 }
                 
                 Button {

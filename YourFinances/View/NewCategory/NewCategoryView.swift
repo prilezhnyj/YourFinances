@@ -70,7 +70,7 @@ struct NewCategoryView: View {
     private func titleCategory() -> some View {
         HStack {
             TextField(Localizable.categoryTitle, text: $viewModel.newTitleCategory)
-                .foregroundColor(viewModel.newTitleCategory == "" ? SetupColor.primary : SetupColor.white)
+                .foregroundColor(viewModel.newTitleCategory == "" ? SetupColor.white : SetupColor.white)
                 .font(SetupFont.title3())
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity)
@@ -188,7 +188,6 @@ struct NewCategoryView: View {
                     gridCategories()
                         .padding(16)
                 }
-                
             }
         }
     }

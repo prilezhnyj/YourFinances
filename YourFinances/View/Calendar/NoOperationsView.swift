@@ -25,13 +25,17 @@ struct NoOperationsView: View {
             Button {
                 isPresentedNewExpense.toggle()
             } label: {
-                Text(Localizable.addNew)
-                    .font(SetupFont.footnoteButton())
-                    .frame(width: 150, height: 32)
-                    .background(SetupColor.blue)
-                    .foregroundColor(SetupColor.white)
-                    .clipShape(Capsule(style: .continuous))
-                    .shadow(color: SetupColor.blue.opacity(0.3), radius: 10, x: 0, y: 5)
+                HStack(alignment: .center, spacing: 16) {
+                    Image(systemName: "plus")
+                    Text(Localizable.addNew)
+                }
+                .padding(.horizontal, 16)
+                .font(SetupFont.footnoteButton())
+                .frame(height: 32)
+                .background(SetupColor.blue)
+                .foregroundColor(SetupColor.white)
+                .clipShape(Capsule(style: .continuous))
+                .shadow(color: SetupColor.blue.opacity(0.3), radius: 10, x: 0, y: 5)
             }
             // MARK: Переход на создание новой операции
             .sheet(isPresented: $isPresentedNewExpense) {

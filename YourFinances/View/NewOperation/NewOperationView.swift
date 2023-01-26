@@ -28,39 +28,49 @@ struct NewOperationView: View {
                     viewModel.isExpense = true
                 }
             } label: {
-                Text(Localizable.expense)
-                    .font(SetupFont.callout())
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 32)
-                    .foregroundColor(viewModel.isExpense ? SetupColor.secondary : SetupColor.white)
-                    .background(viewModel.isExpense ? SetupColor.white : .clear)
-                    .overlay(content: {
-                        Capsule(style: .continuous)
-                            .stroke(lineWidth: 2)
-                            .foregroundColor(SetupColor.white)
-                    })
-                    .clipShape(Capsule(style: .continuous))
-                    .shadow(color: viewModel.isExpense ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
+                HStack(alignment: .center, spacing: 16) {
+                    Image(systemName: "arrow.down")
+                        .foregroundColor(.red)
+                    Text(Localizable.expense)
+
+                }
+                .font(SetupFont.callout())
+                .frame(maxWidth: .infinity)
+                .frame(height: 32)
+                .foregroundColor(viewModel.isExpense ? SetupColor.secondary : SetupColor.white)
+                .background(viewModel.isExpense ? SetupColor.white : .clear)
+                .overlay(content: {
+                    Capsule(style: .continuous)
+                        .stroke(lineWidth: 2)
+                        .foregroundColor(SetupColor.white)
+                })
+                .clipShape(Capsule(style: .continuous))
+                .shadow(color: viewModel.isExpense ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
             }
             Button {
                 withAnimation(.spring()) {
                     viewModel.isExpense = false
                 }
             } label: {
-                Text(Localizable.profit)
-                    .font(SetupFont.callout())
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 32)
-                
-                    .foregroundColor(viewModel.isExpense ? SetupColor.white : SetupColor.secondary)
-                    .background(viewModel.isExpense ? SetupColor.primary : SetupColor.white)
-                    .overlay(content: {
-                        Capsule(style: .continuous)
-                            .stroke(lineWidth: 2)
-                            .foregroundColor(SetupColor.white)
-                    })
-                    .clipShape(Capsule(style: .continuous))
-                    .shadow(color: viewModel.isExpense ?  .clear : SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
+                HStack(alignment: .center, spacing: 16) {
+                    Image(systemName: "arrow.up")
+                        .foregroundColor(.green)
+                    Text(Localizable.profit)
+
+                }
+                .font(SetupFont.callout())
+                .frame(maxWidth: .infinity)
+                .frame(height: 32)
+            
+                .foregroundColor(viewModel.isExpense ? SetupColor.white : SetupColor.secondary)
+                .background(viewModel.isExpense ? SetupColor.primary : SetupColor.white)
+                .overlay(content: {
+                    Capsule(style: .continuous)
+                        .stroke(lineWidth: 2)
+                        .foregroundColor(SetupColor.white)
+                })
+                .clipShape(Capsule(style: .continuous))
+                .shadow(color: viewModel.isExpense ?  .clear : SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
             }
             
         }
@@ -133,8 +143,17 @@ struct NewOperationView: View {
                 entryAmount()
                     .padding(16)
                 
-                ShowCategoriesView()
-                    .padding(.horizontal, 16)
+                if !viewModel.expenseCategoriesArray.isEmpty || !viewModel.profitsCategoriesArray.isEmpty {
+                    ShowCategoriesView()
+                        .padding(.horizontal, 16)
+                } else {
+                    Text(Localizable.noCategory)
+                        .multilineTextAlignment(.center)
+                        .font(SetupFont.title3())
+                        .foregroundColor(SetupColor.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 150, alignment: .center)
+                }
                 
                 saveOperation()
                     .padding(16)

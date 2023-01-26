@@ -67,13 +67,7 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Инициализатор
     init() {
         getCurrentWeek()
-        mockData()
         filterOperationsDay()
-    }
-    
-    func mockData() {
-        expenseArray.append(FinancesModel(type: .minus, amount: 239, category: CategoryModel(title: "Products", image: "🥬", locKey: "products"), date: .now))
-        profitsArray.append(FinancesModel(type: .plus, amount: 239, category: CategoryModel(title: "fdfd", image: "dfdd", locKey: "transport"), date: Date(timeIntervalSince1970: 1674326827)))
     }
     
     // MARK: - Сохранение расхода / дохода
@@ -115,7 +109,7 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Удаление нужно категории
     func deleteCategory(category: CategoryModel) {
         // Флаг отвечающий за категория траты это или нет
-        var isExpense: Bool? = false
+        var isExpense: Bool = false
         
         // Индекc элемента в каждой катеорий. Один из элементов должен быть nil
         let expenseCategories = findCategory(category: category, in: expenseCategoriesArray)
@@ -126,11 +120,15 @@ class FinancesViewModel: ObservableObject {
             isExpense = true
         }
         
+
+        
         // Проверка и удаление нужного элемента
-        if isExpense! {
-            expenseCategoriesArray.remove(at: expenseCategories!)
+        if isExpense {
+            guard expenseCategories != nil else { return }
+            self.expenseCategoriesArray.remove(at: expenseCategories!)
         } else {
-            profitsCategoriesArray.remove(at: profitsCategories!)
+            guard profitsCategories != nil else { return }
+            self.profitsCategoriesArray.remove(at: profitsCategories!)
         }
     }
     

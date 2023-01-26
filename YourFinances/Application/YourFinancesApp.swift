@@ -24,6 +24,7 @@ struct YourFinancesApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .preferredColorScheme(.dark)
                 .environmentObject(viewModel)
                 .environment(\.colorScheme, .dark)
         }
