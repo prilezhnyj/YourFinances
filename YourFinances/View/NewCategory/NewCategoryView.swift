@@ -174,18 +174,21 @@ struct NewCategoryView: View {
                         .padding(16)
                 }
                 
-                Divider()
-                    .background(SetupColor.white)
-                    .padding(16)
+                if !viewModel.expenseCategoriesArray.isEmpty || !viewModel.profitsCategoriesArray.isEmpty {
+                    Divider()
+                        .background(SetupColor.white)
+                        .padding(16)
+                    
+                    // MARK: Заголовок
+                    Text(Localizable.yourCategories)
+                        .font(SetupFont.title3())
+                        .foregroundColor(SetupColor.white)
+                        .frame(maxWidth: .infinity)
+                    
+                    gridCategories()
+                        .padding(16)
+                }
                 
-                // MARK: Заголовок
-                Text(Localizable.yourCategories)
-                    .font(SetupFont.title3())
-                    .foregroundColor(SetupColor.white)
-                    .frame(maxWidth: .infinity)
-                
-                gridCategories()
-                    .padding(16)
             }
         }
     }
