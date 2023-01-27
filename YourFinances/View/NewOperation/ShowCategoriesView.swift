@@ -25,19 +25,18 @@ struct ShowCategoriesView: View {
     }
     
     // MARK: - ФУНКЦИИ && UI
-    
-    // MARK: Хедер View
+    // Хедер View
     private func headerView() -> some View {
         HStack(alignment: .center, spacing: 0) {
             
-            // MARK: Заголовок
+            // Заголовок
             Text(Localizable.categories)
                 .font(SetupFont.callout())
-                .foregroundColor(SetupColor.white)
+                .foregroundColor(.white)
             
             Spacer()
             
-            // MARK: Кнопка раскрытия и закрытия всех категории
+            // Кнопка раскрытия и закрытия всех категории
             Button {
                 withAnimation(.spring()) {
                     viewModel.showAllCategories.toggle()
@@ -52,17 +51,17 @@ struct ShowCategoriesView: View {
         .padding(16)
     }
     
-    // MARK: Категории
+    // Категории
     private func categories(for array: [CategoryModel]) -> some View {
         ForEach(array) { item in
             VStack {
-                // MARK: Фон иконки
+                // Фон иконки
                 Text(item.image)
                     .frame(minWidth: 48, minHeight: 48)
                     .background(viewModel.selectedCategory.id == item.id ? Color.green : SetupColor.primary)
                     .clipShape(Circle())
                 
-                // MARK: Текст категории
+                // Текст категории
                 Text(Localizable.getKey(for: item.locKey))
                     .lineLimit(1)
                     .truncationMode(.tail)
@@ -70,17 +69,22 @@ struct ShowCategoriesView: View {
                     
                 
             }
-            .foregroundColor(viewModel.selectedCategory.id == item.id ? Color.green : SetupColor.white)
+            .foregroundColor(viewModel.selectedCategory.id == item.id ? Color.green : .white)
             .shadow(color: viewModel.selectedCategory.id == item.id ? Color.green.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
             .onTapGesture {
                 withAnimation(.spring()) {
                     viewModel.selectedCategory = item
                 }
             }
+            .onAppear {
+                DispatchQueue.main.async {
+                    viewModel.selectedCategory = array.first ?? CategoryModel(title: "", image: "", locKey: "")
+                }
+            }
         }
     }
     
-    // MARK: Общая сетка
+    // Общая сетка
     private func gridCategories() -> some View {
         LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
             if viewModel.isExpense {
@@ -94,18 +98,17 @@ struct ShowCategoriesView: View {
         .padding(.horizontal, 16)
     }
     
-    // MARK: Сетка в ScrollView
+    // Сетка в ScrollView
     private func gridInScrollView() -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             gridCategories()
         }
     }
     
-    // MARK: Все элементы
+    // Все элементы
     private func allView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             headerView()
-            
             gridInScrollView()
         }
         .frame(height: viewModel.showAllCategories ? 230 : 150)
@@ -122,6 +125,7 @@ struct ShowCategoriesView_Previews: PreviewProvider {
     static var previews: some View {
         ShowCategoriesView()
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

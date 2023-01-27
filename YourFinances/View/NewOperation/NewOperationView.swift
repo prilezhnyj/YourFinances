@@ -19,109 +19,33 @@ struct NewOperationView: View {
     }
     
     // MARK: - ФУНКЦИИ && UI
-    
-    // MARK: Выбор типа операции
-    private func selectionButtons() -> some View {
-        HStack(alignment: .center, spacing: 8) {
-            Button {
-                withAnimation(.spring()) {
-                    viewModel.isExpense = true
-                }
-            } label: {
-                HStack(alignment: .center, spacing: 16) {
-                    Image(systemName: "arrow.down")
-                        .foregroundColor(.red)
-                    Text(Localizable.expense)
-
-                }
-                .font(SetupFont.callout())
-                .frame(maxWidth: .infinity)
-                .frame(height: 32)
-                .foregroundColor(viewModel.isExpense ? SetupColor.secondary : SetupColor.white)
-                .background(viewModel.isExpense ? SetupColor.white : .clear)
-                .overlay(content: {
-                    Capsule(style: .continuous)
-                        .stroke(lineWidth: 2)
-                        .foregroundColor(SetupColor.white)
-                })
-                .clipShape(Capsule(style: .continuous))
-                .shadow(color: viewModel.isExpense ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
-            }
-            Button {
-                withAnimation(.spring()) {
-                    viewModel.isExpense = false
-                }
-            } label: {
-                HStack(alignment: .center, spacing: 16) {
-                    Image(systemName: "arrow.up")
-                        .foregroundColor(.green)
-                    Text(Localizable.profit)
-
-                }
-                .font(SetupFont.callout())
-                .frame(maxWidth: .infinity)
-                .frame(height: 32)
-            
-                .foregroundColor(viewModel.isExpense ? SetupColor.white : SetupColor.secondary)
-                .background(viewModel.isExpense ? SetupColor.primary : SetupColor.white)
-                .overlay(content: {
-                    Capsule(style: .continuous)
-                        .stroke(lineWidth: 2)
-                        .foregroundColor(SetupColor.white)
-                })
-                .clipShape(Capsule(style: .continuous))
-                .shadow(color: viewModel.isExpense ?  .clear : SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
-            }
-            
-        }
-    }
-    
-    // MARK: Ввод суммы операции
+    // Ввод суммы операции
     private func entryAmount() -> some View {
         HStack(alignment: .center, spacing: 16) {
             Text(Localizable.amount)
-                .font(SetupFont.title3())
-                .foregroundColor(SetupColor.white)
+                .modifier(CustomText(font: SetupFont.title3(), color: .white))
             
             Text(viewModel.operationAmount + "₽")
-                .foregroundColor(viewModel.operationAmount.isEmpty ? SetupColor.primary : SetupColor.white)
-                .font(SetupFont.title3())
-                .frame(maxWidth: .infinity)
-                .frame(height: 48)
-                .background(SetupColor.secondary)
-                .clipShape(Capsule(style: .continuous))
-                .onTapGesture {
-                    DispatchQueue.main.async {
-                        withAnimation(.spring()) {
-                            viewModel.showNumpadView.toggle()
-                        }
-                    }
-                }
+                .modifier(AmountField())
         }
     }
     
-    // MARK: Кнопка сохранения операции
+    // Кнопка сохранения операции
     private func saveOperation() -> some View {
         Button {
             viewModel.saveOperation()
             viewModel.operationAmount = ""
             viewModel.showNumpadView = false
-            viewModel.selectedCategory = CategoryModel(title: "", image: "", locKey: "")
+            viewModel.isExpense = true
             presentationMode.wrappedValue.dismiss()
         } label: {
             Text(Localizable.save)
-                .font(SetupFont.callout())
-                .frame(maxWidth: .infinity)
-                .frame(height: 48)
-                .background(validFields() ? .blue : .clear)
-                .foregroundColor(SetupColor.secondary)
-                .clipShape(Capsule())
-                .shadow(color: validFields() ? .blue.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
+                .modifier(CustomButton(font: SetupFont.callout(), background: viewModel.checkingBeforeSaving() ? .blue : .clear, foreground: SetupColor.secondary, height: 48, maxWidth: .infinity))
         }
-        .disabled(!validFields())
+        .disabled(viewModel.checkingBeforeSaving())
     }
     
-    // MARK: Все элементы
+    // Все элементы
     private func allView() -> some View {
         ZStack(alignment: .bottom) {
             
@@ -129,28 +53,25 @@ struct NewOperationView: View {
             
             ScrollView(.vertical, showsIndicators: false) {
                 
-                // MARK: Заголовок
+                // Заголовок
                 Text(Localizable.newOperation)
-                    .font(SetupFont.title3())
-                    .foregroundColor(SetupColor.white)
-                    .frame(maxWidth: .infinity)
+                    .modifier(CustomText(font: SetupFont.title3(), color: .white))
                     .padding(16)
                     .padding(.top, 16)
                 
-                selectionButtons()
+                SelectionButtonsView(isExpense: $viewModel.isExpense)
                     .padding(.horizontal, 16)
                 
                 entryAmount()
                     .padding(16)
                 
-                if !viewModel.expenseCategoriesArray.isEmpty || !viewModel.profitsCategoriesArray.isEmpty {
+                // Отображение категори. Если категорий нет, то отображается предупреждение
+                if  viewModel.сheckingForCategories() {
                     ShowCategoriesView()
                         .padding(.horizontal, 16)
                 } else {
                     Text(Localizable.noCategory)
-                        .multilineTextAlignment(.center)
-                        .font(SetupFont.title3())
-                        .foregroundColor(SetupColor.white)
+                        .modifier(CustomText(font: SetupFont.title3(), color: .white, alignment: .center))
                         .frame(maxWidth: .infinity)
                         .frame(height: 150, alignment: .center)
                 }
@@ -158,16 +79,16 @@ struct NewOperationView: View {
                 saveOperation()
                     .padding(16)
                 
-                // MARK: Описание неточностей. После реализации функционала удалить!
+                // Описание неточностей. После реализации функционала удалить!
                 VStack(alignment: .leading, spacing: 8) {
                     Text(Localizable.info1)
-                        .font(SetupFont.footnote())
+                        .modifier(DescriptionText())
                     
                     Text(Localizable.info2)
-                        .font(SetupFont.footnote())
+                        .modifier(DescriptionText())
                     
                 }
-                .foregroundColor(SetupColor.white)
+                .foregroundColor(.white)
                 .padding(16)
                 
             }
@@ -182,29 +103,15 @@ struct NewOperationView: View {
             .animation(.spring(), value: viewModel.showNumpadView)
             .offset(y: viewModel.showNumpadView ? 0 : 370)
             .shadow(color: SetupColor.primary.opacity(0.3), radius: 10, x: 0, y: 5)
-
         }
     }
-    
-    // MARK: Проверка на валидность полей
-    private func validFields() -> Bool {
-        if viewModel.selectedCategory.image == "" {
-            return false
-        }
-        
-        if viewModel.operationAmount == "" {
-            return false
-        }
-        
-        return true
-    }
-    
 }
 
 // MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct NewOperationView_Previews: PreviewProvider {
     static var previews: some View {
         NewOperationView()
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

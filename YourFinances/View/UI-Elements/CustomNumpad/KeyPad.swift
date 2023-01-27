@@ -42,5 +42,6 @@ struct KeyPad_Previews: PreviewProvider {
     static var previews: some View {
         KeyPad(string: .constant("Сумма"))
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

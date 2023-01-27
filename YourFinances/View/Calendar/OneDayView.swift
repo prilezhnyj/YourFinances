@@ -17,22 +17,22 @@ struct OneDayView: View {
     // MARK: - ТЕЛО
     var body: some View {
         
-        // MARK: ОДИН ДЕНЬ ИЗ НЕДЕЛЬНОГО КАЛЕНДАРЯ
+        // Один день
         VStack(alignment: .center, spacing: 4) {
             
-            // MARK: Краткое название недели
+            // Краткое название недели
             Text(titleDayWeek.capitalized)
                 .font(SetupFont.footnote())
             
-            // MARK: Число месяца
+            // Число месяца
             Text(dayWeek)
                 .font(SetupFont.footnoteButton())
         }
         .frame(maxWidth: .infinity, maxHeight: 56, alignment: .center)
-        .foregroundColor(isToday ? SetupColor.secondary : SetupColor.white)
-        .background(isToday ? SetupColor.white : SetupColor.secondary)
+        .foregroundColor(isToday ? SetupColor.secondary : .white)
+        .background(isToday ? .white : SetupColor.secondary)
         .clipShape(Capsule(style: .continuous))
-        .shadow(color: isToday ? SetupColor.white.opacity(0.3) : SetupColor.secondary.opacity(0.3), radius: 5, x: 0, y: 5)
+        .shadow(color: isToday ? .white.opacity(0.3) : SetupColor.secondary.opacity(0.3), radius: 5, x: 0, y: 5)
     }
 }
 
@@ -41,5 +41,6 @@ struct OneDayView_Previews: PreviewProvider {
     static var previews: some View {
         OneDayView(dayWeek: "9", titleDayWeek: "Пт", isToday: false)
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

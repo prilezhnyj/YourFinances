@@ -19,58 +19,11 @@ struct NewCategoryView: View {
     }
     
     // MARK: - ФУНКЦИИ && UI
-    
-    // MARK: Кнопки выбора категории
-    private func selectionButtons() -> some View {
-        HStack(alignment: .center, spacing: 8) {
-            Button {
-                withAnimation(.spring()) {
-                    viewModel.isExpenseNewCategory = true
-                }
-            } label: {
-                Text(Localizable.expense)
-                    .font(SetupFont.callout())
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 32)
-                    .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.secondary : SetupColor.white)
-                    .background(viewModel.isExpenseNewCategory ? SetupColor.white : .clear)
-                    .overlay(content: {
-                        Capsule(style: .continuous)
-                            .stroke(lineWidth: 2)
-                            .foregroundColor(SetupColor.white)
-                    })
-                    .clipShape(Capsule(style: .continuous))
-                    .shadow(color: viewModel.isExpenseNewCategory ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
-            }
-            Button {
-                withAnimation(.spring()) {
-                    viewModel.isExpenseNewCategory = false
-                }
-            } label: {
-                Text(Localizable.profit)
-                    .font(SetupFont.callout())
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 32)
-                
-                    .foregroundColor(viewModel.isExpenseNewCategory ? SetupColor.white : SetupColor.secondary)
-                    .background(viewModel.isExpenseNewCategory ? SetupColor.primary : SetupColor.white)
-                    .overlay(content: {
-                        Capsule(style: .continuous)
-                            .stroke(lineWidth: 2)
-                            .foregroundColor(SetupColor.white)
-                    })
-                    .clipShape(Capsule(style: .continuous))
-                    .shadow(color: viewModel.isExpenseNewCategory ?  .clear : SetupColor.white.opacity(0.3), radius: 10, x: 0, y: 5)
-            }
-            
-        }
-    }
-    
-    // MARK: Название категории и иконка
+    // Название категории и иконка
     private func titleCategory() -> some View {
         HStack {
             TextField(Localizable.categoryTitle, text: $viewModel.newTitleCategory)
-                .foregroundColor(viewModel.newTitleCategory == "" ? SetupColor.white : SetupColor.white)
+                .foregroundColor(.white)
                 .font(SetupFont.title3())
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity)
@@ -79,7 +32,7 @@ struct NewCategoryView: View {
                 .clipShape(Capsule(style: .continuous))
             
             TextField("🦊", text: $viewModel.newImageCategory)
-                .foregroundColor(viewModel.newImageCategory == "" ? SetupColor.primary : SetupColor.white)
+                .foregroundColor(.white)
                 .font(SetupFont.title3())
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 16)
@@ -92,10 +45,10 @@ struct NewCategoryView: View {
         }
     }
     
-    // MARK: Кнопка сохранения операции
+    // Кнопка сохранения операции
     private func saveOperation() -> some View {
         Button {
-            withAnimation(.easeInOut(duration: 0.25)) {
+            withAnimation(.spring()) {
                 viewModel.addNewCategory()
             }
             viewModel.newTitleCategory = ""
@@ -116,13 +69,14 @@ struct NewCategoryView: View {
         .disabled(viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" ? true : false)
     }
     
+    // Список категории
     private func categories(for array: [CategoryModel]) -> some View {
         ForEach(array) { item in
             CategoryRowView(item: item)
         }
     }
     
-    // MARK: Общая сетка
+    // Общая сетка
     private func gridCategories() -> some View {
         LazyVGrid(columns: [GridItem(.flexible())], alignment: .leading, spacing: 8) {
             if !viewModel.expenseCategoriesArray.isEmpty {
@@ -139,27 +93,26 @@ struct NewCategoryView: View {
                 } header: {
                     HeaderView(for: viewModel.profitsCategoriesArray.isEmpty ? "" : Localizable.profits)
                 }
-                
             }
         }
     }
     
-    // MARK: Все элементы
+    // Все элементы
     private func allViewInScrollView() -> some View {
         ZStack {
             SetupColor.primary.ignoresSafeArea()
             
             ScrollView(.vertical, showsIndicators: false) {
                 
-                // MARK: Заголовок
+                // Заголовок
                 Text(Localizable.newCategory)
                     .font(SetupFont.title3())
-                    .foregroundColor(SetupColor.white)
+                    .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(16)
                     .padding(.top, 16)
                 
-                selectionButtons()
+                SelectionButtonsView(isExpense: $viewModel.isExpenseNewCategory)
                     .padding(.horizontal, 16)
                 
                 titleCategory()
@@ -169,20 +122,20 @@ struct NewCategoryView: View {
                 
                 if viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" {
                     Text(Localizable.descriptionSavingCategory)
-                        .foregroundColor(SetupColor.white)
+                        .foregroundColor(.white)
                         .font(SetupFont.footnote())
                         .padding(16)
                 }
                 
                 if !viewModel.expenseCategoriesArray.isEmpty || !viewModel.profitsCategoriesArray.isEmpty {
                     Divider()
-                        .background(SetupColor.white)
+                        .background(.white)
                         .padding(16)
                     
                     // MARK: Заголовок
                     Text(Localizable.yourCategories)
                         .font(SetupFont.title3())
-                        .foregroundColor(SetupColor.white)
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                     
                     gridCategories()
@@ -192,19 +145,20 @@ struct NewCategoryView: View {
         }
     }
     
-    // MARK: Настройка хедера
+    // Настройка хедера
     func HeaderView(for text: LocalizedStringKey) -> some View {
         Text(text)
             .font(SetupFont.callout())
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
-            .foregroundColor(SetupColor.white)
+            .foregroundColor(.white)
     }
 }
 
 struct NewCategoryView_Previews: PreviewProvider {
     static var previews: some View {
         NewCategoryView()
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

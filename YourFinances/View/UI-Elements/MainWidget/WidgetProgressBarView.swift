@@ -18,8 +18,7 @@ struct WidgetProgressBarView: View {
     }
     
     // MARK: - ФУНКЦИИ && UI
-    
-    // MARK: Общая View
+    // Общая View
     private func widgetProgressBarView() -> some View {
         ZStack(alignment: .leading) {
             lowerView()
@@ -30,7 +29,7 @@ struct WidgetProgressBarView: View {
         .animation(.easeInOut(duration: 0.2), value: viewModel.getPercentageTotalAmount())
     }
     
-    // MARK: Верхняя View
+    // Верхняя View
     private func upperView() -> some View {
         Capsule(style: .continuous)
             .fill(LinearGradient(gradient: .init(colors: [.red, .green]), startPoint: .leading, endPoint: .trailing))
@@ -38,13 +37,13 @@ struct WidgetProgressBarView: View {
             .opacity(getWidthFromPercentage() >= 0 ? 1 : 0)
     }
     
-    // MARK: Нижняя View
+    // Нижняя View
     private func lowerView() -> some View {
         Capsule(style: .continuous)
             .foregroundColor(SetupColor.primary)
     }
     
-    // MARK: Расчёт процентов и перевод в CGFloat
+    // Расчёт процентов и перевод в CGFloat
     private func getWidthFromPercentage() -> CGFloat {
         let width = UIScreen.main.bounds.width - 64
         return width * viewModel.getPercentageTotalAmount()
@@ -56,6 +55,7 @@ struct WidgetProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
         WidgetProgressBarView()
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

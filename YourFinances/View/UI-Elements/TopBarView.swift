@@ -18,14 +18,14 @@ struct TopBarView: View {
     var body: some View {
         HStack(alignment: .top) {
             
-            // MARK: Текущая дата (День недели + дата)
+            // Текущая дата (День недели + дата)
             VStack(alignment: .leading, spacing: 4) {
                 Text(viewModel.extractDate(for: viewModel.currentDay, format: "EEEE").capitalized)
                     .font(SetupFont.title2())
                 Text(viewModel.extractDate(for: viewModel.currentDay, format: "d MMMM yyyy"))
                     .font(SetupFont.footnote())
             }
-            .foregroundColor(SetupColor.white)
+            .foregroundColor(.white)
             .frame(maxHeight: 48)
             
             Spacer()
@@ -46,6 +46,7 @@ struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
         TopBarView()
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

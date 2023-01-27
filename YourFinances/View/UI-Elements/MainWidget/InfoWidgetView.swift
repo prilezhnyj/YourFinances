@@ -19,11 +19,11 @@ struct InfoWidgetView: View {
     
     // MARK: - ФУНКЦИИ && UI
     
-    // MARK: Информация слева
+    // Информация слева
     private func informationLeft() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             
-            // MARK: Месяц
+            // Месяц
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center, spacing: 4) {
                     Text(Localizable.forMonth).font(SetupFont.title2())
@@ -34,17 +34,17 @@ struct InfoWidgetView: View {
                     .font(SetupFont.footnote())
             }
             
-            // MARK: Сумма
+            // Сумма
             Text(viewModel.getGapBetweenAmounts(for: viewModel.profitsArray, and: viewModel.expenseArray).formattedWithSeparator + "₽")
                 .font(SetupFont.title2())
         }
     }
     
-    // MARK: Информация справа
+    // Информация справа
     private func informationRight() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             
-            // MARK: Заработали
+            // Заработали
             VStack(alignment: .leading, spacing: 0) {
                 Text(Localizable.earned)
                     .font(SetupFont.footnote())
@@ -53,7 +53,7 @@ struct InfoWidgetView: View {
                     .font(SetupFont.callout())
             }
             
-            // MARK: Потратили
+            // Потратили
             VStack(alignment: .leading, spacing: 0) {
                 Text(Localizable.spent)
                     .font(SetupFont.footnote())
@@ -64,7 +64,7 @@ struct InfoWidgetView: View {
         }
     }
     
-    // MARK: Информация объединенная
+    // Информация объединенная
     private func allView() -> some View {
         VStack(spacing: 16) {
             HStack(alignment: .top) {
@@ -72,7 +72,7 @@ struct InfoWidgetView: View {
                 Spacer()
                 informationRight()
             }
-            .foregroundColor(SetupColor.white)
+            .foregroundColor(.white)
             
             WidgetProgressBarView()
         }
@@ -88,6 +88,7 @@ struct InfoWidgetView_Previews: PreviewProvider {
     static var previews: some View {
         InfoWidgetView()
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

@@ -21,10 +21,7 @@ struct NumPadView: View {
                     viewModel.showNumpadView = false
                 }
             }
-            .font(SetupFont.callout())
-            .foregroundColor(SetupColor.red)
-            .frame(maxWidth: .infinity)
-            .frame(height: 32)
+            .modifier(CustomButton(font: SetupFont.callout(), background: .clear, foreground: .red, height: 32, maxWidth: .infinity))
         }
         .padding(16)
         .background(SetupColor.secondary)
@@ -36,6 +33,7 @@ struct NumpadView_Previews: PreviewProvider {
     static var previews: some View {
         NumPadView()
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

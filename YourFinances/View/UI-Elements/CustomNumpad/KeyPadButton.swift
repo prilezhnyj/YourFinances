@@ -15,14 +15,9 @@ struct KeyPadButton: View {
     // MARK: - ТЕЛО
     var body: some View {
         Button(action: { self.action(self.key) }) {
-            Color.clear
-                .overlay(Capsule(style: .continuous).stroke(SetupColor.white)
-                .overlay(Text(key)))
+            Text(key)
+                .modifier(CustomButton(font: SetupFont.title3(), background: .clear, foreground: .white, height: 48, maxWidth: .infinity, colorSroke: .white))
         }
-        .font(SetupFont.title3())
-        .foregroundColor(SetupColor.white)
-        .frame(maxWidth: .infinity)
-        .frame(height: 48)
     }
     
     enum ActionKey: EnvironmentKey {
@@ -32,7 +27,7 @@ struct KeyPadButton: View {
     @Environment(\.keyPadButtonAction) var action: (String) -> Void
 }
 
-// MARK: - Расширение
+// MARK: - РАСШИРЕНИЕ
 extension EnvironmentValues {
     var keyPadButtonAction: (String) -> Void {
         get { self[KeyPadButton.ActionKey.self] }
@@ -45,5 +40,6 @@ struct KeyPadButton_Previews: PreviewProvider {
     static var previews: some View {
         KeyPadButton(key: "9")
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

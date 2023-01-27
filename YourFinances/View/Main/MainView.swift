@@ -23,7 +23,7 @@ struct MainView: View {
     
     // MARK: - ФУНКЦИИ && UI
     
-    // MARK: Операции
+    // Операции
     private func operations(for array: [FinancesModel]) -> some View {
         ForEach(array) { item in
             MainOperationCell(item: item)
@@ -32,7 +32,7 @@ struct MainView: View {
         }
     }
     
-    // MARK: ScrollView и логика
+    // ScrollView и логика
     private func scrollViewAndLogic() -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             if !viewModel.currentExpenseArray.isEmpty {
@@ -53,7 +53,7 @@ struct MainView: View {
         }
     }
     
-    // MARK: Основное полотно с элементами
+    // Основное полотно с элементами
     private func basicElements() -> some View {
         VStack(alignment: .center, spacing: 16) {
             TopBarView()
@@ -70,6 +70,7 @@ struct MainView: View {
         }
     }
     
+    // Нижние кнопки
     private func bottomButtons() -> some View {
         VStack {
             Spacer()
@@ -80,14 +81,14 @@ struct MainView: View {
                     Text(Localizable.categories)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .foregroundColor(SetupColor.white)
+                        .foregroundColor(.white)
                         .overlay(content: {
                             Capsule(style: .continuous)
                                 .stroke(lineWidth: 2)
-                                .foregroundColor(SetupColor.white)
+                                .foregroundColor(.white)
                         })
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: viewModel.isExpenseNewCategory ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
+                        .shadow(color: viewModel.isExpenseNewCategory ? .white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
                 }
                 .sheet(isPresented: $isPresentedNewCategoryView) {
                     NewCategoryView()
@@ -99,14 +100,17 @@ struct MainView: View {
                     Text(Localizable.settings)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .foregroundColor(SetupColor.white)
+                        .foregroundColor(.white)
                         .overlay(content: {
                             Capsule(style: .continuous)
                                 .stroke(lineWidth: 2)
-                                .foregroundColor(SetupColor.white)
+                                .foregroundColor(.white)
                         })
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: viewModel.isExpenseNewCategory ? SetupColor.white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
+                        .shadow(color: viewModel.isExpenseNewCategory ? .white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
+                }
+                .fullScreenCover(isPresented: $isSetShow) {
+                    SettingsView()
                 }
                 
                 Button {
@@ -133,7 +137,7 @@ struct MainView: View {
         .opacity(viewModel.showDetailedInformation ? 0 : 1)
     }
     
-    // MARK: Все элементы
+    // Все элементы
     private func allView() -> some View {
         ZStack(alignment: .bottom) {
             SetupColor.primary.ignoresSafeArea(.all)
@@ -162,7 +166,7 @@ struct MainView: View {
         .animation(.easeInOut(duration: 0.2), value: viewModel.showDetailedInformation)
     }
     
-    // MARK: Настройка хедера
+    // Настройка хедера
     private func HerderView(text: LocalizedStringKey, for array: [FinancesModel]) -> some View {
         HStack {
             Text(text)
@@ -179,7 +183,7 @@ struct MainView: View {
                 .padding(.horizontal, 16)
                 .opacity(array.isEmpty ? 0 : 1)
         }
-        .foregroundColor(SetupColor.white)
+        .foregroundColor(.white)
     }
 }
 
@@ -187,6 +191,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

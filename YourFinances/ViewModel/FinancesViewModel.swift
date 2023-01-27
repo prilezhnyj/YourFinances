@@ -68,6 +68,8 @@ class FinancesViewModel: ObservableObject {
     init() {
         getCurrentWeek()
         filterOperationsDay()
+        
+        selectedCategory = expenseCategoriesArray.first!
     }
     
     // MARK: - Сохранение расхода / дохода
@@ -148,10 +150,32 @@ class FinancesViewModel: ObservableObject {
     // MARK: - Добавление новой категории
     func addNewCategory() {
         if isExpenseNewCategory == true {
-            expenseCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory, locKey: newTitleCategory.lowercased()), at: 0)
+            expenseCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory, locKey: newTitleCategory), at: 0)
         } else {
-            profitsCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory, locKey: newTitleCategory.lowercased()), at: 0)
+            profitsCategoriesArray.insert(CategoryModel(title: newTitleCategory, image: newImageCategory, locKey: newTitleCategory), at: 0)
         }
+    }
+    
+    // MARK: - Провека, вписана ли сумма и выбрана ли категория
+    func сheckingForCategories() -> Bool {
+        if expenseCategoriesArray.isEmpty || profitsCategoriesArray.isEmpty {
+            return false
+        }
+        
+        return true
+    }
+    
+    // MARK: - Проверка перед сохранением
+    func checkingBeforeSaving() -> Bool {
+        if operationAmount == "" {
+            return false
+        }
+        
+        if selectedCategory.image == "" {
+            return false
+        }
+        
+        return true
     }
     
     // MARK: - Получение суммы по архиву

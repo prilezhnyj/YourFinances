@@ -27,7 +27,7 @@ struct MainOperationCell: View {
                 Text(LocalizedStringKey(item.type.rawValue))
                     .font(SetupFont.footnote())
             }
-            .foregroundColor(SetupColor.white)
+            .foregroundColor(.white)
             
             Spacer()
             
@@ -56,6 +56,6 @@ struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
         MainOperationCell(item: FinancesModel(type: .minus, amount: 100, category: CategoryModel(title: "Продукты", image: "🥬", locKey: "protucts"), date: Date()))
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
-    
 }

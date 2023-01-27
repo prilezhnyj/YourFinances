@@ -21,7 +21,7 @@ struct FullWeekView: View {
     private func fullWeekView() -> some View {
         HStack(alignment: .center, spacing: 8) {
             
-            // MARK: ForEach, для раскидывания недели
+            // ForEach, для раскидывания недели
             ForEach(viewModel.currentWeek, id: \.self) { day in
                 OneDayView(dayWeek: viewModel.extractDate(for: day, format: "dd"), titleDayWeek: viewModel.extractDate(for: day, format: "EE"), isToday: viewModel.isToday(for: day))
                     .onTapGesture {
@@ -30,12 +30,12 @@ struct FullWeekView: View {
                         }
                     }
                     .overlay(
-                        Capsule(style: .continuous).stroke(viewModel.selectedDayWeek == day ? SetupColor.white : .clear , lineWidth: 2)
-                            .shadow(color: viewModel.selectedDayWeek == day ? SetupColor.white.opacity(0.3) : SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
+                        Capsule(style: .continuous).stroke(viewModel.selectedDayWeek == day ? .white : .clear , lineWidth: 2)
+                            .shadow(color: viewModel.selectedDayWeek == day ? .white.opacity(0.3) : SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
                     )
             }
         }
-        // MARK: Смена курсора на выбранный день
+        // Смена курсора на выбранный день
         .onChange(of: viewModel.selectedDayWeek) { newValue in
             viewModel.filterOperationsDay()
         }
@@ -47,6 +47,7 @@ struct DaysScrollView_Previews: PreviewProvider {
     static var previews: some View {
         FullWeekView()
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

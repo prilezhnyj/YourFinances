@@ -19,8 +19,7 @@ struct CategoryRowView: View {
     }
     
     // MARK: - ФУНКЦИИ && UI
-    
-    // MARK: Все элементы
+    // Все элементы
     private func allView() -> some View {
         HStack(alignment: .center, spacing: 16) {
             // MARK: Картинка
@@ -30,14 +29,14 @@ struct CategoryRowView: View {
                 .background(SetupColor.primary)
                 .clipShape(Circle())
             
-            // MARK: Название
-            Text(Localizable.getKey(for: item.title))
+            // Название
+            Text(Localizable.getKey(for: item.locKey))
                 .font(SetupFont.callout())
-                .foregroundColor(SetupColor.white)
+                .foregroundColor(.white)
             
             Spacer()
             
-            // MARK: Кнопка удаления
+            // Кнопка удаления
             Button {
                 withAnimation(.spring()) {
                     viewModel.deleteCategory(category: item)
@@ -64,6 +63,7 @@ struct CategoryRowView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryRowView(item: CategoryModel(title: "Products", image: "🥬", locKey: "products"))
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

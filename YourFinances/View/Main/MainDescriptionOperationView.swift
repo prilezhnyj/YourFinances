@@ -26,7 +26,7 @@ struct MainDescriptionOperationView: View {
                     Text(LocalizedStringKey(viewModel.currentItemForDetailedInformation.type.rawValue))
                         .font(SetupFont.footnote())
                 }
-                .foregroundColor(SetupColor.white)
+                .foregroundColor(.white)
                 
                 Spacer()
                 
@@ -67,7 +67,7 @@ struct MainDescriptionOperationView: View {
                     Image(systemName: "xmark")
                         .font(SetupFont.footnoteButton())
                         .frame(width: 80, height: 32)
-                        .foregroundColor(SetupColor.white)
+                        .foregroundColor(.white)
                         .background(SetupColor.secondary)
                         .overlay(content: {
                             Capsule(style: .continuous)
@@ -89,6 +89,7 @@ struct DescriptionItemView_Previews: PreviewProvider {
     static var previews: some View {
         MainDescriptionOperationView()
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

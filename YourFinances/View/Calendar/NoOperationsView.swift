@@ -15,29 +15,23 @@ struct NoOperationsView: View {
     // MARK: - ТЕЛО
     var body: some View {
         
-        // MARK: Заголовок
+        // Заголовок
         VStack(alignment: .center, spacing: 20) {
             Text(Localizable.noOperations)
-                .font(SetupFont.title3())
-                .foregroundColor(SetupColor.white)
+                .modifier(CustomText(font: SetupFont.title3(), color: .white))
             
-            // MARK: Кнопка, которыя переправляет на NewOperationView
+            // Кнопка, которая переправляет на NewOperationView
             Button {
-                isPresentedNewExpense.toggle()
+                isPresentedNewExpense = true
             } label: {
                 HStack(alignment: .center, spacing: 16) {
                     Image(systemName: "plus")
                     Text(Localizable.addNew)
                 }
-                .padding(.horizontal, 16)
-                .font(SetupFont.footnoteButton())
-                .frame(height: 32)
-                .background(SetupColor.blue)
-                .foregroundColor(SetupColor.white)
-                .clipShape(Capsule(style: .continuous))
-                .shadow(color: SetupColor.blue.opacity(0.3), radius: 10, x: 0, y: 5)
+                .modifier(CustomButton(font: SetupFont.footnoteButton(), background: .blue, foreground: .white, height: 32, maxWidth: 200))
             }
-            // MARK: Переход на создание новой операции
+            
+            // Переход на создание новой операции
             .sheet(isPresented: $isPresentedNewExpense) {
                 NewOperationView()
             }
@@ -51,5 +45,6 @@ struct NoOperationsView_Previews: PreviewProvider {
     static var previews: some View {
         NoOperationsView()
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }
