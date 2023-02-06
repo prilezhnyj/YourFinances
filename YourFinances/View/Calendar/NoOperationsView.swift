@@ -18,7 +18,7 @@ struct NoOperationsView: View {
         // Заголовок
         VStack(alignment: .center, spacing: 20) {
             Text(Localizable.noOperations)
-                .modifier(CustomText(font: SetupFont.title3(), color: .white))
+                .modifier(CustomText(font: SetupFont.title3(), color: .black))
             
             // Кнопка, которая переправляет на NewOperationView
             Button {
@@ -45,6 +45,5 @@ struct NoOperationsView_Previews: PreviewProvider {
     static var previews: some View {
         NoOperationsView()
             .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
     }
 }

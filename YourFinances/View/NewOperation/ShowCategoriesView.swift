@@ -32,7 +32,7 @@ struct ShowCategoriesView: View {
             // Заголовок
             Text(Localizable.categories)
                 .font(SetupFont.callout())
-                .foregroundColor(.white)
+                .foregroundColor(.black)
             
             Spacer()
             
@@ -44,7 +44,7 @@ struct ShowCategoriesView: View {
             } label: {
                 Text(viewModel.showAllCategories ? Localizable.hide : Localizable.show)
                     .font(SetupFont.callout())
-                    .foregroundColor(viewModel.showAllCategories ? .red : SetupColor.primary)
+                    .foregroundColor(viewModel.showAllCategories ? .red : .black.opacity(0.1))
                     .shadow(color: viewModel.showAllCategories ? .red.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
             }
         }
@@ -58,7 +58,7 @@ struct ShowCategoriesView: View {
                 // Фон иконки
                 Text(item.image)
                     .frame(minWidth: 48, minHeight: 48)
-                    .background(viewModel.selectedCategory.id == item.id ? Color.green : SetupColor.primary)
+                    .background(viewModel.selectedCategory.id == item.id ? Color.green : .black.opacity(0.1))
                     .clipShape(Circle())
                 
                 // Текст категории
@@ -69,7 +69,7 @@ struct ShowCategoriesView: View {
                     
                 
             }
-            .foregroundColor(viewModel.selectedCategory.id == item.id ? Color.green : .white)
+            .foregroundColor(viewModel.selectedCategory.id == item.id ? Color.green : .black)
             .shadow(color: viewModel.selectedCategory.id == item.id ? Color.green.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
             .onTapGesture {
                 withAnimation(.spring()) {
@@ -113,9 +113,9 @@ struct ShowCategoriesView: View {
         }
         .frame(height: viewModel.showAllCategories ? 230 : 150)
         .frame(maxWidth: .infinity)
-        .background(SetupColor.secondary)
+        .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
+        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
         .animation(.spring(), value: viewModel.showAllCategories)
     }
 }
@@ -125,7 +125,6 @@ struct ShowCategoriesView_Previews: PreviewProvider {
     static var previews: some View {
         ShowCategoriesView()
             .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

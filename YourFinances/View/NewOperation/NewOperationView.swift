@@ -23,7 +23,7 @@ struct NewOperationView: View {
     private func entryAmount() -> some View {
         HStack(alignment: .center, spacing: 16) {
             Text(Localizable.amount)
-                .modifier(CustomText(font: SetupFont.title3(), color: .white))
+                .modifier(CustomText(font: SetupFont.title3(), color: .black))
             
             Text(viewModel.operationAmount + "₽")
                 .modifier(AmountField())
@@ -40,22 +40,21 @@ struct NewOperationView: View {
             presentationMode.wrappedValue.dismiss()
         } label: {
             Text(Localizable.save)
-                .modifier(CustomButton(font: SetupFont.callout(), background: viewModel.checkingBeforeSaving() ? .blue : .clear, foreground: SetupColor.secondary, height: 48, maxWidth: .infinity))
+                .modifier(CustomButton(font: SetupFont.callout(), background: viewModel.checkingBeforeSaving() ? .blue : .clear, foreground: viewModel.checkingBeforeSaving() ? .white : .black.opacity(0.1), height: 48, maxWidth: .infinity))
         }
-        .disabled(viewModel.checkingBeforeSaving())
+        .disabled(!viewModel.checkingBeforeSaving())
     }
     
     // Все элементы
     private func allView() -> some View {
         ZStack(alignment: .bottom) {
-            
-            SetupColor.primary.ignoresSafeArea()
+            Color.white.ignoresSafeArea()
             
             ScrollView(.vertical, showsIndicators: false) {
                 
                 // Заголовок
                 Text(Localizable.newOperation)
-                    .modifier(CustomText(font: SetupFont.title3(), color: .white))
+                    .modifier(CustomText(font: SetupFont.title3(), color: .black))
                     .padding(16)
                     .padding(.top, 16)
                 
@@ -71,7 +70,7 @@ struct NewOperationView: View {
                         .padding(.horizontal, 16)
                 } else {
                     Text(Localizable.noCategory)
-                        .modifier(CustomText(font: SetupFont.title3(), color: .white, alignment: .center))
+                        .modifier(CustomText(font: SetupFont.title3(), color: .black, alignment: .center))
                         .frame(maxWidth: .infinity)
                         .frame(height: 150, alignment: .center)
                 }
@@ -102,7 +101,7 @@ struct NewOperationView: View {
             }
             .animation(.spring(), value: viewModel.showNumpadView)
             .offset(y: viewModel.showNumpadView ? 0 : 370)
-            .shadow(color: SetupColor.primary.opacity(0.3), radius: 10, x: 0, y: 5)
+            .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
         }
     }
 }
@@ -111,7 +110,6 @@ struct NewOperationView: View {
 struct NewOperationView_Previews: PreviewProvider {
     static var previews: some View {
         NewOperationView()
-            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

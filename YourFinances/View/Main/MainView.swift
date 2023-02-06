@@ -22,7 +22,6 @@ struct MainView: View {
     }
     
     // MARK: - ФУНКЦИИ && UI
-    
     // Операции
     private func operations(for array: [FinancesModel]) -> some View {
         ForEach(array) { item in
@@ -81,14 +80,14 @@ struct MainView: View {
                     Text(Localizable.categories)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .overlay(content: {
                             Capsule(style: .continuous)
                                 .stroke(lineWidth: 2)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                         })
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: viewModel.isExpenseNewCategory ? .white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
+                        .shadow(color: viewModel.isExpenseNewCategory ? .black.opacity(0.1) : .clear, radius: 10, x: 0, y: 5)
                 }
                 .sheet(isPresented: $isPresentedNewCategoryView) {
                     NewCategoryView()
@@ -100,17 +99,14 @@ struct MainView: View {
                     Text(Localizable.settings)
                         .font(SetupFont.footnoteButton())
                         .frame(maxWidth: .infinity, maxHeight: 32)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .overlay(content: {
                             Capsule(style: .continuous)
                                 .stroke(lineWidth: 2)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                         })
                         .clipShape(Capsule(style: .continuous))
-                        .shadow(color: viewModel.isExpenseNewCategory ? .white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
-                }
-                .fullScreenCover(isPresented: $isSetShow) {
-                    SettingsView()
+                        .shadow(color: viewModel.isExpenseNewCategory ? .black.opacity(0.1) : .clear, radius: 10, x: 0, y: 5)
                 }
                 
                 Button {
@@ -140,28 +136,28 @@ struct MainView: View {
     // Все элементы
     private func allView() -> some View {
         ZStack(alignment: .bottom) {
-            SetupColor.primary.ignoresSafeArea(.all)
+            SetupColor.white.ignoresSafeArea()
             
-            // MARK: Основное полотно с элементами
+            // Основное полотно с элементами
             basicElements()
             
-            // MARK: Логика как именно и когда отображать детально меню снизу
+            // Логика как именно и когда отображать детально меню снизу
             VStack {
                 Spacer()
                 bottomButtons()
             }
             
-            // MARK: Отображение и скрытие детального меню
+            // Отображение и скрытие детального меню
             VStack {
                 Spacer()
                 MainDescriptionOperationView()
                     .cornerRadius(20)
                     .padding(16)
                     .transition(.move(edge: .bottom))
+                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
             }
             .animation(.spring(), value: viewModel.showDetailedInformation)
             .offset(y: viewModel.showDetailedInformation ? 0 : 220)
-            .shadow(color: SetupColor.primary.opacity(0.3), radius: 10, x: 0, y: 5)
         }
         .animation(.easeInOut(duration: 0.2), value: viewModel.showDetailedInformation)
     }
@@ -169,6 +165,7 @@ struct MainView: View {
     // Настройка хедера
     private func HerderView(text: LocalizedStringKey, for array: [FinancesModel]) -> some View {
         HStack {
+            // Название
             Text(text)
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -177,13 +174,14 @@ struct MainView: View {
             
             Spacer()
             
+            // Сумма
             Text(viewModel.getAmount(for: array).formattedWithSeparator + "₽")
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal, 16)
                 .opacity(array.isEmpty ? 0 : 1)
         }
-        .foregroundColor(.white)
+        .foregroundColor(.black)
     }
 }
 
@@ -191,7 +189,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
-            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

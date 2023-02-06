@@ -11,7 +11,7 @@ struct DescriptionText: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(SetupFont.footnote())
-            .foregroundColor(.white)
+            .foregroundColor(.black.opacity(0.5))
             .multilineTextAlignment(.leading)
     }
 }
@@ -21,12 +21,13 @@ struct AmountField: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .foregroundColor(viewModel.operationAmount.isEmpty ? SetupColor.primary : .white)
+            .foregroundColor(viewModel.operationAmount.isEmpty ? .black.opacity(0.1) : .black)
             .font(SetupFont.title3())
             .frame(maxWidth: .infinity)
             .frame(height: 48)
-            .background(SetupColor.secondary)
+            .background(.white)
             .clipShape(Capsule(style: .continuous))
+            .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
             .onTapGesture {
                 DispatchQueue.main.async {
                     withAnimation(.spring()) {

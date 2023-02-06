@@ -25,12 +25,12 @@ struct TopBarView: View {
                 Text(viewModel.extractDate(for: viewModel.currentDay, format: "d MMMM yyyy"))
                     .font(SetupFont.footnote())
             }
-            .foregroundColor(.white)
+            .foregroundColor(.black)
             .frame(maxHeight: 48)
             
             Spacer()
             
-            // MARK: Изображение пользователя
+            // Изображение пользователя
             Image("Avatar")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -46,7 +46,6 @@ struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
         TopBarView()
             .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

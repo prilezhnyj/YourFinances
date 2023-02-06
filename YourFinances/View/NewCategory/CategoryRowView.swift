@@ -22,17 +22,17 @@ struct CategoryRowView: View {
     // Все элементы
     private func allView() -> some View {
         HStack(alignment: .center, spacing: 16) {
-            // MARK: Картинка
+            // Картинка
             Text(item.image)
                 .font(SetupFont.footnote())
                 .frame(minWidth: 40, minHeight: 40)
-                .background(SetupColor.primary)
+                .background(.black.opacity(0.1))
                 .clipShape(Circle())
             
             // Название
             Text(Localizable.getKey(for: item.locKey))
                 .font(SetupFont.callout())
-                .foregroundColor(.white)
+                .foregroundColor(.black)
             
             Spacer()
             
@@ -52,9 +52,9 @@ struct CategoryRowView: View {
         .padding(.leading, 16)
         .padding(.trailing, 32)
         .padding(.vertical, 8)
-        .background(SetupColor.secondary)
+        .background(.white)
         .cornerRadius(20)
-        .shadow(color: SetupColor.secondary.opacity(0.3), radius: 10, x: 0, y: 5)
+        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
     }
 }
 
@@ -63,7 +63,6 @@ struct CategoryRowView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryRowView(item: CategoryModel(title: "Products", image: "🥬", locKey: "products"))
             .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

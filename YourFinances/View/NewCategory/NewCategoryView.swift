@@ -23,22 +23,24 @@ struct NewCategoryView: View {
     private func titleCategory() -> some View {
         HStack {
             TextField(Localizable.categoryTitle, text: $viewModel.newTitleCategory)
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .font(SetupFont.title3())
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(SetupColor.secondary)
+                .background(.white)
                 .clipShape(Capsule(style: .continuous))
+                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
             
             TextField("🦊", text: $viewModel.newImageCategory)
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .font(SetupFont.title3())
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 16)
                 .frame(width: 72, height: 48, alignment: .center)
-                .background(SetupColor.secondary)
+                .background(.white)
                 .clipShape(Capsule(style: .continuous))
+                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
                 .onChange(of: viewModel.newImageCategory) { newValue in
                     viewModel.newImageCategory = String(viewModel.newImageCategory.prefix(1))
                 }
@@ -59,8 +61,8 @@ struct NewCategoryView: View {
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? SetupColor.primary : .blue)
-                .foregroundColor(SetupColor.secondary)
+                .background(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? .clear : .blue)
+                .foregroundColor(viewModel.newTitleCategory == "" || viewModel.newImageCategory == ""  ? .black.opacity(0.1) : .white)
                 .clipShape(Capsule())
                 .shadow(color: viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" ? .clear : .blue.opacity(0.3), radius: 10, x: 0, y: 5)
                 .padding(.horizontal, 16)
@@ -100,7 +102,7 @@ struct NewCategoryView: View {
     // Все элементы
     private func allViewInScrollView() -> some View {
         ZStack {
-            SetupColor.primary.ignoresSafeArea()
+            Color.white.ignoresSafeArea()
             
             ScrollView(.vertical, showsIndicators: false) {
                 
@@ -122,20 +124,20 @@ struct NewCategoryView: View {
                 
                 if viewModel.newTitleCategory == "" || viewModel.newImageCategory == "" {
                     Text(Localizable.descriptionSavingCategory)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .font(SetupFont.footnote())
                         .padding(16)
                 }
                 
                 if !viewModel.expenseCategoriesArray.isEmpty || !viewModel.profitsCategoriesArray.isEmpty {
                     Divider()
-                        .background(.white)
+                        .background(.black.opacity(0.1))
                         .padding(16)
                     
                     // MARK: Заголовок
                     Text(Localizable.yourCategories)
                         .font(SetupFont.title3())
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
                     
                     gridCategories()
@@ -151,14 +153,14 @@ struct NewCategoryView: View {
             .font(SetupFont.callout())
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
-            .foregroundColor(.white)
+            .foregroundColor(.black)
     }
 }
 
+// MARK: - ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 struct NewCategoryView_Previews: PreviewProvider {
     static var previews: some View {
         NewCategoryView()
-            .preferredColorScheme(.dark)
             .environmentObject(FinancesViewModel())
     }
 }

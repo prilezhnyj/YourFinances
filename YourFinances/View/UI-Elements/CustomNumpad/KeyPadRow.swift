@@ -27,6 +27,5 @@ struct KeyPadRow_Previews: PreviewProvider {
     static var previews: some View {
         KeyPadRow(keys: ["1", "2", "3"])
             .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
     }
 }

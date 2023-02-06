@@ -16,7 +16,7 @@ struct KeyPadButton: View {
     var body: some View {
         Button(action: { self.action(self.key) }) {
             Text(key)
-                .modifier(CustomButton(font: SetupFont.title3(), background: .clear, foreground: .white, height: 48, maxWidth: .infinity, colorSroke: .white))
+                .modifier(CustomButton(font: SetupFont.title3(), background: .white, foreground: .black, height: 48, maxWidth: .infinity, colorSroke: .black))
         }
     }
     
@@ -40,6 +40,5 @@ struct KeyPadButton_Previews: PreviewProvider {
     static var previews: some View {
         KeyPadButton(key: "9")
             .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
     }
 }

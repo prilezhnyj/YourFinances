@@ -30,15 +30,10 @@ struct SelectionButtonsView: View {
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity)
                 .frame(height: 32)
-                .foregroundColor(isExpense ? SetupColor.secondary : .white)
-                .background(isExpense ? .white : .clear)
-                .overlay(content: {
-                    Capsule(style: .continuous)
-                        .stroke(lineWidth: 2)
-                        .foregroundColor(.white)
-                })
+                .foregroundColor(isExpense ? .white : .black)
+                .background(isExpense ? .black : .white)
                 .clipShape(Capsule(style: .continuous))
-                .shadow(color: isExpense ? .white.opacity(0.3) : .clear, radius: 10, x: 0, y: 5)
+                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
             }
             
             // Правая кнопка
@@ -55,16 +50,10 @@ struct SelectionButtonsView: View {
                 .font(SetupFont.callout())
                 .frame(maxWidth: .infinity)
                 .frame(height: 32)
-            
-                .foregroundColor(isExpense ? .white : SetupColor.secondary)
-                .background(isExpense ? .clear: .white)
-                .overlay(content: {
-                    Capsule(style: .continuous)
-                        .stroke(lineWidth: 2)
-                        .foregroundColor(.white)
-                })
+                .foregroundColor(isExpense ? .black : .white)
+                .background(isExpense ? .white: .black)
                 .clipShape(Capsule(style: .continuous))
-                .shadow(color: isExpense ?  .clear : .white.opacity(0.3), radius: 10, x: 0, y: 5)
+                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
             }
         }
     }
@@ -75,6 +64,5 @@ struct SelectionButtonsView_Previews: PreviewProvider {
     static var previews: some View {
         SelectionButtonsView(isExpense: .constant(true))
             .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
     }
 }
